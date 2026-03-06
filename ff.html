@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA STORE - Top Up Free Fire Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="ffstyle.css">
+</head>
+<body>
+    <!-- Navbar - Fixed di atas, tidak ikut scroll -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="store-name">
+                    <i class="fas fa-store"></i>
+                    <span>STAA STORE</span>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Tentang</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-headset"></i>
+                    <span>Kontak</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon" style="display:none"></i>
+            <span id="themeText">Light Mode</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Header dengan Logo Free Fire -->
+        <header>
+            <div class="logo">
+                <img src="https://i.ibb.co.com/BJhJ7Lx/Screenshot-20250516-191232-2450692357.webp" alt="Free Fire Logo" class="game-logo">
+                <h1>FF <span>TOP UP</span></h1>
+            </div>
+            <div class="indonesia-flag">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>🇮🇩 INDONESIA</span>
+            </div>
+            <p class="tagline">Top Up Free Fire Termurah & Tercepat</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <!-- Icon Keranjang untuk Pilih Produk -->
+                <h2><i class="fas fa-shopping-cart"></i> Pilih Produk</h2>
+                
+                <!-- ID Player dengan validasi numerik -->
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> ID Player <span class="required">*</span></label>
+                    <input type="text" id="playerId" placeholder="Masukkan ID Free Fire Anda" 
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+                           pattern="[0-9]{9,10}" 
+                           maxlength="10" 
+                           minlength="9"
+                           required>
+                    <small><i class="fas fa-info-circle"></i> Hanya angka 9-10 digit. Contoh: 1234567890</small>
+                </div>
+
+                <!-- Kategori: Berlian -->
+                <div class="category-title">
+                    <i class="fas fa-gem"></i>
+                    <h3>Berlian</h3>
+                </div>
+                <div class="diamond-options" id="diamondOptions">
+                    <!-- Baris 1: 5-70 Diamond -->
+                    <div class="diamond-card" data-diamond="5" data-price="950">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>5 Diamond</span></div>
+                        <div class="diamond-price">Rp 950</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="10" data-price="1700">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>10 Diamond</span></div>
+                        <div class="diamond-price">Rp 1.700</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="12" data-price="1900">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>12 Diamond</span></div>
+                        <div class="diamond-price">Rp 1.900</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="50" data-price="7160">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>50 Diamond</span></div>
+                        <div class="diamond-price">Rp 7.160</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="70" data-price="9199">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>70 Diamond</span></div>
+                        <div class="diamond-price">Rp 9.199</div>
+                    </div>
+                    
+                    <!-- Baris 2: 100-210 Diamond -->
+                    <div class="diamond-card" data-diamond="100" data-price="13499">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>100 Diamond</span></div>
+                        <div class="diamond-price">Rp 13.499</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="140" data-price="18399">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>140 Diamond</span></div>
+                        <div class="diamond-price">Rp 18.399</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="210" data-price="27699">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>210 Diamond</span></div>
+                        <div class="diamond-price">Rp 27.699</div>
+                    </div>
+                    
+                    <!-- Baris 3: 355-720 Diamond -->
+                    <div class="diamond-card" data-diamond="355" data-price="45999">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>355 Diamond</span></div>
+                        <div class="diamond-price">Rp 45.999</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="510" data-price="67099">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>510 Diamond</span></div>
+                        <div class="diamond-price">Rp 67.099</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="720" data-price="91999">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>720 Diamond</span></div>
+                        <div class="diamond-price">Rp 91.999</div>
+                    </div>
+                    
+                    <!-- Baris 4: 1000-2000 Diamond -->
+                    <div class="diamond-card" data-diamond="1000" data-price="129199">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>1000 Diamond</span></div>
+                        <div class="diamond-price">Rp 129.199</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="1450" data-price="184899">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>1450 Diamond</span></div>
+                        <div class="diamond-price">Rp 184.899</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="2000" data-price="257799">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>2000 Diamond</span></div>
+                        <div class="diamond-price">Rp 257.799</div>
+                    </div>
+                    
+                    <!-- Baris 5: 6000-7290 Diamond -->
+                    <div class="diamond-card" data-diamond="6000" data-price="785899">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>6000 Diamond</span></div>
+                        <div class="diamond-price">Rp 785.899</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="7290" data-price="923299">
+                        <div class="diamond-amount"><i class="fas fa-gem"></i><span>7290 Diamond</span></div>
+                        <div class="diamond-price">Rp 923.299</div>
+                    </div>
+                </div>
+
+                <!-- Kategori: Membership -->
+                <div class="category-title" style="margin-top: 30px;">
+                    <i class="fas fa-crown"></i>
+                    <h3>Membership</h3>
+                </div>
+                <div class="diamond-options" id="membershipOptions">
+                    <div class="diamond-card" data-diamond="Membership Mingguan" data-price="28199" data-type="membership">
+                        <div class="diamond-amount"><i class="fas fa-calendar-week"></i><span>Membership Mingguan</span></div>
+                        <div class="diamond-price">Rp 28.199</div>
+                        <div class="bonus">Bonus 20%</div>
+                    </div>
+                    <div class="diamond-card" data-diamond="Membership Bulanan" data-price="85299" data-type="membership">
+                        <div class="diamond-amount"><i class="fas fa-calendar-alt"></i><span>Membership Bulanan</span></div>
+                        <div class="diamond-price">Rp 85.299</div>
+                        <div class="bonus">Bonus 25%</div>
+                    </div>
+                </div>
+
+                <!-- Metode Pembayaran -->
+                <div class="payment-methods" style="margin-top: 30px;">
+                    <h3><i class="fas fa-credit-card"></i> Pilih Metode Pembayaran <span class="required">*</span></h3>
+                    <div class="payment-options" id="paymentOptions">
+                        <div class="payment-card" data-payment="DANA">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>DANA</span></div>
+                            <span class="payment-price" id="priceDANA">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="OVO">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>OVO</span></div>
+                            <span class="payment-price" id="priceOVO">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="GoPay">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>GoPay</span></div>
+                            <span class="payment-price" id="priceGoPay">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="QRIS">
+                            <div class="payment-info"><i class="fas fa-qrcode"></i><span>QRIS</span></div>
+                            <span class="payment-price" id="priceQRIS">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Catatan (Opsional) -->
+                <div class="form-group notes-group">
+                    <label><i class="fas fa-pen"></i> Catatan (Opsional)</label>
+                    <div class="notes-input-wrapper">
+                        <textarea id="notes" placeholder="Contoh: Mau nick diubah, Top up untuk teman, dll" rows="3"></textarea>
+                    </div>
+                    <small><i class="fas fa-info-circle"></i> Isi jika ada permintaan khusus</small>
+                </div>
+
+                <!-- Ringkasan Pesanan -->
+                <div class="order-summary" id="orderSummary" style="display:none">
+                    <h3><i class="fas fa-shopping-cart"></i> Ringkasan Pesanan</h3>
+                    <div class="summary-content">
+                        <p><span>ID Player:</span> <span id="summaryId">-</span></p>
+                        <p><span>Produk:</span> <span id="summaryDiamond">-</span></p>
+                        <p><span>Pembayaran:</span> <span id="summaryPayment">-</span></p>
+                        <p><span>Total:</span> <span id="summaryPrice" class="price">-</span></p>
+                        <p id="summaryNotesRow" style="display:none;"><span>Catatan:</span> <span id="summaryNotes">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Tombol WhatsApp -->
+                <button type="button" id="whatsappBtn" class="whatsapp-btn" disabled>
+                    <i class="fab fa-whatsapp"></i> Pesan Via WhatsApp
+                </button>
+            </div>
+
+            <!-- Info Card -->
+            <div class="info-card">
+                <div class="info-item"><i class="fas fa-bolt"></i><div><h4>Proses Cepat</h4><p>Max 5 menit</p></div></div>
+                <div class="info-item"><i class="fas fa-shield-alt"></i><div><h4>Aman & Terpercaya</h4><p>100% Garansi</p></div></div>
+                <div class="info-item"><i class="fas fa-headset"></i><div><h4>CS 24/7</h4><p>Online</p></div></div>
+            </div>
+        </main>
+
+        <footer>© 2024 STAA STORE - FF Top Up Indonesia. All rights reserved.</footer>
+    </div>
+
+    <script src="ffscript.js"></script>
+</body>
+</html>
