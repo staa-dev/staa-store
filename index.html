@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STAA STORE ·</title>
+  <!-- Google Fonts (Outfit) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      transition: background-color 0.4s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* VARIABEL LIGHT (default) */
+    :root {
+      --bg-body: #f6f3fc;
+      --bg-card: #ffffff;
+      --text-primary: #1e1a2b;
+      --text-soft: #4b415b;
+      --accent-ungu: #8b5cf6;
+      --accent-ungu-dark: #6d28d9;
+      --list-merah: #dc2626;
+      --list-bg-merah: #fee2e2;
+      --border-muted: #e2d9f0;
+      --store-highlight: #581c87;
+      --shadow-sm: 0 8px 20px rgba(106, 57, 175, 0.08);
+      --toggle-bg: #ddd6fe;
+      --icon-sun: #f59e0b;
+      --icon-moon: #4b4168;
+      --banner-dot: #cbd5e0;
+      --banner-dot-active: #8b5cf6;
+      --closed-bg: #cccccc;
+      --closed-text: #666666;
+      --warning-bg: #fff3cd;
+      --warning-border: #ffeeba;
+      --warning-text: #856404;
+    }
+
+    /* VARIABEL DARK */
+    body.dark {
+      --bg-body: #12101a;
+      --bg-card: #1f1b2b;
+      --text-primary: #f0eaff;
+      --text-soft: #cbbaf0;
+      --accent-ungu: #b47aff;
+      --accent-ungu-dark: #9f67ff;
+      --list-merah: #f87171;
+      --list-bg-merah: #3f2330;
+      --border-muted: #332e44;
+      --store-highlight: #d8b4ff;
+      --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.7);
+      --toggle-bg: #2d2643;
+      --icon-sun: #a78bfa;
+      --icon-moon: #fcd34d;
+      --banner-dot: #4b415b;
+      --banner-dot-active: #b47aff;
+      --closed-bg: #2d2d3a;
+      --closed-text: #9a9ab0;
+      --warning-bg: #332e44;
+      --warning-border: #4b415b;
+      --warning-text: #cbbaf0;
+    }
+
+    .container {
+      max-width: 880px;
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: 42px;
+      padding: 2rem 2rem 2.5rem 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-muted);
+      transition: background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* HEADER dengan STAA STORE + toggle */
+    .header-store {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .staa-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .staa-brand i {
+      font-size: 2rem;
+      color: var(--accent-ungu);
+      background: var(--bg-body);
+      padding: 10px;
+      border-radius: 24px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .staa-brand h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(130deg, var(--accent-ungu) 20%, var(--store-highlight) 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* TOGGLE UBAH */
+    .theme-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--toggle-bg);
+      border: 2px solid var(--accent-ungu);
+      border-radius: 50px;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    }
+
+    .theme-toggle-btn i {
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle-btn .fa-sun {
+      color: var(--icon-sun);
+    }
+
+    .theme-toggle-btn .fa-moon {
+      color: var(--icon-moon);
+    }
+
+    .theme-toggle-btn span {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.02);
+      border-color: var(--accent-ungu-dark);
+    }
+
+    /* PANEL JAM OPERASIONAL (TANPA KONTROL MANUAL) */
+    .operational-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: var(--bg-body);
+      border-radius: 30px;
+      border: 2px solid var(--accent-ungu);
+    }
+
+    .time-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .time-display {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      border: 1px solid var(--border-muted);
+    }
+
+    .time-display i {
+      color: var(--accent-ungu);
+      font-size: 1.2rem;
+    }
+
+    .time-display span {
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 700;
+      background: var(--bg-card);
+      border: 2px solid;
+    }
+
+    .status-badge.open {
+      border-color: #10b981;
+      color: #10b981;
+    }
+
+    .status-badge.closed {
+      border-color: var(--list-merah);
+      color: var(--list-merah);
+    }
+
+    .status-badge i {
+      font-size: 1rem;
+    }
+
+    /* WARNING BANNER */
+    .warning-banner {
+      background: var(--warning-bg);
+      border: 2px solid var(--warning-border);
+      color: var(--warning-text);
+      padding: 1rem;
+      border-radius: 30px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .warning-banner.show {
+      display: flex;
+    }
+
+    .warning-banner i {
+      font-size: 1.2rem;
+    }
+
+    /* BANNER SLIDER */
+    .banner-slider {
+      margin-bottom: 2.5rem;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+
+    .swiper {
+      width: 100%;
+      height: 180px;
+      border-radius: 24px;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .swiper-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 24px;
+    }
+
+    .swiper-slide span {
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      padding: 0.5rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .swiper-pagination-bullet {
+      background: var(--banner-dot);
+      opacity: 0.7;
+    }
+    .swiper-pagination-bullet-active {
+      background: var(--banner-dot-active) !important;
+    }
+
+    /* GRID GAME */
+    .game-simple-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0 0.8rem;
+    }
+
+    .game-simple-link {
+      background: transparent;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 180px;
+      padding: 1rem 0.5rem;
+      border-radius: 32px;
+      transition: all 0.25s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .game-simple-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+      filter: grayscale(0.8);
+    }
+
+    .game-simple-link:hover:not(.disabled) {
+      border-color: var(--accent-ungu);
+      background: var(--bg-body);
+      transform: scale(1.02);
+    }
+
+    .logo-gambar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 0 var(--accent-ungu-dark);
+      border: 3px solid var(--border-muted);
+      transition: box-shadow 0.2s ease, border-color 0.3s ease;
+      margin-bottom: 0.8rem;
+    }
+
+    .game-simple-link:hover:not(.disabled) .logo-gambar {
+      box-shadow: 0 6px 0 var(--accent-ungu);
+      border-color: var(--accent-ungu);
+    }
+
+    .logo-gambar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .game-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
+    }
+    .ff-name { color: #e64545; }
+    .ml-name { color: #2b7ae2; }
+
+    .game-simple-link small {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+      background: var(--bg-card);
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      border: 1px dashed var(--accent-ungu);
+    }
+
+    /* FOOTER */
+    .footer-staa {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-top: 1px solid var(--border-muted);
+      padding-top: 1.5rem;
+    }
+
+    .footer-staa strong {
+      color: var(--accent-ungu);
+      background: var(--bg-body);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+    }
+
+    @media (max-width: 500px) {
+      .container { padding: 1.5rem; }
+      .staa-brand h1 { font-size: 1.7rem; }
+      .game-simple-link { width: 150px; }
+      .logo-gambar { width: 110px; height: 110px; }
+      .swiper { height: 140px; }
+      .time-info { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header-store">
+      <div class="staa-brand">
+        <i class="fas fa-dragon"></i>
+        <h1>STAA STORE</h1>
+      </div>
+      <div class="theme-toggle-btn" id="themeToggleBtn">
+        <i class="fas fa-sun" id="toggleIconSun"></i>
+        <i class="fas fa-moon" id="toggleIconMoon"></i>
+        <span id="toggleText">Light</span>
+      </div>
+    </div>
+
+    <!-- Panel Jam Operasional (TANPA KONTROL MANUAL - hanya tampil jam) -->
+    <div class="operational-panel">
+      <div class="time-info">
+        <div class="time-display">
+          <i class="fas fa-clock"></i>
+          <span id="currentTime">--:--:--</span>
+        </div>
+        <div class="time-display">
+          <i class="fas fa-business-time"></i>
+          <span>Operasional: 07:00 - 21:00 WIB</span>
+        </div>
+        <div id="statusBadge" class="status-badge open">
+          <i class="fas fa-check-circle"></i>
+          <span id="statusText">BUKA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div id="warningBanner" class="warning-banner">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span id="warningMessage">Toko sedang tutup. Produk tidak dapat diakses</span>
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+
+
+    <!-- Banner Slider dengan Gambar -->
+    <div class="banner-slider">
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/YTjpgrpn/Banner-Ramadan-Dekoratif-Ornamental-Coklat-Krem-20260306-201402-000.jpg');">
+          </div>
+          <div class="swiper-slide" style="background-image: url('https://assets.pikiran-rakyat.com/crop/0x0:0x0/720x0/webp/photo/2024/03/11/412049712.jpg');">
+          </div>
+          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/Q3tncwc1/images-5.jpg');">
+          </div>
+          <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format');">
+            <span>🎯 TOP UP AMAN</span>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <!-- Game Grid -->
+    <div class="game-simple-grid">
+      <!-- Free Fire -->
+      <a href="ff.html" target="_blank" class="game-simple-link" id="ffLink">
+        <div class="logo-gambar">
+          <img src="https://i.ibb.co.com/TxB12q8B/Screenshot-20250516-191232-2450692357.webp" alt="Free Fire" onerror="this.src='https://via.placeholder.com/130x130/e64545/ffffff?text=FF'">
+        </div>
+        <span class="game-name ff-name">Free Fire</span>
+        <small><i class="fa-regular fa-hand-pointer"></i> klik</small>
+      </a>
+
+      <!-- Mobile Legends -->
+      <a href="ml.html" target="_blank" class="game-simple-link" id="mlLink">
+        <div class="logo-gambar">
+          <img src="https://i.ibb.co.com/8LYbYcy9/images-4.jpg" alt="Mobile Legends" onerror="this.src='https://via.placeholder.com/130x130/2b7ae2/ffffff?text=ML'">
+        </div>
+        <span class="game-name ml-name">MobileLegends</span>
+        <small><i class="fa-regular fa-hand-pointer"></i> klik</small>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-staa">
+      <span>✦</span>
+      <strong>@2026 STAA STORE</strong>
+      <span>✦</span>
+      <i class="fa-solid fa-circle" style="color: var(--accent-ungu); font-size: 0.5rem;"></i>
+      <span>#topupsimpel</span>
+    </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <script>
+    (function() {
+      // ========== THEME TOGGLE ==========
+      const themeBtn = document.getElementById('themeToggleBtn');
+      const toggleIconSun = document.getElementById('toggleIconSun');
+      const toggleIconMoon = document.getElementById('toggleIconMoon');
+      const toggleText = document.getElementById('toggleText');
+      
+      function updateToggleAppearance(isDark) {
+        if (isDark) {
+          toggleIconSun.style.opacity = '0.5';
+          toggleIconMoon.style.opacity = '1';
+          toggleIconMoon.style.color = 'var(--icon-moon)';
+          toggleText.textContent = 'Dark';
+        } else {
+          toggleIconSun.style.opacity = '1';
+          toggleIconMoon.style.opacity = '0.5';
+          toggleIconSun.style.color = 'var(--icon-sun)';
+          toggleText.textContent = 'Light';
+        }
+      }
+
+      if (localStorage.getItem('staa-theme') === 'dark') {
+        document.body.classList.add('dark');
+        updateToggleAppearance(true);
+      } else {
+        document.body.classList.remove('dark');
+        updateToggleAppearance(false);
+      }
+
+      function switchTheme(isDark) {
+        if (isDark) {
+          document.body.classList.add('dark');
+          localStorage.setItem('staa-theme', 'dark');
+        } else {
+          document.body.classList.remove('dark');
+          localStorage.setItem('staa-theme', 'light');
+        }
+        updateToggleAppearance(isDark);
+      }
+
+      themeBtn.addEventListener('click', function() {
+        const isDark = !document.body.classList.contains('dark');
+        switchTheme(isDark);
+      });
+
+      // ========== SWIPER ==========
+      const swiper = new Swiper('.mySwiper', {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        speed: 600,
+      });
+
+      // ========== JAM OPERASIONAL OTOMATIS (TANPA KONTROL MANUAL) ==========
+      const ffLink = document.getElementById('ffLink');
+      const mlLink = document.getElementById('mlLink');
+      const currentTimeEl = document.getElementById('currentTime');
+      const statusBadge = document.getElementById('statusBadge');
+      const statusText = document.getElementById('statusText');
+      const warningBanner = document.getElementById('warningBanner');
+      const warningMessage = document.getElementById('warningMessage');
+
+      // Waktu operasional (WIB = UTC+7)
+      const OPEN_HOUR = 7;  // 07:00 WIB
+      const CLOSE_HOUR = 21; // 21:00 WIB
+
+      // Fungsi untuk mendapatkan waktu WIB sekarang
+      function getCurrentWIBTime() {
+        const now = new Date();
+        // UTC+7 offset
+        const wibTime = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+        return {
+          hours: wibTime.getUTCHours(),
+          minutes: wibTime.getUTCMinutes(),
+          seconds: wibTime.getUTCSeconds(),
+          full: wibTime
+        };
+      }
+
+      // Fungsi untuk format waktu
+      function formatTime(hours, minutes, seconds) {
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+
+      // Fungsi cek apakah dalam jam operasional
+      function isWithinOperationalHours() {
+        const wib = getCurrentWIBTime();
+        return wib.hours >= OPEN_HOUR && wib.hours < CLOSE_HOUR;
+      }
+
+      // Fungsi update status toko (PURE OTOMATIS)
+      function updateStoreStatus() {
+        const wib = getCurrentWIBTime();
+        currentTimeEl.textContent = formatTime(wib.hours, wib.minutes, wib.seconds);
+
+        const isOpen = isWithinOperationalHours();
+
+        // Update tampilan status
+        if (isOpen) {
+          statusBadge.className = 'status-badge open';
+          statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span id="statusText">BUKA</span>';
+          statusText.textContent = 'BUKA';
+          warningBanner.classList.remove('show');
+          
+          // Aktifkan link
+          ffLink.classList.remove('disabled');
+          mlLink.classList.remove('disabled');
+        } else {
+          statusBadge.className = 'status-badge closed';
+          statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span id="statusText">TUTUP</span>';
+          statusText.textContent = 'TUTUP';
+          warningBanner.classList.add('show');
+          warningMessage.textContent = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB). Produk tidak dapat diakses`;
+          
+          // Nonaktifkan link
+          ffLink.classList.add('disabled');
+          mlLink.classList.add('disabled');
+        }
+      }
+
+      // Update waktu setiap detik
+      setInterval(updateStoreStatus, 1000);
+      
+      // Initial update
+      updateStoreStatus();
+
+      // ========== KONTROL MANUAL (HANYA ADA DI DALAM HTML, TIDAK TAMPIL) ==========
+      /*
+        ================================================================
+        KONTROL MANUAL (TRUE/FALSE) - HANYA UNTUK REFERENSI
+        ================================================================
+        
+        Untuk mengaktifkan/menonaktifkan toko secara manual, 
+        gunakan kode berikut di console browser:
+        
+        1. BUKA MANUAL: 
+           localStorage.setItem('staa-manual-open', 'true');
+           location.reload();
+        
+        2. TUTUP MANUAL:
+           localStorage.setItem('staa-manual-open', 'false');
+           location.reload();
+        
+        3. KEMBALI KE OTOMATIS:
+           localStorage.removeItem('staa-manual-open');
+           location.reload();
+        
+        ================================================================
+        
+        Atau jika ingin mengubah kode JavaScript untuk menggunakan 
+        kontrol manual, tambahkan variabel berikut dan modifikasi 
+        fungsi updateStoreStatus():
+        
+        const MANUAL_MODE = false; // Ubah jadi true untuk aktifkan manual
+        const MANUAL_OPEN = true;  // true = buka, false = tutup
+        
+        ================================================================
+      */
+
+      // Contoh implementasi kontrol manual yang DISEMBUNYIKAN (diaktifkan lewat console)
+      // (Tidak tampil di website, tapi bisa diakses via console browser)
+      (function() {
+        // Cek apakah ada override manual di localStorage
+        const manualOverride = localStorage.getItem('staa-manual-open');
+        
+        if (manualOverride !== null) {
+          // Jika ada override, gunakan itu (true = buka, false = tutup)
+          const isManualOpen = manualOverride === 'true';
+          
+          // Simpan fungsi asli
+          const originalUpdate = updateStoreStatus;
+          
+          // Override fungsi updateStoreStatus
+          window.updateStoreStatus = function() {
+            const wib = getCurrentWIBTime();
+            currentTimeEl.textContent = formatTime(wib.hours, wib.minutes, wib.seconds);
+
+            // Gunakan status manual
+            const isOpen = isManualOpen;
+
+            if (isOpen) {
+              statusBadge.className = 'status-badge open';
+              statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span id="statusText">BUKA (MANUAL)</span>';
+              statusText.textContent = 'BUKA (MANUAL)';
+              warningBanner.classList.remove('show');
+              ffLink.classList.remove('disabled');
+              mlLink.classList.remove('disabled');
+            } else {
+              statusBadge.className = 'status-badge closed';
+              statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span id="statusText">TUTUP (MANUAL)</span>';
+              statusText.textContent = 'TUTUP (MANUAL)';
+              warningBanner.classList.add('show');
+              warningMessage.textContent = 'Toko sedang tutup (mode manual). Produk tidak dapat diakses';
+              ffLink.classList.add('disabled');
+              mlLink.classList.add('disabled');
+            }
+          };
+          
+          // Ganti fungsi global
+          updateStoreStatus = window.updateStoreStatus;
+        }
+      })();
+
+    })();
+  </script>
+
+  <!--
+    ============================================================
+    INSTRUKSI KONTROL MANUAL (TIDAK TAMPIL DI WEBSITE)
+    ============================================================
+    
+    Cara 1: Via Console Browser (F12)
+    -----------------------------------
+    BUKA:    localStorage.setItem('staa-manual-open', 'true'); location.reload();
+    TUTUP:   localStorage.setItem('staa-manual-open', 'false'); location.reload();
+    OTOMATIS: localStorage.removeItem('staa-manual-open'); location.reload();
+    
+    Cara 2: Ubah Kode JavaScript (di dalam file)
+    ---------------------------------------------
+    Cari komentar "KONTROL MANUAL (HANYA ADA DI DALAM HTML)" dan 
+    ikuti petunjuk yang ada.
+    
+    ============================================================
+  -->
+</body>
+</html>
