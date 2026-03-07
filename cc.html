@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA STORE - CapCut Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="capcutstyle.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="store-name">
+                    <i class="fas fa-store"></i>
+                    <span>STAA STORE</span>
+                </div>
+            </div>    <!-- Cara 1: Menggunakan tag a langsung -->
+    <a href="index.html" class="nav-item" style="text-decoration: none; color: inherit;">
+        <i class="fas fa-home"></i>
+        <span>Beranda</span>
+    </a>
+</div>
+            </div>
+        </div>
+    </nav>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon" style="display:none"></i>
+            <span id="themeText">Light Mode</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Header dengan Logo CapCut -->
+        <header>
+            <div class="logo">
+                <img src="https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png" alt="CapCut Logo" class="game-logo">
+                <h1>CapCut <span>PRO</span></h1>
+            </div>
+            <div class="indonesia-flag">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>🇮🇩 INDONESIA</span>
+            </div>
+            <p class="tagline">CapCut Pro Termurah & Tercepat</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <!-- Icon Keranjang untuk Pilih Produk -->
+                <h2><i class="fas fa-shopping-cart"></i> Pilih Masa Aktif</h2>
+                
+                <!-- ID CapCut -->
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> ID CapCut / Email <span class="required">*</span></label>
+                    <input type="text" id="userId" placeholder="Masukkan ID CapCut atau Email" required>
+                    <small><i class="fas fa-info-circle"></i> Contoh: user@email.com atau 123456789</small>
+                </div>
+
+                <!-- Pilihan Masa Aktif CapCut Pro -->
+                <div class="category-title">
+                    <i class="fas fa-clock"></i>
+                    <h3>Masa Aktif Pro</h3>
+                </div>
+                
+                <!-- Data stok tersembunyi di data attributes -->
+                <div class="product-options" id="productOptions">
+                    <div class="product-card" data-product="7 Hari" data-price="3000" data-stock="10" id="product-7hari">
+                        <div class="product-amount"><i class="fas fa-calendar-week"></i><span>7 Hari</span></div>
+                        <div class="product-price">Rp 3.000</div>
+                        <div class="stock-indicator hidden" id="stock-7hari"></div>
+                    </div>
+                    
+                    <div class="product-card" data-product="14 Hari" data-price="5000" data-stock="10" id="product-14hari">
+                        <div class="product-amount"><i class="fas fa-calendar-week"></i><span>14 Hari</span></div>
+                        <div class="product-price">Rp 5.000</div>
+                        <div class="stock-indicator hidden" id="stock-14hari"></div>
+                    </div>
+                    
+                    <div class="product-card" data-product="30 Hari" data-price="8000" data-stock="10" id="product-30hari">
+                        <div class="product-amount"><i class="fas fa-calendar-alt"></i><span>30 Hari</span></div>
+                        <div class="product-price">Rp 8.000</div>
+                        <div class="stock-indicator hidden" id="stock-30hari"></div>
+                    </div>
+                    
+                    <div class="product-card" data-product="42 Hari" data-price="10000" data-stock="10" id="product-42hari">
+                        <div class="product-amount"><i class="fas fa-calendar-alt"></i><span>42 Hari</span></div>
+                        <div class="product-price">Rp 10.000</div>
+                        <div class="stock-indicator hidden" id="stock-42hari"></div>
+                    </div>
+                </div>
+
+                <!-- Metode Pembayaran -->
+                <div class="payment-methods" style="margin-top: 30px;">
+                    <h3><i class="fas fa-credit-card"></i> Pilih Metode Pembayaran <span class="required">*</span></h3>
+                    <div class="payment-options" id="paymentOptions">
+                        <div class="payment-card" data-payment="DANA">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>DANA</span></div>
+                            <span class="payment-price" id="priceDANA">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="OVO">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>OVO</span></div>
+                            <span class="payment-price" id="priceOVO">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="GoPay">
+                            <div class="payment-info"><i class="fas fa-credit-card"></i><span>GoPay</span></div>
+                            <span class="payment-price" id="priceGoPay">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="QRIS">
+                            <div class="payment-info"><i class="fas fa-qrcode"></i><span>QRIS</span></div>
+                            <span class="payment-price" id="priceQRIS">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Catatan (Opsional) -->
+                <div class="form-group notes-group">
+                    <label><i class="fas fa-pen"></i> Catatan (Opsional)</label>
+                    <div class="notes-input-wrapper">
+                        <textarea id="notes" placeholder="Contoh: Tolong segera diproses" rows="3"></textarea>
+                    </div>
+                    <small><i class="fas fa-info-circle"></i> Isi jika ada permintaan khusus</small>
+                </div>
+
+                <!-- Ringkasan Pesanan -->
+                <div class="order-summary" id="orderSummary" style="display:none">
+                    <h3><i class="fas fa-shopping-cart"></i> Ringkasan Pesanan</h3>
+                    <div class="summary-content">
+                        <p><span>ID/Email:</span> <span id="summaryId">-</span></p>
+                        <p><span>Masa Aktif:</span> <span id="summaryProduct">-</span></p>
+                        <p><span>Pembayaran:</span> <span id="summaryPayment">-</span></p>
+                        <p><span>Total:</span> <span id="summaryPrice" class="price">-</span></p>
+                        <p id="summaryNotesRow" style="display:none;"><span>Catatan:</span> <span id="summaryNotes">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Tombol WhatsApp -->
+                <button type="button" id="whatsappBtn" class="whatsapp-btn" disabled>
+                    <i class="fab fa-whatsapp"></i> Pesan Via WhatsApp
+                </button>
+            </div>
+
+            <!-- Info Card -->
+            <div class="info-card">
+                <div class="info-item"><i class="fas fa-bolt"></i><div><h4>Proses Cepat</h4><p>Max 5 menit</p></div></div>
+                <div class="info-item"><i class="fas fa-shield-alt"></i><div><h4>Aman & Terpercaya</h4><p>100% Garansi</p></div></div>
+                <div class="info-item"><i class="fas fa-headset"></i><div><h4>CS 24/7</h4><p>Online</p></div></div>
+            </div>
+        </main>
+
+        <footer>© 2024 STAA STORE - CapCut Pro Indonesia. All rights reserved.</footer>
+    </div>
+
+    <script src="capcutscript.js"></script>
+</body>
+</html>
