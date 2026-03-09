@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA STORE • MOBILE LEGENDS</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="mlstyle.css">
+</head>
+<body>
+    <!-- Navbar Premium -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>STAA <span class="store-highlight">STORE</span></span>
+                </a>
+            </div>
+            
+            <div class="nav-right">
+                <a href="index.html" class="nav-item" title="Beranda">
+                    <i class="fas fa-home"></i>
+                </a>
+                <div class="nav-item theme-toggle-nav" id="themeToggleNav" title="Ganti Tema">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Banner -->
+    <div class="banner-wrapper" data-aos="fade-down">
+        <a href="https://i.ibb.co.com/Q3tncwc1/images-5.jpg" 
+           class="banner-link" 
+           target="_blank" 
+           title="Klik untuk lihat gambar asli">
+            <div class="banner-container">
+                <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg" 
+                     alt="Mobile Legends Banner" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <span class="banner-badge"><i class="fas fa-bolt"></i> SPECIAL OFFER</span>
+                        <h1 class="banner-title">MOBILE LEGENDS</h1>
+                        <p class="banner-subtitle"></p>
+                        <div class="banner-stats">
+                            <div class="stat"><i class="fas fa-users"></i> 15K+ Happy Customers</div>
+                            <div class="stat"><i class="fas fa-clock"></i> Proses < 10 Menit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- Header Game Info -->
+        <div class="game-header" data-aos="fade-up">
+            <div class="game-logo-wrapper">
+                <img src="https://i.ibb.co.com/rK3Lymj0/images-4.jpg" 
+                     alt="Mobile Legends Logo" 
+                     class="game-logo"
+                     onerror="this.src='https://via.placeholder.com/80x80/3b82f6/ffffff?text=ML'">
+                <div class="game-logo-glow"></div>
+            </div>
+            <div class="game-info">
+                <h2>Mobile Legends Indonesia</h2>
+                <div class="game-meta">
+                    <span class="region"><i class="fas fa-map-marker-alt"></i> Indonesia</span>
+                    <span class="currency"><i class="fas fa-gem"></i> Diamond</span>
+                </div>
+            </div>
+            <div class="game-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Reseller Resmi</span>
+            </div>
+        </div>
+
+        <main>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">ID Player</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Pilih Produk</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Pembayaran</div>
+                    </div>
+                </div>
+
+                <!-- ID Player + Server Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-id-card"></i>
+                        Masukkan ID Player & Server
+                        <span class="required-badge">Wajib</span>
+                    </h2>
+                    
+                    <div class="form-group premium-input">
+                        <div class="input-wrapper">
+                            <i class="fas fa-gamepad input-icon"></i>
+                            <input type="text" 
+                                   id="playerId" 
+                                   placeholder="ID Player (contoh: 12345678)" 
+                                   maxlength="10" 
+                                   inputmode="numeric">
+                        </div>
+                        <div style="margin-top: 10px;"></div>
+                        <div class="input-wrapper">
+                            <i class="fas fa-server input-icon"></i>
+                            <input type="text" 
+                                   id="serverId" 
+                                   placeholder="Server (contoh: 1234)" 
+                                   maxlength="4" 
+                                   inputmode="numeric">
+                        </div>
+                        <div class="input-hint">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Format: ID (6-10 digit) + Server (4 digit). Contoh: 12345678 (ID) + 1234 (Server)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        Pilih Produk
+                        <span class="product-count" id="productCount">10+ produk</span>
+                    </h2>
+
+                    <!-- Category Tabs -->
+                    <div class="category-tabs">
+                        <button class="category-tab active" data-category="diamond">
+                            <i class="fas fa-gem"></i>
+                            <span>Diamond</span>
+                        </button>
+                        <button class="category-tab" data-category="membership">
+                            <i class="fas fa-crown"></i>
+                            <span>Weekly Pass</span>
+                        </button>
+                    </div>
+
+                    <!-- Products Grid - Diamond -->
+                    <div class="products-grid active" id="diamondProducts">
+                        <div class="product-card" data-diamond="5" data-price="1650" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">5 Diamond</div>
+                            <div class="product-price">Rp 1.650</div>
+                        </div>
+                        <div class="product-card" data-diamond="12" data-price="3599" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">12 Diamond</div>
+                            <div class="product-price">Rp 3.599</div>
+                        </div>
+                        <div class="product-card" data-diamond="59" data-price="16199" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">59 Diamond</div>
+                            <div class="product-price">Rp 16.199</div>
+                        </div>
+                        <div class="product-card" data-diamond="170" data-price="45990" data-type="diamond">
+                            <div class="product-badge">POPULAR</div>
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">170 Diamond</div>
+                            <div class="product-price">Rp 45.990</div>
+                        </div>
+                        <div class="product-card" data-diamond="214" data-price="59199" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">214 Diamond</div>
+                            <div class="product-price">Rp 59.199</div>
+                        </div>
+                        <div class="product-card" data-diamond="296" data-price="78499" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">296 Diamond</div>
+                            <div class="product-price">Rp 78.499</div>
+                        </div>
+                        <div class="product-card" data-diamond="429" data-price="118199" data-type="diamond">
+                            <div class="product-badge">HEMAT</div>
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">429 Diamond</div>
+                            <div class="product-price">Rp 118.199</div>
+                        </div>
+                        <div class="product-card" data-diamond="514" data-price="141440" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">514 Diamond</div>
+                            <div class="product-price">Rp 141.440</div>
+                        </div>
+                        <div class="product-card" data-diamond="706" data-price="194022" data-type="diamond">
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">706 Diamond</div>
+                            <div class="product-price">Rp 194.022</div>
+                        </div>
+                        <div class="product-card" data-diamond="2195" data-price="555800" data-type="diamond">
+                            <div class="product-badge">BEST VALUE</div>
+                            <div class="product-icon"><i class="fas fa-gem"></i></div>
+                            <div class="product-amount">2195 Diamond</div>
+                            <div class="product-price">Rp 555.800</div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid - Membership -->
+                    <div class="products-grid" id="membershipProducts">
+                        <div class="product-card membership" data-diamond="Weekly Pass" data-price="28500" data-type="membership">
+                            <div class="product-icon"><i class="fas fa-calendar-week"></i></div>
+                            <div class="product-amount">Weekly Pass</div>
+                            <div class="product-price">Rp 28.500</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pembayaran Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        Metode Pembayaran
+                        <span class="required-badge">Wajib</span>
+                    </h2>
+
+                    <div class="payment-grid">
+                        <!-- DANA -->
+                        <div class="payment-card" data-payment="DANA">
+                            <div class="payment-left">
+                                <i class="fas fa-wallet" style="color: #008080;"></i>
+                                <span>DANA</span>
+                            </div>
+                            <span class="payment-amount" id="priceDANA">Rp 0</span>
+                        </div>
+                        
+                        <!-- OVO dengan biaya admin 0.5% -->
+                        <div class="payment-card" data-payment="OVO">
+                            <div class="payment-left">
+                                <i class="fas fa-circle" style="color: #4a2c8a;"></i>
+                                <span>OVO</span>
+                            </div>
+                            <span class="payment-amount" id="priceOVO">Rp 0</span>
+                        </div>
+                        
+                        <!-- GoPay -->
+                        <div class="payment-card" data-payment="GoPay">
+                            <div class="payment-left">
+                                <i class="fas fa-mobile-alt" style="color: #00aed6;"></i>
+                                <span>GoPay</span>
+                            </div>
+                            <span class="payment-amount" id="priceGoPay">Rp 0</span>
+                        </div>
+                        
+                        <!-- QRIS dengan biaya admin 0.7% -->
+                        <div class="payment-card" data-payment="QRIS">
+                            <div class="payment-left">
+                                <i class="fas fa-qrcode" style="color: #6c5ce7;"></i>
+                                <span>QRIS</span>
+                            </div>
+                            <span class="payment-amount" id="priceQRIS">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Catatan Opsional -->
+                    <div class="notes-section">
+                        <label class="notes-label">
+                            <i class="fas fa-pen"></i>
+                            Catatan (Opsional)
+                        </label>
+                        <textarea id="notes" 
+                                  placeholder="Contoh: Mau nick diubah, Top up untuk teman, request tertentu" 
+                                  rows="3"></textarea>
+                        <small><i class="fas fa-info-circle"></i> Isi jika ada permintaan khusus</small>
+                    </div>
+                </div>
+
+                <!-- Order Summary Premium -->
+                <div class="order-summary" id="orderSummary">
+                    <div class="summary-header">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Ringkasan Pesanan</h3>
+                    </div>
+                    
+                    <div class="summary-body">
+                        <div class="summary-row">
+                            <span>ID Player</span>
+                            <span class="summary-value" id="summaryId">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Server</span>
+                            <span class="summary-value" id="summaryServer">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Produk</span>
+                            <span class="summary-value" id="summaryDiamond">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Pembayaran</span>
+                            <span class="summary-value" id="summaryPayment">-</span>
+                        </div>
+                        <div class="summary-row" id="feeRow">
+                            <span>Biaya Admin</span>
+                            <span class="summary-value" id="summaryFee">Rp 0</span>
+                        </div>
+                        <div class="summary-row notes-row" id="summaryNotesRow">
+                            <span>Catatan</span>
+                            <span class="summary-value" id="summaryNotes">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Total Yang Harus Dibayar</span>
+                        <span class="total-price" id="summaryPrice">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Button -->
+                <button class="whatsapp-btn" id="whatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Pesan Via WhatsApp</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Info Cards Premium -->
+            <div class="info-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="info-content">
+                        <h4>Proses Cepat</h4>
+                        <p>Max 10 Menit</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="info-content">
+                        <h4>Aman & Terpercaya</h4>
+                        <p>100% Garansi</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-headset"></i></div>
+                    <div class="info-content">
+                        <h4>CS 24/7</h4>
+                        <p>Siap Membantu</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 STAA STORE  •  Mobile Legends</p>
+        </footer>
+    </div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="mlscript.js"></script>
+</body>
+</html>

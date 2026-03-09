@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA STORE •</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="capcutstyle.css">
+</head>
+<body>
+    <!-- Navbar Premium -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>STAA <span class="store-highlight">STORE</span></span>
+                </a>
+            </div>
+            
+            <div class="nav-right">
+                <a href="index.html" class="nav-item" title="Beranda">
+                    <i class="fas fa-home"></i>
+                </a>
+                <div class="nav-item theme-toggle-nav" id="themeToggleNav" title="Ganti Tema">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Banner -->
+    <div class="banner-wrapper" data-aos="fade-down">
+        <a href="https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png" 
+           class="banner-link" 
+           target="_blank" 
+           title="Klik untuk lihat gambar asli">
+            <div class="banner-container">
+                <img src="https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png" 
+                     alt="CapCut Pro Banner" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <span class="banner-badge"><i class="fas fa-bolt"></i> PREMIUM DEAL</span>
+                        <h1 class="banner-title">CAPCUT <span>PRO</span></h1>
+                        <p class="banner-subtitle">Aktivasi Pro Termurah & Tercepat Se-Indonesia</p>
+                        <div class="banner-stats">
+                            <div class="stat"><i class="fas fa-users"></i> 5K+ Happy Editors</div>
+                            <div class="stat"><i class="fas fa-clock"></i> Proses < 10 Menit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- Header Game Info -->
+        <div class="game-header" data-aos="fade-up">
+            <div class="game-logo-wrapper">
+                <img src="https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png" 
+                     alt="CapCut Logo" 
+                     class="game-logo"
+                     onerror="this.src='https://via.placeholder.com/80x80/10b981/ffffff?text=CC'">
+                <div class="game-logo-glow"></div>
+            </div>
+            <div class="game-info">
+                <h2>CapCut Pro Indonesia</h2>
+                <div class="game-meta">
+                    <span class="region"><i class="fas fa-map-marker-alt"></i> Indonesia</span>
+                    <span class="currency"><i class="fas fa-clock"></i> Masa Aktif</span>
+                </div>
+            </div>
+            <div class="game-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Reseller Resmi</span>
+            </div>
+        </div>
+
+        <main>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">ID / Email</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Pilih Masa Aktif</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Pembayaran</div>
+                    </div>
+                </div>
+
+                <!-- ID / Email Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-id-card"></i>
+                        Masukkan ID / Email
+                        <span class="required-badge">Wajib</span>
+                    </h2>
+                    
+                    <div class="form-group premium-input">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="text" 
+                                   id="userId" 
+                                   placeholder="Contoh: user@email.com atau ID CapCut" 
+                                   required>
+                        </div>
+                        <div class="input-hint">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Masukkan email atau ID CapCut Anda</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        Pilih Masa Aktif
+                        <span class="product-count" id="productCount">4 pilihan</span>
+                    </h2>
+
+                    <!-- Products Grid -->
+                    <div class="products-grid active" id="productOptions">
+                        <!-- 7 Hari -->
+                        <div class="product-card" 
+                             data-product="7 Hari" 
+                             data-price="3000" 
+                             data-stock="0" 
+                             id="product-7hari">
+                            <div class="product-icon"><i class="fas fa-calendar-week"></i></div>
+                            <div class="product-amount">7 Hari</div>
+                            <div class="product-price">Rp 3.000</div>
+                            <div class="stock-badge" id="stock-7hari">Stok: 0</div>
+                        </div>
+                        
+                        <!-- 14 Hari -->
+                        <div class="product-card" 
+                             data-product="14 Hari" 
+                             data-price="5000" 
+                             data-stock="0" 
+                             id="product-14hari">
+                            <div class="product-icon"><i class="fas fa-calendar-week"></i></div>
+                            <div class="product-amount">14 Hari</div>
+                            <div class="product-price">Rp 5.000</div>
+                            <div class="stock-badge" id="stock-14hari">Stok: 0</div>
+                        </div>
+                        
+                        <!-- 30 Hari -->
+                        <div class="product-card" 
+                             data-product="30 Hari" 
+                             data-price="8000" 
+                             data-stock="0" 
+                             id="product-30hari">
+                            <div class="product-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="product-amount">30 Hari</div>
+                            <div class="product-price">Rp 8.000</div>
+                            <div class="stock-badge" id="stock-30hari">Stok: 0</div>
+                        </div>
+                        
+                        <!-- 42 Hari -->
+                        <div class="product-card" 
+                             data-product="42 Hari" 
+                             data-price="10000" 
+                             data-stock="0" 
+                             id="product-42hari">
+                            <div class="product-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="product-amount">42 Hari</div>
+                            <div class="product-price">Rp 10.000</div>
+                            <div class="stock-badge" id="stock-42hari">Stok: 0</div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                </div>
+
+                <!-- Pembayaran Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        Metode Pembayaran
+                        <span class="required-badge">Wajib</span>
+                    </h2>
+
+                    <div class="payment-grid">
+                        <!-- DANA -->
+                        <div class="payment-card" data-payment="DANA">
+                            <div class="payment-left">
+                                <i class="fas fa-wallet" style="color: #008080;"></i>
+                                <span>DANA</span>
+                            </div>
+                            <span class="payment-amount" id="priceDANA">Rp 0</span>
+                        </div>
+                        
+                        <!-- OVO dengan biaya admin 0.5% -->
+                        <div class="payment-card" data-payment="OVO">
+                            <div class="payment-left">
+                                <i class="fas fa-circle" style="color: #4a2c8a;"></i>
+                                <span>OVO</span>
+                            </div>
+                            <span class="payment-amount" id="priceOVO">Rp 0</span>
+                        </div>
+                        
+                        <!-- GoPay -->
+                        <div class="payment-card" data-payment="GoPay">
+                            <div class="payment-left">
+                                <i class="fas fa-mobile-alt" style="color: #00aed6;"></i>
+                                <span>GoPay</span>
+                            </div>
+                            <span class="payment-amount" id="priceGoPay">Rp 0</span>
+                        </div>
+                        
+                        <!-- QRIS dengan biaya admin 0.7% -->
+                        <div class="payment-card" data-payment="QRIS">
+                            <div class="payment-left">
+                                <i class="fas fa-qrcode" style="color: #6c5ce7;"></i>
+                                <span>QRIS</span>
+                            </div>
+                            <span class="payment-amount" id="priceQRIS">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Catatan Opsional -->
+                    <div class="notes-section">
+                        <label class="notes-label">
+                            <i class="fas fa-pen"></i>
+                            Catatan (Opsional)
+                        </label>
+                        <textarea id="notes" placeholder="Contoh: Tolong segera diproses" rows="3"></textarea>
+                        <small><i class="fas fa-info-circle"></i> Isi jika ada permintaan khusus</small>
+                    </div>
+                </div>
+
+                <!-- Order Summary Premium -->
+                <div class="order-summary" id="orderSummary">
+                    <div class="summary-header">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Ringkasan Pesanan</h3>
+                    </div>
+                    
+                    <div class="summary-body">
+                        <div class="summary-row">
+                            <span>ID/Email</span>
+                            <span class="summary-value" id="summaryId">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Masa Aktif</span>
+                            <span class="summary-value" id="summaryProduct">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Pembayaran</span>
+                            <span class="summary-value" id="summaryPayment">-</span>
+                        </div>
+                        <div class="summary-row" id="feeRow">
+                            <span>Biaya Admin</span>
+                            <span class="summary-value" id="summaryFee">Rp 0</span>
+                        </div>
+                        <div class="summary-row notes-row" id="summaryNotesRow">
+                            <span>Catatan</span>
+                            <span class="summary-value" id="summaryNotes">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Total Yang Harus Dibayar</span>
+                        <span class="total-price" id="summaryPrice">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Button -->
+                <button class="whatsapp-btn" id="whatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Pesan Via WhatsApp</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Info Cards Premium -->
+            <div class="info-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="info-content">
+                        <h4>Proses Cepat</h4>
+                        <p>Max 10 Menit</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="info-content">
+                        <h4>Aman & Terpercaya</h4>
+                        <p>100% Garansi</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon"><i class="fas fa-headset"></i></div>
+                    <div class="info-content">
+                        <h4>CS 24/7</h4>
+                        <p>Siap Membantu</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 STAA STORE  •  CapCut Pro Premium</p>
+        </footer>
+    </div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="capcutscript.js"></script>
+</body>
+</html>
