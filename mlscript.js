@@ -38,6 +38,7 @@ let selectedPrice = 0;
 let selectedPayment = null;
 let selectedType = 'diamond';
 let basePrice = 0;
+let currentInvoice = '';
 
 // ===== ELEMENTS =====
 const playerId = document.getElementById('playerId');
@@ -57,12 +58,35 @@ const summaryPrice = document.getElementById('summaryPrice');
 const summaryFee = document.getElementById('summaryFee');
 const summaryNotesRow = document.getElementById('summaryNotesRow');
 const summaryNotes = document.getElementById('summaryNotes');
+const summaryInvoice = document.getElementById('summaryInvoice');
 
 // Payment price elements
 const priceDANA = document.getElementById('priceDANA');
 const priceOVO = document.getElementById('priceOVO');
 const priceGoPay = document.getElementById('priceGoPay');
 const priceQRIS = document.getElementById('priceQRIS');
+
+// ===== FUNGSI GENERATE INVOICE =====
+function generateInvoice() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let invoice = '';
+    for (let i = 0; i < 6; i++) {
+        invoice += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return invoice;
+}
+
+// ===== FUNGSI GENERATE INVOICE BARU =====
+function generateNewInvoice() {
+    currentInvoice = generateInvoice();
+    
+    // Update invoice di summary jika ada
+    if (summaryInvoice) {
+        summaryInvoice.textContent = currentInvoice;
+    }
+    
+    return currentInvoice;
+}
 
 // ===== FUNGSI HITUNG BIAYA ADMIN =====
 function calculateTotalPrice(basePrice, paymentMethod) {
@@ -84,6 +108,9 @@ function updateAllPaymentPrices(basePrice) {
 // ===== INITIALIZE =====
 function init() {
     AOS.init({ duration: 800, once: true });
+    
+    // Generate invoice pertama
+    generateNewInvoice();
     
     // Category tabs
     document.querySelectorAll('.category-tab').forEach(tab => {
@@ -151,6 +178,9 @@ function init() {
     // Server ID input
     serverId.addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 4) {
+            this.value = this.value.slice(0, 4);
+        }
         updateSummary();
         checkForm();
         updateSteps();
@@ -187,6 +217,7 @@ function updateSummary() {
         summaryServer.textContent = server;
         summaryDiamond.textContent = selectedProduct;
         summaryPayment.textContent = selectedPayment;
+        summaryInvoice.textContent = currentInvoice;
         
         const totalPrice = calculateTotalPrice(basePrice, selectedPayment);
         summaryPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
@@ -200,6 +231,7 @@ function updateSummary() {
             document.getElementById('feeRow').style.display = 'flex';
         } else {
             summaryFee.textContent = 'Rp 0';
+            document.getElementById('feeRow').style.display = 'flex';
         }
         
         if (notes) {
@@ -255,8 +287,13 @@ whatsappBtn.addEventListener('click', () => {
     const totalPrice = calculateTotalPrice(basePrice, selectedPayment);
     const fee = CONFIG.fees[selectedPayment] || { fixed: 0, percent: 0 };
     
+    // Generate invoice baru setiap kali klik WhatsApp
+    const invoiceNumber = generateNewInvoice();
+    
     let message = `🎮 *TOP UP ${CONFIG.gameName.toUpperCase()}* 🎮\n`;
     message += `━━━━━━━━━━━━━━━━━━━\n`;
+    message += `🧾 *INVOICE: ${invoiceNumber}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `📋 *DETAIL PESANAN*\n`;
     message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `🆔 *ID Player:* ${id} (${server})\n`;
@@ -273,11 +310,16 @@ whatsappBtn.addEventListener('click', () => {
     if (notes) message += `📝 *Catatan:* ${notes}\n`;
     
     message += `\n━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 *TOTAL: Rp ${totalPrice.toLocaleString('id-ID')}*\n\n`;
+    message += `💰 *TOTAL: Rp ${totalPrice.toLocaleString('id-ID')}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `✅ *Proses max 10 menit*\n`;
+    message += `📌 *Simpan nomor invoice untuk memudahkan jika ada kendala*\n\n`;
     message += `Silahkan konfirmasi pembayaran. Terima kasih! 🙏`;
     
     window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+    
+    // Update summary dengan invoice baru
+    updateSummary();
 });
 
 // Start

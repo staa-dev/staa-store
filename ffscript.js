@@ -18,6 +18,7 @@ let selectedPrice = 0;
 let selectedPayment = null;
 let selectedType = 'diamond';
 let basePrice = 0;
+let currentInvoice = '';
 
 // ===== ELEMENTS =====
 const playerId = document.getElementById('playerId');
@@ -42,6 +43,16 @@ const priceOVO = document.getElementById('priceOVO');
 const priceGoPay = document.getElementById('priceGoPay');
 const priceQRIS = document.getElementById('priceQRIS');
 
+// ===== FUNGSI GENERATE INVOICE =====
+function generateInvoice() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let invoice = '';
+    for (let i = 0; i < 6; i++) {
+        invoice += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return invoice;
+}
+
 // ===== FUNGSI HITUNG BIAYA ADMIN =====
 function calculateTotalPrice(basePrice, paymentMethod) {
     const fee = CONFIG.fees[paymentMethod] || { fixed: 0, percent: 0 };
@@ -59,9 +70,18 @@ function updateAllPaymentPrices(basePrice) {
     priceQRIS.textContent = `Rp ${calculateTotalPrice(basePrice, 'QRIS').toLocaleString('id-ID')}`;
 }
 
+// ===== FUNGSI GENERATE INVOICE BARU =====
+function generateNewInvoice() {
+    currentInvoice = generateInvoice();
+    return currentInvoice;
+}
+
 // ===== INITIALIZE =====
 function init() {
     AOS.init({ duration: 800, once: true });
+    
+    // Generate invoice pertama
+    generateNewInvoice();
     
     // Category tabs
     document.querySelectorAll('.category-tab').forEach(tab => {
@@ -216,8 +236,13 @@ whatsappBtn.addEventListener('click', () => {
     const totalPrice = calculateTotalPrice(basePrice, selectedPayment);
     const fee = CONFIG.fees[selectedPayment] || { fixed: 0, percent: 0 };
     
+    // Generate invoice baru setiap kali klik WhatsApp
+    const invoiceNumber = generateNewInvoice();
+    
     let message = `🎮 *TOP UP ${CONFIG.gameName.toUpperCase()}* 🎮\n`;
     message += `━━━━━━━━━━━━━━━━━━━\n`;
+    message += `🧾 *INVOICE: ${invoiceNumber}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `📋 *DETAIL PESANAN*\n`;
     message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `🆔 *ID Player:* ${id}\n`;
@@ -234,8 +259,10 @@ whatsappBtn.addEventListener('click', () => {
     if (notes) message += `📝 *Catatan:* ${notes}\n`;
     
     message += `\n━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 *TOTAL: Rp ${totalPrice.toLocaleString('id-ID')}*\n\n`;
+    message += `💰 *TOTAL: Rp ${totalPrice.toLocaleString('id-ID')}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
     message += `✅ *Proses max 10 menit*\n`;
+    message += `📌 *Simpan nomor invoice untuk memudahkan jika ada kendala*\n\n`;
     message += `Silahkan konfirmasi pembayaran. Terima kasih! 🙏`;
     
     window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
