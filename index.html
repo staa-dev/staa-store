@@ -15,150 +15,660 @@
   <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    /* CSS SAMA SEPERTI SEBELUMNYA, TIDAK BERUBAH */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; width: 100%; overflow: hidden; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-body); color: var(--text-primary); transition: background-color 0.4s ease, color 0.3s ease; position: relative; }
-    #app-root { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--bg-card); overflow: hidden; }
-    .app-content { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 20px 20px 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-    .app-content::-webkit-scrollbar { width: 4px; }
-    .app-content::-webkit-scrollbar-track { background: transparent; }
-    .app-content::-webkit-scrollbar-thumb { background: var(--accent-ungu); border-radius: 10px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      transition: background-color 0.4s ease, color 0.3s ease;
+      position: relative;
+    }
+
+    /* FULLSCREEN APP */
+    #app-root {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      overflow: hidden;
+    }
+
+    /* SCROLLABLE CONTENT */
+    .app-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 20px 20px 20px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .app-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .app-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .app-content::-webkit-scrollbar-thumb {
+      background: var(--accent-ungu);
+      border-radius: 10px;
+    }
+
+    /* VARIABEL LIGHT */
     :root {
-      --bg-body: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-soft: #475569;
-      --accent-ungu: #8b5cf6; --accent-ungu-light: #a78bfa; --accent-pink: #ec4899; --accent-pink-light: #f472b6;
-      --border-muted: rgba(139, 92, 246, 0.15); --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05); --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1); --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-      --glass-bg: rgba(255, 255, 255, 0.75); --bottom-nav-bg: rgba(255, 255, 255, 0.98);
-      --bottom-nav-border: rgba(139, 92, 246, 0.2); --warning-bg: rgba(251, 191, 36, 0.12);
-      --warning-border: rgba(251, 191, 36, 0.25); --warning-text: #d97706;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #0f172a;
+      --text-soft: #475569;
+      --accent-ungu: #8b5cf6;
+      --accent-ungu-light: #a78bfa;
+      --accent-pink: #ec4899;
+      --accent-pink-light: #f472b6;
+      --border-muted: rgba(139, 92, 246, 0.15);
+      --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --bottom-nav-bg: rgba(255, 255, 255, 0.98);
+      --bottom-nav-border: rgba(139, 92, 246, 0.2);
+      --warning-bg: rgba(251, 191, 36, 0.12);
+      --warning-border: rgba(251, 191, 36, 0.25);
+      --warning-text: #d97706;
       --keunggulan-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
-      --popup-overlay: rgba(0, 0, 0, 0.6); --popup-bg: #ffffff; --voucher-bg: rgba(139, 92, 246, 0.05);
+      --popup-overlay: rgba(0, 0, 0, 0.6);
+      --popup-bg: #ffffff;
+      --voucher-bg: rgba(139, 92, 246, 0.05);
       --new-badge-bg: linear-gradient(135deg, #10b981, #059669);
       --reward-card-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-      --input-bg: rgba(139, 92, 246, 0.05); --expired-bg: rgba(239, 68, 68, 0.1);
-      --expired-border: rgba(239, 68, 68, 0.3); --expired-text: #ef4444;
+      --input-bg: rgba(139, 92, 246, 0.05);
     }
+
+    /* DARK MODE */
     body.dark {
-      --bg-body: #030014; --bg-card: #0a0a1a; --text-primary: #f1f5f9; --text-soft: #94a3b8;
-      --accent-ungu: #a78bfa; --accent-ungu-light: #c4b5fd; --accent-pink: #f472b6;
-      --border-muted: rgba(139, 92, 246, 0.2); --gradient-primary: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
-      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3); --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-      --glass-bg: rgba(15, 15, 30, 0.8); --bottom-nav-bg: rgba(10, 10, 26, 0.98);
-      --bottom-nav-border: rgba(139, 92, 246, 0.3); --warning-bg: rgba(251, 191, 36, 0.08);
-      --warning-text: #fbbf24; --keunggulan-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-      --popup-bg: #12121c; --voucher-bg: rgba(139, 92, 246, 0.1); --new-badge-bg: linear-gradient(135deg, #10b981, #059669);
+      --bg-body: #030014;
+      --bg-card: #0a0a1a;
+      --text-primary: #f1f5f9;
+      --text-soft: #94a3b8;
+      --accent-ungu: #a78bfa;
+      --accent-ungu-light: #c4b5fd;
+      --accent-pink: #f472b6;
+      --border-muted: rgba(139, 92, 246, 0.2);
+      --gradient-primary: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --glass-bg: rgba(15, 15, 30, 0.8);
+      --bottom-nav-bg: rgba(10, 10, 26, 0.98);
+      --bottom-nav-border: rgba(139, 92, 246, 0.3);
+      --warning-bg: rgba(251, 191, 36, 0.08);
+      --warning-text: #fbbf24;
+      --keunggulan-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+      --popup-bg: #12121c;
+      --voucher-bg: rgba(139, 92, 246, 0.1);
+      --new-badge-bg: linear-gradient(135deg, #10b981, #059669);
       --reward-card-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
-      --input-bg: rgba(139, 92, 246, 0.1); --expired-bg: rgba(239, 68, 68, 0.15);
+      --input-bg: rgba(139, 92, 246, 0.1);
     }
-    .app-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-muted); position: sticky; top: 0; z-index: 20; }
-    .brand-app { display: flex; align-items: center; gap: 12px; }
-    .brand-app .icon-wrapper { width: 44px; height: 44px; background: var(--gradient-primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-glow); }
-    .brand-app i { font-size: 1.6rem; color: white; }
-    .brand-app h1 { font-size: 1.7rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -0.5px; }
-    .theme-toggle-app { display: flex; align-items: center; gap: 10px; background: var(--gradient-primary); border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4); }
-    .theme-toggle-app:hover { transform: scale(1.02); }
-    .theme-toggle-app i { font-size: 1rem; color: white; }
-    .theme-toggle-app span { font-size: 0.85rem; font-weight: 700; color: white; }
-    .operational-panel { background: var(--glass-bg); backdrop-filter: blur(12px); border-radius: 28px; padding: 16px 20px; margin-bottom: 20px; border: 1px solid var(--border-muted); box-shadow: var(--shadow-sm); }
-    .time-info { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
-    .time-display { display: flex; align-items: center; gap: 8px; background: var(--bg-card); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--border-muted); }
-    .time-display i { color: var(--accent-ungu); }
-    .status-wrapper { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .status-badge { padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-    .status-badge.open { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .status-badge.closed { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-    .new-version-badge { background: var(--new-badge-bg); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; color: white; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); animation: pulseGlow 2s infinite; white-space: nowrap; }
-    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); opacity: 1; } 50% { box-shadow: 0 4px 15px rgba(16, 185, 129, 0.6); opacity: 0.9; } }
-    .new-version-badge i { font-size: 0.7rem; animation: rotateIcon 1s ease-in-out infinite; }
-    @keyframes rotateIcon { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-5deg); } }
-    .warning-banner { background: var(--warning-bg); border: 1px solid var(--warning-border); color: var(--warning-text); padding: 14px 18px; border-radius: 28px; margin-bottom: 20px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .banner-slider { border-radius: 28px; overflow: hidden; margin-bottom: 24px; box-shadow: var(--shadow-md); }
-    .swiper { width: 100%; height: 160px; }
-    .swiper-slide { background-size: cover; background-position: center; position: relative; display: flex; align-items: center; justify-content: center; }
-    .swiper-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)); }
-    .swiper-slide span { position: relative; z-index: 2; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 8px 24px; border-radius: 60px; color: white; font-weight: 700; font-size: 1rem; }
-    .section-title { display: flex; align-items: baseline; justify-content: space-between; margin: 24px 0 16px 0; }
-    .section-title h3 { font-size: 1.3rem; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .section-title span { font-size: 0.75rem; color: var(--text-soft); }
-    .game-simple-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
-    .game-simple-link { background: var(--glass-bg); backdrop-filter: blur(12px); border-radius: 32px; padding: 20px 12px; text-align: center; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); border: 1px solid var(--border-muted); cursor: pointer; text-decoration: none; position: relative; overflow: hidden; }
-    .game-simple-link::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-primary); transform: translateX(-100%); transition: transform 0.4s ease; }
-    .game-simple-link:hover:not(.disabled)::before { transform: translateX(0); }
-    .game-simple-link:hover:not(.disabled) { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .game-simple-link.disabled { opacity: 0.5; pointer-events: none; filter: grayscale(0.3); }
-    .logo-gambar { width: 100px; height: 100px; margin: 0 auto 12px; border-radius: 28px; overflow: hidden; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); transition: all 0.3s ease; }
-    .game-simple-link:hover:not(.disabled) .logo-gambar { transform: scale(1.05); box-shadow: var(--shadow-glow); }
-    .logo-gambar img { width: 100%; height: 100%; object-fit: cover; }
-    .game-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 6px; }
+
+    /* LOADING SCREEN OVERLAY - PERBAIKAN LOGO */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(12px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .loading-container {
+      text-align: center;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .loading-overlay.active .loading-container {
+      transform: scale(1);
+    }
+    .loading-logo {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+      background: white;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+      animation: pulseLogo 1s ease-in-out infinite;
+      overflow: hidden;
+      /* GARIS TEPI HITAM */
+      border: 3px solid #000000;
+    }
+    .loading-logo img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      display: block;
+    }
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(139, 92, 246, 0.8); }
+    }
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #8b5cf6;
+      border-right: 4px solid #ec4899;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-text {
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin-top: 12px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .loading-sub {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 8px;
+    }
+
+    /* HEADER */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-muted);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand-app {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-app .icon-wrapper {
+      width: 44px;
+      height: 44px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-glow);
+      overflow: hidden;
+    }
+    .brand-app .icon-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .brand-app i {
+      display: none;
+    }
+    .brand-app h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .theme-toggle-app {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 40px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+    .theme-toggle-app:hover {
+      transform: scale(1.02);
+    }
+    .theme-toggle-app i {
+      font-size: 1rem;
+      color: white;
+      display: inline-block;
+    }
+    .theme-toggle-app span {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* OPERATIONAL PANEL */
+    .operational-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-muted);
+      box-shadow: var(--shadow-sm);
+    }
+    .time-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .time-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border-muted);
+    }
+    .time-display i {
+      color: var(--accent-ungu);
+    }
+    .status-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .status-badge {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-badge.open {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-badge.closed {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .new-version-badge {
+      background: var(--new-badge-bg);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      animation: pulseGlow 2s infinite;
+      white-space: nowrap;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); opacity: 1; }
+      50% { box-shadow: 0 4px 15px rgba(16, 185, 129, 0.6); opacity: 0.9; }
+    }
+    .new-version-badge i {
+      font-size: 0.7rem;
+      animation: rotateIcon 1s ease-in-out infinite;
+    }
+    @keyframes rotateIcon {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    .warning-banner {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning-text);
+      padding: 14px 18px;
+      border-radius: 28px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* BANNER SLIDER */
+    .banner-slider {
+      border-radius: 28px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+    }
+    .swiper {
+      width: 100%;
+      height: 160px;
+    }
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .swiper-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+    }
+    .swiper-slide span {
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      padding: 8px 24px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 24px 0 16px 0;
+    }
+    .section-title h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-title span {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    /* GAME GRID */
+    .game-simple-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .game-simple-link {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      padding: 20px 12px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border: 1px solid var(--border-muted);
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+    .game-simple-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .game-simple-link:hover:not(.disabled)::before {
+      transform: translateX(0);
+    }
+    .game-simple-link:hover:not(.disabled) {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .game-simple-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      filter: grayscale(0.3);
+    }
+    .logo-gambar {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 12px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+    }
+    .game-simple-link:hover:not(.disabled) .logo-gambar {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow);
+    }
+    .logo-gambar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .game-name {
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
     .ff-name { background: linear-gradient(135deg, #e64545, #ff6b6b); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .ml-name { background: linear-gradient(135deg, #2b7ae2, #6bb5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .capcut-name { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .aligthmotion-name { background: linear-gradient(135deg, #fd4b5c, #ff7b8c); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .game-simple-link small { font-size: 0.7rem; color: var(--text-soft); display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .game-simple-link small {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* REWARD SECTION */
     .reward-section { margin: 20px 0; }
     .reward-header { text-align: center; margin-bottom: 24px; }
     .reward-header i { font-size: 3rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 8px; }
     .reward-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
     .reward-header p { font-size: 0.8rem; color: var(--text-soft); }
-    .reward-card { background: var(--reward-card-bg); border: 1px solid var(--border-muted); border-radius: 32px; padding: 24px; text-align: center; margin-bottom: 20px; backdrop-filter: blur(8px); transition: all 0.3s ease; }
-    .reward-card.expired-card { background: var(--expired-bg); border-color: var(--expired-border); }
+    .reward-card {
+      background: var(--reward-card-bg);
+      border: 1px solid var(--border-muted);
+      border-radius: 32px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
     .reward-card:hover { transform: translateY(-4px); border-color: var(--accent-ungu); box-shadow: var(--shadow-md); }
     .reward-icon { width: 80px; height: 80px; background: var(--gradient-primary); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: var(--shadow-glow); }
     .reward-icon i { font-size: 2.5rem; color: white; }
     .reward-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
-    .voucher-code-display { background: var(--gradient-primary); padding: 10px 20px; border-radius: 60px; display: inline-block; margin: 12px 0; font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; color: white; font-family: monospace; }
-    .countdown-timer { background: var(--glass-bg); padding: 12px; border-radius: 28px; margin: 16px 0; text-align: center; border: 1px solid var(--border-muted); }
-    .countdown-timer .label { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 8px; }
-    .timer-numbers { display: flex; justify-content: center; gap: 12px; }
-    .timer-block { background: var(--bg-card); padding: 8px 12px; border-radius: 16px; min-width: 60px; border: 1px solid var(--border-muted); }
-    .timer-block span:first-child { font-size: 1.5rem; font-weight: 800; font-family: monospace; display: block; }
-    .timer-block span:last-child { font-size: 0.6rem; color: var(--text-soft); }
-    .expired-message { background: var(--expired-bg); border: 1px solid var(--expired-border); border-radius: 28px; padding: 16px; margin: 16px 0; text-align: center; }
-    .expired-message i { font-size: 2rem; color: var(--expired-text); margin-bottom: 8px; display: block; }
-    .expired-message strong { color: var(--expired-text); font-size: 1rem; }
+    .reward-points { display: inline-flex; align-items: center; gap: 6px; background: var(--glass-bg); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; color: var(--accent-ungu); border: 1px solid var(--border-muted); }
+    .game-selector { margin-bottom: 20px; }
+    .game-option { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
+    .game-btn { flex: 1; padding: 12px; background: var(--glass-bg); border: 2px solid var(--border-muted); border-radius: 60px; font-weight: 700; font-size: 0.9rem; color: var(--text-soft); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .game-btn.active { background: var(--gradient-primary); border-color: transparent; color: white; box-shadow: var(--shadow-glow); }
     .input-group { margin-bottom: 16px; text-align: left; }
     .input-group label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; color: var(--text-soft); }
-    .input-group input { width: 100%; padding: 14px 18px; background: var(--input-bg); border: 1px solid var(--border-muted); border-radius: 60px; font-size: 0.9rem; color: var(--text-primary); outline: none; transition: all 0.3s ease; }
+    .input-group input { width: 100%; padding: 14px 18px; background: var(--input-bg); border: 1px solid var(--border-muted); border-radius: 60px; font-size: 0.9rem; color: var(--text-primary); outline: none; }
     .input-group input:focus { border-color: var(--accent-ungu); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
-    .redeem-button { width: 100%; padding: 14px; background: var(--gradient-primary); border: none; border-radius: 60px; color: white; font-weight: 800; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
-    .redeem-button.disabled-btn, .redeem-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; background: var(--text-soft); }
-    .redeem-button:hover:not(:disabled):not(.disabled-btn) { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-    .promo-section { margin: 20px 0; }
+    .redeem-button { width: 100%; padding: 14px; background: var(--gradient-primary); border: none; border-radius: 60px; color: white; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
+    .coming-soon-message { text-align: center; padding: 20px; background: var(--glass-bg); border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-muted); }
     .voucher-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .voucher-card { background: var(--voucher-bg); border: 1px solid var(--border-muted); border-radius: 28px; padding: 20px 16px; text-align: center; transition: all 0.3s ease; }
-    .voucher-card:hover { transform: translateY(-4px); border-color: var(--accent-ungu); box-shadow: var(--shadow-md); }
-    .voucher-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 25px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; box-shadow: var(--shadow-sm); }
+    .voucher-card:hover { transform: translateY(-4px); border-color: var(--accent-ungu); }
+    .voucher-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 25px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
     .voucher-icon i { font-size: 2rem; color: white; }
     .voucher-title { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: var(--text-primary); }
     .voucher-desc { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 12px; }
     .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: var(--accent-ungu); border: 1px solid var(--border-muted); }
-    .keunggulan-section { background: var(--keunggulan-bg); border-radius: 32px; padding: 20px; display: flex; justify-content: space-around; margin: 20px 0; flex-wrap: wrap; gap: 16px; border: 1px solid var(--border-muted); backdrop-filter: blur(8px); }
-    .keunggulan-item { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.85rem; padding: 8px 12px; border-radius: 60px; background: var(--glass-bg); transition: all 0.3s ease; }
+
+    /* KEUNGGULAN */
+    .keunggulan-section {
+      background: var(--keunggulan-bg);
+      border-radius: 32px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+      border: 1px solid var(--border-muted);
+      backdrop-filter: blur(8px);
+    }
+    .keunggulan-item { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.85rem; padding: 8px 12px; border-radius: 60px; background: var(--glass-bg); }
     .keunggulan-item i { font-size: 1.4rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .footer-staa { text-align: center; padding: 20px 0 30px; font-size: 0.7rem; color: var(--text-soft); border-top: 1px solid var(--border-muted); margin-top: 16px; }
-    .bottom-nav { position: relative; background: var(--bottom-nav-bg); backdrop-filter: blur(20px); border-top: 1px solid var(--bottom-nav-border); display: flex; justify-content: space-around; align-items: center; padding: 12px 20px 20px; z-index: 30; }
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; border: none; cursor: pointer; color: var(--text-soft); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); font-size: 0.7rem; padding: 8px 16px; border-radius: 40px; }
+
+    /* BOTTOM NAVIGATION */
+    .bottom-nav {
+      position: relative;
+      background: var(--bottom-nav-bg);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--bottom-nav-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 12px 20px 20px;
+      z-index: 30;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text-soft);
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      font-size: 0.7rem;
+      padding: 8px 16px;
+      border-radius: 40px;
+    }
     .nav-item i { font-size: 1.5rem; transition: transform 0.2s ease; }
     .nav-item.active { color: var(--accent-ungu); background: var(--glass-bg); }
     .nav-item.active i { transform: translateY(-2px); }
-    .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(16px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+    /* POPUP */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
     .popup-overlay.active { opacity: 1; visibility: visible; }
-    .popup-container { width: 88%; max-width: 380px; background: var(--popup-bg); border-radius: 48px; padding: 28px 24px; position: relative; box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4); border: 1px solid var(--border-muted); transform: scale(0.9); transition: transform 0.4s ease; }
+    .popup-container {
+      width: 88%;
+      max-width: 380px;
+      background: var(--popup-bg);
+      border-radius: 48px;
+      padding: 28px 24px;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
+      border: 1px solid var(--border-muted);
+      transform: scale(0.9);
+      transition: transform 0.4s ease;
+    }
     .popup-overlay.active .popup-container { transform: scale(1); }
     .popup-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; }
-    .popup-image-container { width: 100%; height: 180px; border-radius: 32px; overflow: hidden; margin: 16px 0; pointer-events: none; }
+    .popup-image-container { width: 100%; height: 180px; border-radius: 32px; overflow: hidden; margin: 16px 0; }
     .popup-image { width: 100%; height: 100%; object-fit: cover; }
     .popup-button { background: var(--gradient-primary); border: none; padding: 14px; border-radius: 60px; color: white; font-weight: 800; width: 100%; margin-top: 16px; cursor: pointer; }
-    @media (max-width: 480px) { .app-content { padding: 0 16px 16px 16px; } .logo-gambar { width: 80px; height: 80px; } .game-name { font-size: 0.95rem; } .brand-app h1 { font-size: 1.4rem; } .timer-block { min-width: 45px; padding: 6px 8px; } .timer-block span:first-child { font-size: 1rem; } }
+
+    @media (max-width: 480px) {
+      .app-content { padding: 0 16px 16px 16px; }
+      .logo-gambar { width: 80px; height: 80px; }
+      .game-name { font-size: 0.95rem; }
+      .brand-app h1 { font-size: 1.4rem; }
+    }
   </style>
 </head>
 <body>
 <div id="app-root">
   <div class="app-header">
     <div class="brand-app">
-      <div class="icon-wrapper"><i class="fas fa-crown"></i></div>
+      <div class="icon-wrapper">
+        <img src="https://i.ibb.co.com/5xTcBxGB/file-0000000010487208a5aaa99358f12131.png" alt="STAA STORE LOGO">
+      </div>
       <h1>STAA STORE</h1>
     </div>
     <div class="theme-toggle-app" id="themeToggleBtn">
@@ -174,23 +684,25 @@
         <div class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--:--</span></div>
         <div class="time-display"><i class="fas fa-calendar-check"></i> <span>07:00 - 21:00 WIB</span></div>
         <div class="status-wrapper">
-          <div id="statusBadge" class="status-badge open"><i class="fas fa-check-circle"></i> <span id="statusText">BUKA</span></div>
+          <div id="statusBadge" class="status-badge open"><i class="fas fa-check-circle"></i> <span>BUKA</span></div>
           <div class="new-version-badge"><i class="fas fa-star-of-life"></i><span>NEW VERSION</span><i class="fas fa-bolt"></i></div>
         </div>
       </div>
     </div>
     <div id="warningBanner" class="warning-banner" style="display: none;"><i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko sedang tutup</span></div>
+
     <div class="banner-slider" data-aos="zoom-in">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/YTjpgrpn/Banner-Ramadan-Dekoratif-Ornamental-Coklat-Krem-20260306-201402-000.jpg');"></div>
-          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/nsyLDf8Y/IMG-20260320164313402.jpg');"></div>
-          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/jPZzjzcM/527285496-2.jpg');"></div>
+          <div class="swiper-slide" style="background-image: url('https://assets.pikiran-rakyat.com/crop/0x0:0x0/720x0/webp/photo/2024/03/11/412049712.jpg');"><span>🔥 FREE FIRE EVENT</span></div>
+          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/Q3tncwc1/images-5.jpg');"><span>⚡ MLBB SPECIAL</span></div>
           <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format');"><span>🎯 TOP UP AMAN</span></div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
     </div>
+
     <div id="berandaSection">
       <div class="section-title"><h3><i class="fas fa-gamepad"></i> Pilihan Top Up</h3><span>Premium Store</span></div>
       <div class="game-simple-grid">
@@ -200,48 +712,35 @@
         <a href="am.html" target="_blank" class="game-simple-link" id="valorantLink"><div class="logo-gambar"><img src="https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png" alt="Alight Motion"></div><span class="game-name aligthmotion-name">AM PREMIUM</span><small><i class="fa-regular fa-hand-pointer"></i> Beli</small></a>
       </div>
     </div>
+
     <div id="rewardSection" style="display: none;">
       <div class="reward-header"><i class="fas fa-gift"></i><h2>Reward Center</h2><p>Redeem voucher hadiah spesial untukmu!</p></div>
-      <div class="reward-card" id="voucherCard">
-        <div class="reward-icon"><i class="fas fa-ticket-alt"></i></div>
-        <div class="reward-title">Voucher Spesial FFSTAA2026</div>
-        <div class="voucher-code-display"><i class="fas fa-code"></i> FFSTAA2026</div>
-        <div class="countdown-timer" id="countdownContainer">
-          <div class="label"><i class="fas fa-clock"></i> Voucher dapat diredeem pada:</div>
-          <div class="timer-numbers">
-            <div class="timer-block"><span id="days">00</span><span>Hari</span></div>
-            <div class="timer-block"><span id="hours">00</span><span>Jam</span></div>
-            <div class="timer-block"><span id="minutes">00</span><span>Menit</span></div>
-            <div class="timer-block"><span id="seconds">00</span><span>Detik</span></div>
-          </div>
-        </div>
-        <div id="expiredMessage" class="expired-message" style="display: none;"><i class="fas fa-calendar-times"></i><strong>⚠️ VOUCHER KADALUARSA ⚠️</strong><p style="font-size: 0.75rem; margin-top: 8px;">Periode redeem telah berakhir (21 Maret 2026, 09:00 WIB).</p></div>
-        <div id="redeemedMessage" class="expired-message" style="display: none;"><i class="fas fa-check-circle"></i><strong>🎉 VOUCHER TELAH DIGUNAKAN 🎉</strong><p style="font-size: 0.75rem; margin-top: 8px;">Voucher ini sudah diredeem. Hanya bisa digunakan 1x saja.</p></div>
-        <div id="redeemForm">
-          <div class="input-group"><label><i class="fas fa-id-card"></i> ID Free Fire</label><input type="text" id="ffId" placeholder="Masukkan ID Free Fire (contoh: 123456789)"></div>
-          <button class="redeem-button" id="redeemButton"><i class="fas fa-exchange-alt"></i> Redeem Voucher</button>
-          <p style="font-size: 0.7rem; color: var(--text-soft); text-align: center; margin-top: 12px;"><i class="fas fa-info-circle"></i> Voucher FFSTAA2026 hanya bisa digunakan <strong>1x</strong> dan hanya untuk Free Fire</p>
-        </div>
+      <div class="reward-card"><div class="reward-icon"><i class="fas fa-ticket-alt"></i></div><div class="reward-title">Redeem Voucher Hadiah</div><div class="reward-points"><i class="fas fa-star"></i> Masukkan Kode Voucher & Data Akun</div>
+        <div class="game-selector"><div class="game-option"><button class="game-btn active" onclick="selectGame('ff')" id="btnFF"><i class="fas fa-fire"></i> Free Fire</button><button class="game-btn" onclick="selectGame('ml')" id="btnML"><i class="fas fa-skull"></i> Mobile Legends</button></div></div>
+        <div class="input-group"><label><i class="fas fa-ticket-alt"></i> Kode Voucher</label><input type="text" id="voucherCode" placeholder="Contoh: STAA2026 / FREEFIRE10 / MLBB2026"></div>
+        <div id="ffFields"><div class="input-group"><label><i class="fas fa-id-card"></i> ID Free Fire</label><input type="text" id="ffId" placeholder="Masukkan ID Free Fire"></div></div>
+        <div id="mlFields" style="display: none;"><div class="input-group"><label><i class="fas fa-id-card"></i> ID Mobile Legends</label><input type="text" id="mlId" placeholder="Masukkan ID MLBB"></div><div class="input-group"><label><i class="fas fa-server"></i> Server ID</label><input type="text" id="mlServer" placeholder="Masukkan Server ID"></div></div>
+        <button class="redeem-button" onclick="showRedeemComingSoon()"><i class="fas fa-exchange-alt"></i> Redeem Sekarang</button>
       </div>
+      <div class="coming-soon-message"><i class="fas fa-clock"></i><strong style="display: block; margin-bottom: 8px;">🎁 Fitur Redeem Voucher Segera Hadir!</strong><p style="font-size: 0.75rem;">Dapatkan voucher diskon, diamond gratis, dan hadiah spesial lainnya.</p></div>
     </div>
+
     <div id="promoSection" style="display: none;">
       <div class="section-title"><h3><i class="fas fa-ticket-alt"></i> Voucher Spesial</h3><span>Segera Hadir</span></div>
-      <div class="voucher-grid">
-        <div class="voucher-card"><div class="voucher-icon"><i class="fas fa-gem"></i></div><div class="voucher-title">DISKON 20%</div><div class="voucher-desc">Minimal Top Up 100 Diamond</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div>
-        <div class="voucher-card"><div class="voucher-icon"><i class="fas fa-bolt"></i></div><div class="voucher-title">CASHBACK 10K</div><div class="voucher-desc">Setiap Top Up Free Fire</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div>
-        <div class="voucher-card"><div class="voucher-icon"><i class="fas fa-crown"></i></div><div class="voucher-title">BONUS MEMBER</div><div class="voucher-desc">Extra 5% untuk semua produk</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div>
-        <div class="voucher-card"><div class="voucher-icon"><i class="fas fa-gift"></i></div><div class="voucher-title">RAMADAN SPECIAL</div><div class="voucher-desc">Diskon 15% + Free Skin</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div>
-      </div>
+      <div class="voucher-grid"><div class="voucher-card"><div class="voucher-icon"><i class="fas fa-gem"></i></div><div class="voucher-title">DISKON 20%</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div></div>
     </div>
+
     <div id="profileSection" style="display: none;">
       <div class="section-title"><h3><i class="fas fa-user-circle"></i> Akun Saya</h3><span>Premium Member</span></div>
-      <div class="voucher-grid" style="grid-template-columns: 1fr;"><div class="voucher-card" style="padding: 30px;"><div class="voucher-icon" style="width: 90px; height: 90px;"><i class="fas fa-user-astronaut"></i></div><div class="voucher-title" style="font-size: 1.2rem;">STAA Premium User</div><div class="voucher-desc">Fitur profile akan segera hadir</div><div class="coming-soon-badge"><i class="fas fa-rocket"></i> Coming Soon</div></div></div>
+      <div class="voucher-grid" style="grid-template-columns: 1fr;"><div class="voucher-card" style="padding: 30px;"><div class="voucher-icon" style="width: 90px; height: 90px;"><i class="fas fa-user-astronaut"></i></div><div class="voucher-title" style="font-size: 1.2rem;">STAA Premium User</div><div class="coming-soon-badge"><i class="fas fa-rocket"></i> Coming Soon</div></div></div>
     </div>
+
     <div id="keunggulanFooter">
       <div class="keunggulan-section"><div class="keunggulan-item"><i class="fas fa-bolt"></i><span>Proses Cepat</span></div><div class="keunggulan-item"><i class="fas fa-shield-alt"></i><span>100% Aman</span></div><div class="keunggulan-item"><i class="fas fa-headset"></i><span>CS 24/7</span></div><div class="keunggulan-item"><i class="fas fa-tag"></i><span>Termurah</span></div></div>
       <div class="footer-staa"><span>✦</span> <strong>© 2026 STAA STORE</strong> <span>✦</span> <i class="fa-solid fa-circle" style="font-size: 0.4rem;"></i> <span>#TopUpPremium</span></div>
     </div>
   </div>
+
   <div class="bottom-nav">
     <button class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Beranda</span></button>
     <button class="nav-item" data-nav="reward"><i class="fas fa-gift"></i><span>Reward</span></button>
@@ -249,9 +748,30 @@
     <button class="nav-item" data-nav="profile"><i class="fas fa-user"></i><span>Akun</span></button>
   </div>
 </div>
-<div class="popup-overlay" id="premiumPopup">
-  <div class="popup-container"><div class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></div><span class="popup-badge" style="background: var(--gradient-primary); display: inline-block; padding: 6px 16px; border-radius: 30px; color:white; font-size:0.7rem;"><i class="fas fa-gem"></i> PREMIUM OFFER</span><h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA STORE</h2><div class="popup-image-container"><img src="https://i.ibb.co.com/jPZzjzcM/527285496-2.jpg" class="popup-image" id="popupImage"></div><div style="text-align:center; font-size:0.8rem; margin-bottom: 12px;"><i class="fas fa-camera"></i> <span id="imageCaption">✨ Special Ramadan Event - Rewards SG2 SKIN ✨</span></div><div style="margin: 12px 0; font-size:0.85rem; line-height:1.5;"><i class="fas fa-quote-left"></i> Ayo Top Up disini, harga termurah, CS 24/7! <i class="fas fa-quote-right"></i></div><button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button><div style="display:flex; justify-content:center; gap:10px; margin-top:14px;"><input type="checkbox" id="dontShowAgain"> <label style="font-size:0.7rem;">Jangan tampilkan lagi</label></div></div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-container">
+    <div class="loading-logo">
+      <img src="https://i.ibb.co.com/5xTcBxGB/file-0000000010487208a5aaa99358f12131.png" alt="STAA STORE">
+    </div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text">MENGARAHKAN ANDA...</div>
+    <div class="loading-sub">STAA STORE • Top Up Termurah</div>
+  </div>
 </div>
+
+<!-- POPUP PREMIUM -->
+<div class="popup-overlay" id="premiumPopup">
+  <div class="popup-container">
+    <div class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></div>
+    <h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA STORE</h2>
+    <div class="popup-image-container"><img src="https://i.ibb.co.com/jPZzjzcM/527285496-2.jpg" class="popup-image"></div>
+    <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
+    <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;"><input type="checkbox" id="dontShowAgain"> <label style="font-size:0.7rem;">Jangan tampilkan lagi</label></div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -267,7 +787,7 @@
       if(isDark) { toggleIconSun.style.display = 'none'; toggleIconMoon.style.display = 'inline-block'; toggleText.innerText = 'Dark'; }
       else { toggleIconSun.style.display = 'inline-block'; toggleIconMoon.style.display = 'none'; toggleText.innerText = 'Light'; }
     }
-    if(localStorage.getItem('staa-theme') === 'dark') { document.body.classList.add('dark'); updateThemeUI(true); }
+    if(localStorage.getItem('staa-theme') === 'dark') { document.body.classList.add('dark'); updateThemeUI(true); } 
     else { updateThemeUI(false); }
     themeBtn.addEventListener('click', () => {
       const isDark = !document.body.classList.contains('dark');
@@ -290,18 +810,8 @@
       const wib = getCurrentWIBTime();
       currentTimeEl.textContent = formatTime(wib.hours, wib.minutes, wib.seconds);
       const isOpen = isWithinOperationalHours();
-      if(isOpen) {
-        statusBadge.className = 'status-badge open';
-        statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span>BUKA</span>';
-        warningBanner.style.display = 'none';
-        allLinks.forEach(link => link?.classList.remove('disabled'));
-      } else {
-        statusBadge.className = 'status-badge closed';
-        statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span>TUTUP</span>';
-        warningBanner.style.display = 'flex';
-        warningMessage.innerText = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB).`;
-        allLinks.forEach(link => link?.classList.add('disabled'));
-      }
+      if(isOpen) { statusBadge.className = 'status-badge open'; statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span>BUKA</span>'; warningBanner.style.display = 'none'; allLinks.forEach(link => link?.classList.remove('disabled')); }
+      else { statusBadge.className = 'status-badge closed'; statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span>TUTUP</span>'; warningBanner.style.display = 'flex'; warningMessage.innerText = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB).`; allLinks.forEach(link => link?.classList.add('disabled')); }
     }
     setInterval(updateStoreStatus, 1000);
     updateStoreStatus();
@@ -312,7 +822,6 @@
     const promoSection = document.getElementById('promoSection');
     const profileSection = document.getElementById('profileSection');
     const navItems = document.querySelectorAll('.nav-item');
-    const contentDiv = document.getElementById('appContent');
     const keunggulanFooter = document.getElementById('keunggulanFooter');
     function showSection(sectionName) {
       berandaSection.style.display = 'none'; rewardSection.style.display = 'none'; promoSection.style.display = 'none'; profileSection.style.display = 'none';
@@ -321,7 +830,7 @@
       else if(sectionName === 'promo') promoSection.style.display = 'block';
       else if(sectionName === 'profile') profileSection.style.display = 'block';
       keunggulanFooter.style.display = 'block';
-      contentDiv.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('appContent').scrollTo({ top: 0, behavior: 'smooth' });
     }
     function setActiveNav(navId) { navItems.forEach(item => { if(item.getAttribute('data-nav') === navId) item.classList.add('active'); else item.classList.remove('active'); }); }
     navItems.forEach(btn => { btn.addEventListener('click', () => { const navId = btn.getAttribute('data-nav'); setActiveNav(navId); if(navId === 'home') showSection('home'); else if(navId === 'reward') showSection('reward'); else if(navId === 'promo') showSection('promo'); else if(navId === 'profile') showSection('profile'); }); });
@@ -329,174 +838,38 @@
 
     // Popup
     const popup = document.getElementById('premiumPopup');
-    function shouldShowPopup() { return !localStorage.getItem('popupClosed'); }
-    if(shouldShowPopup()) { setTimeout(()=> popup.classList.add('active'), 600); }
+    if(!localStorage.getItem('popupClosed')) { setTimeout(()=> popup.classList.add('active'), 600); }
     window.closePopup = function() { popup.classList.remove('active'); };
     document.getElementById('dontShowAgain')?.addEventListener('change', function(e) { if(e.target.checked) localStorage.setItem('popupClosed', 'true'); else localStorage.removeItem('popupClosed'); });
 
-    // ========== VOUCHER FFSTAA2026 - HANYA BISA DIGUNAKAN SETELAH 21 MARET 2026 JAM 09:00 WIB ==========
-    // Target: 21 Maret 2026, 09:00:00 WIB (UTC+7)
-    const targetDate = new Date(2026, 2, 21, 9, 0, 0); // Month 2 = March
-    const voucherKey = 'ffstaa2026_redeemed_permanent';
-    
-    const countdownContainer = document.getElementById('countdownContainer');
-    const expiredMessageDiv = document.getElementById('expiredMessage');
-    const redeemedMessageDiv = document.getElementById('redeemedMessage');
-    const redeemFormDiv = document.getElementById('redeemForm');
-    const redeemButton = document.getElementById('redeemButton');
-    const ffIdInput = document.getElementById('ffId');
-    const voucherCard = document.getElementById('voucherCard');
-    
-    // Cek apakah voucher sudah pernah diredeem
-    function isVoucherRedeemed() {
-      return localStorage.getItem(voucherKey) === 'true';
+    // LOADING 3 DETIK DENGAN LOGO TAMPAK JELAS + BORDER HITAM
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    let loadingTimer = null;
+    function showLoadingAndRedirect(url) {
+      if (!url) return;
+      if (loadingOverlay.classList.contains('active')) return;
+      loadingOverlay.classList.add('active');
+      loadingTimer = setTimeout(() => { window.location.href = url; }, 3000);
     }
-    
-    // Tandai voucher sudah digunakan
-    function markVoucherRedeemed(ffId) {
-      localStorage.setItem(voucherKey, 'true');
-      localStorage.setItem('ffstaa2026_redeemed_id', ffId);
-      localStorage.setItem('ffstaa2026_redeemed_time', new Date().toISOString());
-    }
-    
-    // Cek status voucher (expired/redeemed/available)
-    function checkVoucherStatus() {
-      const now = new Date();
-      const isExpired = now >= targetDate;
-      const isAlreadyRedeemed = isVoucherRedeemed();
-      
-      if (isAlreadyRedeemed) {
-        countdownContainer.style.display = 'none';
-        expiredMessageDiv.style.display = 'none';
-        redeemedMessageDiv.style.display = 'block';
-        redeemFormDiv.style.display = 'none';
-        voucherCard.classList.add('expired-card');
-        return 'redeemed';
-      } else if (isExpired) {
-        countdownContainer.style.display = 'none';
-        expiredMessageDiv.style.display = 'block';
-        redeemedMessageDiv.style.display = 'none';
-        redeemFormDiv.style.display = 'none';
-        voucherCard.classList.add('expired-card');
-        return 'expired';
-      } else {
-        // Belum expired dan belum diredeem, tampilkan form (tapi tombol disable jika belum waktunya)
-        countdownContainer.style.display = 'block';
-        expiredMessageDiv.style.display = 'none';
-        redeemedMessageDiv.style.display = 'none';
-        redeemFormDiv.style.display = 'block';
-        voucherCard.classList.remove('expired-card');
-        return 'waiting';
+    allLinks.forEach(link => {
+      if (link) {
+        link.addEventListener('click', function(e) {
+          if (this.classList.contains('disabled')) { e.preventDefault(); alert('Maaf, toko sedang tutup. Operasional 07:00 - 21:00 WIB'); return; }
+          const targetUrl = this.getAttribute('href');
+          if (targetUrl && !targetUrl.startsWith('#')) { e.preventDefault(); showLoadingAndRedirect(targetUrl); }
+        });
       }
-    }
-    
-    // Update countdown dan status tombol redeem
-    function updateCountdownAndButton() {
-      const now = new Date();
-      const diff = targetDate - now;
-      const isAlreadyRedeemed = isVoucherRedeemed();
-      
-      // Jika sudah diredeem, stop countdown
-      if (isAlreadyRedeemed) {
-        checkVoucherStatus();
-        return;
-      }
-      
-      if (diff <= 0) {
-        // Waktu sudah tercapai, voucher bisa diredeem
-        checkVoucherStatus();
-        if (redeemButton) {
-          redeemButton.disabled = false;
-          redeemButton.classList.remove('disabled-btn');
-          redeemButton.innerHTML = '<i class="fas fa-exchange-alt"></i> Redeem Voucher Sekarang!';
-        }
-        // Hentikan countdown
-        return;
-      }
-      
-      // Hitung countdown
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      document.getElementById('days').textContent = days.toString().padStart(2, '0');
-      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-      
-      // Tombol redeem tetap disable sebelum waktu tercapai
-      if (redeemButton && !isAlreadyRedeemed) {
-        redeemButton.disabled = true;
-        redeemButton.classList.add('disabled-btn');
-        redeemButton.innerHTML = '<i class="fas fa-clock"></i> Tunggu hingga ' + targetDate.toLocaleDateString('id-ID') + ' 09:00 WIB';
-      }
-    }
-    
-    // Fungsi redeem voucher
-    function redeemVoucher() {
-      const now = new Date();
-      const isAlreadyRedeemed = isVoucherRedeemed();
-      const isExpired = now >= targetDate;
-      
-      // Validasi waktu - HARUS SETELAH 21 MARET 2026 JAM 09:00
-      if (!isExpired) {
-        alert(`⏰ Voucher hanya bisa diredeem mulai ${targetDate.toLocaleDateString('id-ID')} pukul 09:00 WIB!\n\nMasih ada waktu sebelum voucher dapat digunakan.`);
-        return;
-      }
-      
-      if (isAlreadyRedeemed) {
-        alert('⚠️ Maaf, voucher FFSTAA2026 sudah digunakan! Voucher ini hanya bisa digunakan 1x.');
-        checkVoucherStatus();
-        return;
-      }
-      
-      const ffId = ffIdInput.value.trim();
-      if (!ffId) {
-        alert('❌ Harap masukkan ID Free Fire Anda terlebih dahulu!');
-        return;
-      }
-      
-      if (!/^\d+$/.test(ffId)) {
-        alert('❌ ID Free Fire harus berupa angka!');
-        return;
-      }
-      
-      if (ffId.length < 5 || ffId.length > 15) {
-        alert('❌ ID Free Fire tidak valid! Panjang ID biasanya 5-15 digit angka.');
-        return;
-      }
-      
-      // Konfirmasi
-      const confirmRedeem = confirm(`Redeem voucher FFSTAA2026 untuk ID: ${ffId}?\n\n⚠️ Voucher hanya bisa digunakan 1x secara permanen!`);
-      if (!confirmRedeem) return;
-      
-      // Mark voucher sebagai sudah digunakan
-      markVoucherRedeemed(ffId);
-      
-      // Update tampilan
-      checkVoucherStatus();
-      
-      // Kirim ke WhatsApp
-      const message = `Halo Admin STAA STORE!%0A%0A*✅ REDEEM VOUCHER FFSTAA2026*%0A%0A📱 *Game:* Free Fire%0A🆔 *ID Free Fire:* ${ffId}%0A🎫 *Kode Voucher:* FFSTAA2026%0A✨ *Hadiah:* Diamond Gratis + Bonus Spesial%0A📅 *Waktu Redeem:* ${new Date().toLocaleString('id-ID')}%0A%0A_Tolong proses redeem voucher ini._%0A%0ATerima kasih!`;
-      const waUrl = `https://wa.me/6285173511500?text=${message}`;
-      window.open(waUrl, '_blank');
-      
-      alert('✅ Redeem berhasil! Voucher FFSTAA2026 telah ditandai TERPAKAI secara permanen.\n\nAnda akan diarahkan ke WhatsApp admin untuk proses klaim hadiah.');
-    }
-    
-    // Inisialisasi
-    const initialStatus = checkVoucherStatus();
-    if (initialStatus === 'waiting') {
-      updateCountdownAndButton();
-      setInterval(updateCountdownAndButton, 1000);
-    }
-    
-    // Attach event listener
-    if (redeemButton) {
-      redeemButton.addEventListener('click', redeemVoucher);
-    }
+    });
   })();
+
+  function selectGame(game) {
+    const btnFF = document.getElementById('btnFF'), btnML = document.getElementById('btnML'), ffFields = document.getElementById('ffFields'), mlFields = document.getElementById('mlFields');
+    if(game === 'ff') { btnFF.classList.add('active'); btnML.classList.remove('active'); ffFields.style.display = 'block'; mlFields.style.display = 'none'; }
+    else { btnFF.classList.remove('active'); btnML.classList.add('active'); ffFields.style.display = 'none'; mlFields.style.display = 'block'; }
+  }
+  window.showRedeemComingSoon = function() {
+    alert('🎁 Fitur Redeem Voucher Segera Hadir!\n\nDapatkan berbagai hadiah menarik seperti:\n• Diamond Gratis\n• Diskon Spesial\n• Free Skin\n• Cashback\n\nPantau terus update dari STAA STORE!');
+  }
 </script>
 </body>
 </html>
