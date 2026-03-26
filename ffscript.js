@@ -1,6 +1,6 @@
 // ===== KONFIGURASI =====
 const CONFIG = {
-    whatsapp: "6285173511500",
+    whatsapp: "6289524206963",
     gameName: "Free Fire",
     
     // Konfigurasi biaya admin per metode pembayaran
