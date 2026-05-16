@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0">
-  <title>STAA STORE · TOP UP APP</title>
+  <title>STAA PAY · TOP UP APP</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,77 +67,80 @@
       background: transparent;
     }
     .app-content::-webkit-scrollbar-thumb {
-      background: var(--accent-ungu);
+      background: var(--accent-primary);
       border-radius: 10px;
     }
 
-    /* VARIABEL LIGHT */
+    /* VARIABEL LIGHT - Gradasi Biru Tua ke Biru Muda */
     :root {
-      --bg-body: #f8fafc;
+      --bg-body: #f0f4ff;
       --bg-card: #ffffff;
-      --text-primary: #0f172a;
-      --text-soft: #475569;
-      --accent-ungu: #8b5cf6;
-      --accent-ungu-light: #a78bfa;
-      --accent-pink: #ec4899;
-      --accent-pink-light: #f472b6;
-      --border-muted: rgba(139, 92, 246, 0.15);
-      --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-      --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
-      --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-      --glass-bg: rgba(255, 255, 255, 0.75);
+      --text-primary: #0a1628;
+      --text-soft: #3a4f6f;
+      --accent-primary: #1e3a8a;
+      --accent-secondary: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-lighter: #93bbfd;
+      --border-muted: rgba(30, 58, 138, 0.12);
+      --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+      --gradient-secondary: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      --shadow-sm: 0 4px 20px rgba(30, 58, 138, 0.06);
+      --shadow-md: 0 8px 30px rgba(30, 58, 138, 0.1);
+      --shadow-lg: 0 20px 40px rgba(30, 58, 138, 0.12);
+      --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
+      --glass-bg: rgba(255, 255, 255, 0.8);
       --bottom-nav-bg: rgba(255, 255, 255, 0.98);
-      --bottom-nav-border: rgba(139, 92, 246, 0.2);
+      --bottom-nav-border: rgba(30, 58, 138, 0.15);
       --warning-bg: rgba(251, 191, 36, 0.12);
       --warning-border: rgba(251, 191, 36, 0.25);
       --warning-text: #d97706;
-      --keunggulan-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+      --keunggulan-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.06) 0%, rgba(59, 130, 246, 0.08) 100%);
       --popup-overlay: rgba(0, 0, 0, 0.6);
       --popup-bg: #ffffff;
-      --voucher-bg: rgba(139, 92, 246, 0.05);
-      --new-badge-bg: linear-gradient(135deg, #10b981, #059669);
-      --reward-card-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-      --input-bg: rgba(139, 92, 246, 0.05);
+      --voucher-bg: rgba(30, 58, 138, 0.04);
+      --new-badge-bg: linear-gradient(135deg, #059669, #10b981);
+      --reward-card-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.1));
+      --input-bg: rgba(30, 58, 138, 0.04);
     }
 
-    /* DARK MODE */
+    /* DARK MODE - Gradasi Biru Tua ke Biru Muda */
     body.dark {
-      --bg-body: #030014;
-      --bg-card: #0a0a1a;
-      --text-primary: #f1f5f9;
+      --bg-body: #020617;
+      --bg-card: #0f172a;
+      --text-primary: #e2e8f0;
       --text-soft: #94a3b8;
-      --accent-ungu: #a78bfa;
-      --accent-ungu-light: #c4b5fd;
-      --accent-pink: #f472b6;
-      --border-muted: rgba(139, 92, 246, 0.2);
-      --gradient-primary: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+      --accent-primary: #60a5fa;
+      --accent-secondary: #3b82f6;
+      --accent-light: #93bbfd;
+      --accent-lighter: #bfdbfe;
+      --border-muted: rgba(96, 165, 250, 0.15);
+      --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+      --gradient-secondary: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
       --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
       --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
-      --glass-bg: rgba(15, 15, 30, 0.8);
-      --bottom-nav-bg: rgba(10, 10, 26, 0.98);
-      --bottom-nav-border: rgba(139, 92, 246, 0.3);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.35);
+      --glass-bg: rgba(15, 23, 42, 0.85);
+      --bottom-nav-bg: rgba(15, 23, 42, 0.98);
+      --bottom-nav-border: rgba(96, 165, 250, 0.2);
       --warning-bg: rgba(251, 191, 36, 0.08);
       --warning-text: #fbbf24;
-      --keunggulan-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-      --popup-bg: #12121c;
-      --voucher-bg: rgba(139, 92, 246, 0.1);
-      --new-badge-bg: linear-gradient(135deg, #10b981, #059669);
-      --reward-card-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
-      --input-bg: rgba(139, 92, 246, 0.1);
+      --keunggulan-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%);
+      --popup-bg: #0f172a;
+      --voucher-bg: rgba(59, 130, 246, 0.08);
+      --new-badge-bg: linear-gradient(135deg, #059669, #10b981);
+      --reward-card-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.25), rgba(59, 130, 246, 0.2));
+      --input-bg: rgba(59, 130, 246, 0.08);
     }
 
-    /* LOADING SCREEN OVERLAY - PERBAIKAN LOGO */
+    /* LOADING SCREEN OVERLAY */
     .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(2, 6, 23, 0.95);
       backdrop-filter: blur(12px);
       z-index: 10000;
       display: flex;
@@ -168,11 +171,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
       animation: pulseLogo 1s ease-in-out infinite;
       overflow: hidden;
-      /* GARIS TEPI HITAM */
-      border: 3px solid #000000;
+      border: 3px solid #1e3a8a;
     }
     .loading-logo img {
       width: 85%;
@@ -181,15 +183,15 @@
       display: block;
     }
     @keyframes pulseLogo {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
-      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(139, 92, 246, 0.8); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
     }
     .loading-spinner {
       width: 48px;
       height: 48px;
       border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top: 4px solid #8b5cf6;
-      border-right: 4px solid #ec4899;
+      border-top: 4px solid #1e3a8a;
+      border-right: 4px solid #60a5fa;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin: 20px auto;
@@ -204,7 +206,7 @@
       font-size: 1rem;
       letter-spacing: 1px;
       margin-top: 12px;
-      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -274,7 +276,7 @@
       padding: 8px 20px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
     .theme-toggle-app:hover {
       transform: scale(1.02);
@@ -319,7 +321,7 @@
       border: 1px solid var(--border-muted);
     }
     .time-display i {
-      color: var(--accent-ungu);
+      color: var(--accent-secondary);
     }
     .status-wrapper {
       display: flex;
@@ -447,14 +449,39 @@
       color: var(--text-soft);
     }
 
-    /* GAME GRID */
-    .game-simple-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 20px;
+    /* HORIZONTAL SCROLL - 2 KOLOM VERTIKAL */
+    .game-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      cursor: grab;
+    }
+    .game-scroll-wrapper::-webkit-scrollbar {
+      height: 5px;
+      background: var(--border-muted);
+      border-radius: 10px;
+    }
+    .game-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: var(--accent-secondary);
+      border-radius: 10px;
+    }
+    .game-horizontal-flex {
+      display: inline-flex;
+      gap: 18px;
+      padding-right: 20px;
+    }
+    .product-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 150px;
     }
     .game-simple-link {
+      display: block;
+      width: 100%;
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
       border-radius: 32px;
@@ -466,7 +493,6 @@
       text-decoration: none;
       position: relative;
       overflow: hidden;
-      display: block;
     }
     .game-simple-link::before {
       content: '';
@@ -518,10 +544,14 @@
       font-size: 1.1rem;
       margin-bottom: 6px;
     }
-    .ff-name { background: linear-gradient(135deg, #e64545, #ff6b6b); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .ml-name { background: linear-gradient(135deg, #2b7ae2, #6bb5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .capcut-name { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .aligthmotion-name { background: linear-gradient(135deg, #fd4b5c, #ff7b8c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ff-name { background: linear-gradient(135deg, #1e3a8a, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ml-name { background: linear-gradient(135deg, #1e40af, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .capcut-name { background: linear-gradient(135deg, #1e3a8a, #93bbfd); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .aligthmotion-name { background: linear-gradient(135deg, #2563eb, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .change-name { background: linear-gradient(135deg, #1e3a8a, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .valorant-name { background: linear-gradient(135deg, #1e40af, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .codm-name { background: linear-gradient(135deg, #1e3a8a, #93bbfd); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .pubg-name { background: linear-gradient(135deg, #2563eb, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .game-simple-link small {
       font-size: 0.7rem;
       color: var(--text-soft);
@@ -547,11 +577,11 @@
       backdrop-filter: blur(8px);
       transition: all 0.3s ease;
     }
-    .reward-card:hover { transform: translateY(-4px); border-color: var(--accent-ungu); box-shadow: var(--shadow-md); }
+    .reward-card:hover { transform: translateY(-4px); border-color: var(--accent-secondary); box-shadow: var(--shadow-md); }
     .reward-icon { width: 80px; height: 80px; background: var(--gradient-primary); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: var(--shadow-glow); }
     .reward-icon i { font-size: 2.5rem; color: white; }
     .reward-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
-    .reward-points { display: inline-flex; align-items: center; gap: 6px; background: var(--glass-bg); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; color: var(--accent-ungu); border: 1px solid var(--border-muted); }
+    .reward-points { display: inline-flex; align-items: center; gap: 6px; background: var(--glass-bg); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
     .game-selector { margin-bottom: 20px; }
     .game-option { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
     .game-btn { flex: 1; padding: 12px; background: var(--glass-bg); border: 2px solid var(--border-muted); border-radius: 60px; font-weight: 700; font-size: 0.9rem; color: var(--text-soft); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -559,17 +589,17 @@
     .input-group { margin-bottom: 16px; text-align: left; }
     .input-group label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; color: var(--text-soft); }
     .input-group input { width: 100%; padding: 14px 18px; background: var(--input-bg); border: 1px solid var(--border-muted); border-radius: 60px; font-size: 0.9rem; color: var(--text-primary); outline: none; }
-    .input-group input:focus { border-color: var(--accent-ungu); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
+    .input-group input:focus { border-color: var(--accent-secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
     .redeem-button { width: 100%; padding: 14px; background: var(--gradient-primary); border: none; border-radius: 60px; color: white; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
     .coming-soon-message { text-align: center; padding: 20px; background: var(--glass-bg); border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-muted); }
     .voucher-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .voucher-card { background: var(--voucher-bg); border: 1px solid var(--border-muted); border-radius: 28px; padding: 20px 16px; text-align: center; transition: all 0.3s ease; }
-    .voucher-card:hover { transform: translateY(-4px); border-color: var(--accent-ungu); }
+    .voucher-card:hover { transform: translateY(-4px); border-color: var(--accent-secondary); }
     .voucher-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 25px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
     .voucher-icon i { font-size: 2rem; color: white; }
     .voucher-title { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: var(--text-primary); }
     .voucher-desc { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 12px; }
-    .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: var(--accent-ungu); border: 1px solid var(--border-muted); }
+    .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(59, 130, 246, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
 
     /* KEUNGGULAN */
     .keunggulan-section {
@@ -615,7 +645,7 @@
       border-radius: 40px;
     }
     .nav-item i { font-size: 1.5rem; transition: transform 0.2s ease; }
-    .nav-item.active { color: var(--accent-ungu); background: var(--glass-bg); }
+    .nav-item.active { color: var(--accent-secondary); background: var(--glass-bg); }
     .nav-item.active i { transform: translateY(-2px); }
 
     /* POPUP */
@@ -643,7 +673,7 @@
       border-radius: 48px;
       padding: 28px 24px;
       position: relative;
-      box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
+      box-shadow: 0 30px 60px rgba(30, 58, 138, 0.4);
       border: 1px solid var(--border-muted);
       transform: scale(0.9);
       transition: transform 0.4s ease;
@@ -654,11 +684,39 @@
     .popup-image { width: 100%; height: 100%; object-fit: cover; }
     .popup-button { background: var(--gradient-primary); border: none; padding: 14px; border-radius: 60px; color: white; font-weight: 800; width: 100%; margin-top: 16px; cursor: pointer; }
 
+    /* Tambahan untuk popup tutup */
+    .popup-tutup {
+      background: var(--popup-bg);
+      border: 1px solid var(--border-muted);
+    }
+    .popup-tutup .popup-close {
+      background: #ef4444;
+    }
+    .popup-tutup h2 {
+      color: #ef4444;
+      font-weight: 800;
+      font-size: 1.6rem;
+    }
+    .popup-tutup .jam-operasional {
+      background: rgba(239, 68, 68, 0.1);
+      padding: 12px;
+      border-radius: 20px;
+      margin: 16px 0;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #ef4444;
+    }
+
     @media (max-width: 480px) {
       .app-content { padding: 0 16px 16px 16px; }
       .logo-gambar { width: 80px; height: 80px; }
       .game-name { font-size: 0.95rem; }
       .brand-app h1 { font-size: 1.4rem; }
+      .product-column { width: 135px; gap: 16px; }
+      .game-simple-link { padding: 16px 8px; }
     }
   </style>
 </head>
@@ -667,9 +725,9 @@
   <div class="app-header">
     <div class="brand-app">
       <div class="icon-wrapper">
-        <img src="https://i.ibb.co.com/5xTcBxGB/file-0000000010487208a5aaa99358f12131.png" alt="STAA STORE LOGO">
+        <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY LOGO">
       </div>
-      <h1>STAA STORE</h1>
+      <h1>STAA PAY</h1>
     </div>
     <div class="theme-toggle-app" id="themeToggleBtn">
       <i class="fas fa-sun" id="toggleIconSun"></i>
@@ -704,12 +762,11 @@
     </div>
 
     <div id="berandaSection">
-      <div class="section-title"><h3><i class="fas fa-gamepad"></i> Pilihan Top Up</h3><span>Premium Store</span></div>
-      <div class="game-simple-grid">
-        <a href="ff.html" target="_blank" class="game-simple-link" id="ffLink"><div class="logo-gambar"><img src="https://i.ibb.co.com/TxB12q8B/Screenshot-20250516-191232-2450692357.webp" alt="Free Fire"></div><span class="game-name ff-name">Free Fire</span><small><i class="fa-regular fa-hand-pointer"></i> Top Up</small></a>
-        <a href="ml.html" target="_blank" class="game-simple-link" id="mlLink"><div class="logo-gambar"><img src="https://i.ibb.co.com/8LYbYcy9/images-4.jpg" alt="Mobile Legends"></div><span class="game-name ml-name">Mobile Legends</span><small><i class="fa-regular fa-hand-pointer"></i> Top Up</small></a>
-        <a href="cc.html" target="_blank" class="game-simple-link" id="pubgLink"><div class="logo-gambar"><img src="https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png" alt="Capcut"></div><span class="game-name capcut-name">CAPCUT PRO</span><small><i class="fa-regular fa-hand-pointer"></i> Beli</small></a>
-        <a href="am.html" target="_blank" class="game-simple-link" id="valorantLink"><div class="logo-gambar"><img src="https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png" alt="Alight Motion"></div><span class="game-name aligthmotion-name">AM PREMIUM</span><small><i class="fa-regular fa-hand-pointer"></i> Beli</small></a>
+      <div class="section-title"><h3><i class="fas fa-gamepad"></i> Pilihan Top Up</h3><span>Geser ke kiri/kanan</span></div>
+      <div class="game-scroll-wrapper">
+        <div class="game-horizontal-flex" id="gameHorizontalList">
+          <!-- Konten akan di-generate JS -->
+        </div>
       </div>
     </div>
 
@@ -737,7 +794,7 @@
 
     <div id="keunggulanFooter">
       <div class="keunggulan-section"><div class="keunggulan-item"><i class="fas fa-bolt"></i><span>Proses Cepat</span></div><div class="keunggulan-item"><i class="fas fa-shield-alt"></i><span>100% Aman</span></div><div class="keunggulan-item"><i class="fas fa-headset"></i><span>CS 24/7</span></div><div class="keunggulan-item"><i class="fas fa-tag"></i><span>Termurah</span></div></div>
-      <div class="footer-staa"><span>✦</span> <strong>© 2026 STAA STORE</strong> <span>✦</span> <i class="fa-solid fa-circle" style="font-size: 0.4rem;"></i> <span>#TopUpPremium</span></div>
+      <div class="footer-staa"><span>✦</span> <strong>© 2026 STAA PAY</strong> <span>✦</span> <i class="fa-solid fa-circle" style="font-size: 0.4rem;"></i> <span>#TopUpPremium</span></div>
     </div>
   </div>
 
@@ -753,11 +810,11 @@
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-container">
     <div class="loading-logo">
-      <img src="https://i.ibb.co.com/5xTcBxGB/file-0000000010487208a5aaa99358f12131.png" alt="STAA STORE">
+      <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY">
     </div>
     <div class="loading-spinner"></div>
     <div class="loading-text">MENGARAHKAN ANDA...</div>
-    <div class="loading-sub">STAA STORE • Top Up Termurah</div>
+    <div class="loading-sub">STAA PAY • Top Up Termurah</div>
   </div>
 </div>
 
@@ -765,10 +822,26 @@
 <div class="popup-overlay" id="premiumPopup">
   <div class="popup-container">
     <div class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></div>
-    <h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA STORE</h2>
+    <h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA PAY</h2>
     <div class="popup-image-container"><img src="https://i.ibb.co.com/jPZzjzcM/527285496-2.jpg" class="popup-image"></div>
     <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
     <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;"><input type="checkbox" id="dontShowAgain"> <label style="font-size:0.7rem;">Jangan tampilkan lagi</label></div>
+  </div>
+</div>
+
+<!-- POPUP TOKO TUTUP -->
+<div class="popup-overlay" id="tutupPopup">
+  <div class="popup-container popup-tutup">
+    <div class="popup-close" onclick="closeTutupPopup()"><i class="fas fa-times"></i></div>
+    <div style="text-align: center; margin-top: 10px;">
+      <i class="fas fa-store-alt-slash" style="font-size: 3rem; color: #ef4444; margin-bottom: 12px;"></i>
+      <h2>Toko Sedang Tutup</h2>
+      <div class="jam-operasional">
+        <i class="fas fa-clock"></i> <span>07:00 - 21:00 WIB</span>
+      </div>
+      <p style="color: var(--text-soft); font-size: 0.9rem; margin: 12px 0;">Silakan kembali lagi besok saat toko sudah buka ya! 🌙</p>
+      <button class="popup-button" style="background: #ef4444; margin-top: 8px;" onclick="closeTutupPopup()"><i class="fas fa-check"></i> MENGERTI</button>
+    </div>
   </div>
 </div>
 
@@ -799,22 +872,67 @@
     new Swiper('.mySwiper', { loop: true, autoplay: { delay: 3000 }, pagination: { el: '.swiper-pagination', clickable: true } });
 
     // Operational Hours
-    const ffLink = document.getElementById('ffLink'), mlLink = document.getElementById('mlLink'), pubgLink = document.getElementById('pubgLink'), valorantLink = document.getElementById('valorantLink');
-    const allLinks = [ffLink, mlLink, pubgLink, valorantLink];
-    const currentTimeEl = document.getElementById('currentTime'), statusBadge = document.getElementById('statusBadge'), warningBanner = document.getElementById('warningBanner'), warningMessage = document.getElementById('warningMessage');
+    const currentTimeEl = document.getElementById('currentTime'), 
+          statusBadge = document.getElementById('statusBadge'), 
+          warningBanner = document.getElementById('warningBanner'), 
+          warningMessage = document.getElementById('warningMessage');
     const OPEN_HOUR = 7, CLOSE_HOUR = 21;
-    function getCurrentWIBTime() { const now = new Date(); const wibTime = new Date(now.getTime() + (7 * 60 * 60 * 1000)); return { hours: wibTime.getUTCHours(), minutes: wibTime.getUTCMinutes(), seconds: wibTime.getUTCSeconds() }; }
-    function formatTime(h,m,s){ return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; }
-    function isWithinOperationalHours() { const wib = getCurrentWIBTime(); return wib.hours >= OPEN_HOUR && wib.hours < CLOSE_HOUR; }
-    function updateStoreStatus() {
+    
+    const tutupPopup = document.getElementById('tutupPopup');
+    let popupTutupSudahDitampilkan = false;
+    
+    function getAllProductLinks() {
+      return document.querySelectorAll('.game-simple-link');
+    }
+    
+    function getCurrentWIBTime() { 
+      const now = new Date(); 
+      const wibTime = new Date(now.getTime() + (7 * 60 * 60 * 1000)); 
+      return { hours: wibTime.getUTCHours(), minutes: wibTime.getUTCMinutes(), seconds: wibTime.getUTCSeconds() }; 
+    }
+    
+    function formatTime(h,m,s){ 
+      return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; 
+    }
+    
+    function isWithinOperationalHours() { 
+      const wib = getCurrentWIBTime(); 
+      return wib.hours >= OPEN_HOUR && wib.hours < CLOSE_HOUR; 
+    }
+    
+    function updatePAYStatus() {
       const wib = getCurrentWIBTime();
       currentTimeEl.textContent = formatTime(wib.hours, wib.minutes, wib.seconds);
       const isOpen = isWithinOperationalHours();
-      if(isOpen) { statusBadge.className = 'status-badge open'; statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span>BUKA</span>'; warningBanner.style.display = 'none'; allLinks.forEach(link => link?.classList.remove('disabled')); }
-      else { statusBadge.className = 'status-badge closed'; statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span>TUTUP</span>'; warningBanner.style.display = 'flex'; warningMessage.innerText = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB).`; allLinks.forEach(link => link?.classList.add('disabled')); }
+      const allLinks = getAllProductLinks();
+      
+      if(isOpen) {
+        statusBadge.className = 'status-badge open'; 
+        statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span>BUKA</span>'; 
+        warningBanner.style.display = 'none'; 
+        allLinks.forEach(link => link?.classList.remove('disabled'));
+        popupTutupSudahDitampilkan = false;
+        tutupPopup.classList.remove('active');
+      } else {
+        statusBadge.className = 'status-badge closed'; 
+        statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span>TUTUP</span>'; 
+        warningBanner.style.display = 'flex'; 
+        warningMessage.innerText = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB).`; 
+        allLinks.forEach(link => link?.classList.add('disabled'));
+        
+        if (!popupTutupSudahDitampilkan && !tutupPopup.classList.contains('active')) {
+          tutupPopup.classList.add('active');
+          popupTutupSudahDitampilkan = true;
+        }
+      }
     }
-    setInterval(updateStoreStatus, 1000);
-    updateStoreStatus();
+    
+    setInterval(updatePAYStatus, 1000);
+    updatePAYStatus();
+
+    window.closeTutupPopup = function() {
+      tutupPopup.classList.remove('active');
+    };
 
     // Navigation
     const berandaSection = document.getElementById('berandaSection');
@@ -823,8 +941,12 @@
     const profileSection = document.getElementById('profileSection');
     const navItems = document.querySelectorAll('.nav-item');
     const keunggulanFooter = document.getElementById('keunggulanFooter');
+    
     function showSection(sectionName) {
-      berandaSection.style.display = 'none'; rewardSection.style.display = 'none'; promoSection.style.display = 'none'; profileSection.style.display = 'none';
+      berandaSection.style.display = 'none'; 
+      rewardSection.style.display = 'none'; 
+      promoSection.style.display = 'none'; 
+      profileSection.style.display = 'none';
       if(sectionName === 'home') berandaSection.style.display = 'block';
       else if(sectionName === 'reward') rewardSection.style.display = 'block';
       else if(sectionName === 'promo') promoSection.style.display = 'block';
@@ -832,43 +954,129 @@
       keunggulanFooter.style.display = 'block';
       document.getElementById('appContent').scrollTo({ top: 0, behavior: 'smooth' });
     }
-    function setActiveNav(navId) { navItems.forEach(item => { if(item.getAttribute('data-nav') === navId) item.classList.add('active'); else item.classList.remove('active'); }); }
-    navItems.forEach(btn => { btn.addEventListener('click', () => { const navId = btn.getAttribute('data-nav'); setActiveNav(navId); if(navId === 'home') showSection('home'); else if(navId === 'reward') showSection('reward'); else if(navId === 'promo') showSection('promo'); else if(navId === 'profile') showSection('profile'); }); });
-    showSection('home'); setActiveNav('home');
+    
+    function setActiveNav(navId) { 
+      navItems.forEach(item => { 
+        if(item.getAttribute('data-nav') === navId) item.classList.add('active'); 
+        else item.classList.remove('active'); 
+      }); 
+    }
+    
+    navItems.forEach(btn => { 
+      btn.addEventListener('click', () => { 
+        const navId = btn.getAttribute('data-nav'); 
+        setActiveNav(navId); 
+        if(navId === 'home') showSection('home'); 
+        else if(navId === 'reward') showSection('reward'); 
+        else if(navId === 'promo') showSection('promo'); 
+        else if(navId === 'profile') showSection('profile'); 
+      }); 
+    });
+    
+    showSection('home'); 
+    setActiveNav('home');
 
-    // Popup
+    // Popup Premium
     const popup = document.getElementById('premiumPopup');
-    if(!localStorage.getItem('popupClosed')) { setTimeout(()=> popup.classList.add('active'), 600); }
+    if(!localStorage.getItem('popupClosed')) { 
+      setTimeout(()=> popup.classList.add('active'), 600); 
+    }
     window.closePopup = function() { popup.classList.remove('active'); };
-    document.getElementById('dontShowAgain')?.addEventListener('change', function(e) { if(e.target.checked) localStorage.setItem('popupClosed', 'true'); else localStorage.removeItem('popupClosed'); });
+    document.getElementById('dontShowAgain')?.addEventListener('change', function(e) { 
+      if(e.target.checked) localStorage.setItem('popupClosed', 'true'); 
+      else localStorage.removeItem('popupClosed'); 
+    });
 
-    // LOADING 3 DETIK DENGAN LOGO TAMPAK JELAS + BORDER HITAM
+    // Loading
     const loadingOverlay = document.getElementById('loadingOverlay');
-    let loadingTimer = null;
     function showLoadingAndRedirect(url) {
       if (!url) return;
       if (loadingOverlay.classList.contains('active')) return;
       loadingOverlay.classList.add('active');
-      loadingTimer = setTimeout(() => { window.location.href = url; }, 3000);
+      setTimeout(() => { window.location.href = url; }, 1000);
     }
-    allLinks.forEach(link => {
-      if (link) {
-        link.addEventListener('click', function(e) {
-          if (this.classList.contains('disabled')) { e.preventDefault(); alert('Maaf, toko sedang tutup. Operasional 07:00 - 21:00 WIB'); return; }
-          const targetUrl = this.getAttribute('href');
-          if (targetUrl && !targetUrl.startsWith('#')) { e.preventDefault(); showLoadingAndRedirect(targetUrl); }
-        });
+    
+    function handleLinkClick(e) {
+      if (this.classList.contains('disabled')) { 
+        e.preventDefault();
+        e.stopPropagation();
+        if (!tutupPopup.classList.contains('active')) {
+          tutupPopup.classList.add('active');
+        }
+        return false; 
       }
-    });
+      
+      const targetUrl = this.getAttribute('href');
+      if (targetUrl && !targetUrl.startsWith('#')) { 
+        e.preventDefault(); 
+        showLoadingAndRedirect(targetUrl); 
+      }
+    }
+    
+    function attachLinkListeners() {
+      const allGameLinks = document.querySelectorAll('.game-simple-link');
+      allGameLinks.forEach(link => {
+        link.removeEventListener('click', handleLinkClick);
+        link.addEventListener('click', handleLinkClick);
+      });
+    }
+
+    // Generate produk
+    const products = [
+      { name: "Free Fire", nameClass: "ff-name", img: "https://i.ibb.co.com/TxB12q8B/Screenshot-20250516-191232-2450692357.webp", link: "ff.html", gameId: "ff" },
+      { name: "Mobile Legends", nameClass: "ml-name", img: "https://i.ibb.co.com/8LYbYcy9/images-4.jpg", link: "ml.html", gameId: "ml" },
+      { name: "CAPCUT PRO", nameClass: "capcut-name", img: "https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png", link: "cc.html", gameId: "cc" },
+      { name: "AM PREMIUM", nameClass: "aligthmotion-name", img: "https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png", link: "am.html", gameId: "am" },
+      { name: "TUKAR SALDO", nameClass: "change-name", img: "https://i.ibb.co.com/c9H96w6/1778889627573-2.png", link: "change.html", gameId: "change" }
+    ];
+
+    function buildColumns(arr) {
+      const cols = [];
+      for (let i = 0; i < arr.length; i += 2) {
+        cols.push(arr.slice(i, i + 2));
+      }
+      return cols;
+    }
+
+    const columns = buildColumns(products);
+    const container = document.getElementById('gameHorizontalList');
+    if (container) {
+      container.innerHTML = columns.map(col => {
+        const productsHtml = col.map(p => `
+          <a href="${p.link}" target="_blank" class="game-simple-link" data-game="${p.gameId}">
+            <div class="logo-gambar"><img src="${p.img}" alt="${p.name}"></div>
+            <span class="game-name ${p.nameClass}">${p.name}</span>
+            <small><i class="fa-regular fa-hand-pointer"></i> Top Up</small>
+          </a>
+        `).join('');
+        return `<div class="product-column">${productsHtml}</div>`;
+      }).join('');
+      
+      attachLinkListeners();
+      updatePAYStatus();
+    }
   })();
 
   function selectGame(game) {
-    const btnFF = document.getElementById('btnFF'), btnML = document.getElementById('btnML'), ffFields = document.getElementById('ffFields'), mlFields = document.getElementById('mlFields');
-    if(game === 'ff') { btnFF.classList.add('active'); btnML.classList.remove('active'); ffFields.style.display = 'block'; mlFields.style.display = 'none'; }
-    else { btnFF.classList.remove('active'); btnML.classList.add('active'); ffFields.style.display = 'none'; mlFields.style.display = 'block'; }
+    const btnFF = document.getElementById('btnFF'), 
+          btnML = document.getElementById('btnML'), 
+          ffFields = document.getElementById('ffFields'), 
+          mlFields = document.getElementById('mlFields');
+    if(game === 'ff') { 
+      btnFF.classList.add('active'); 
+      btnML.classList.remove('active'); 
+      ffFields.style.display = 'block'; 
+      mlFields.style.display = 'none'; 
+    } else { 
+      btnFF.classList.remove('active'); 
+      btnML.classList.add('active'); 
+      ffFields.style.display = 'none'; 
+      mlFields.style.display = 'block'; 
+    }
   }
+  
   window.showRedeemComingSoon = function() {
-    alert('🎁 Fitur Redeem Voucher Segera Hadir!\n\nDapatkan berbagai hadiah menarik seperti:\n• Diamond Gratis\n• Diskon Spesial\n• Free Skin\n• Cashback\n\nPantau terus update dari STAA STORE!');
+    alert('🎁 Fitur Redeem Voucher Segera Hadir!\n\nDapatkan berbagai hadiah menarik seperti:\n• Diamond Gratis\n• Diskon Spesial\n• Free Skin\n• Cashback\n\nPantau terus update dari STAA PAY!');
   }
 </script>
 </body>
