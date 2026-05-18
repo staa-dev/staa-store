@@ -16,6 +16,21 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="ffstyle.css">
+    
+    <style>
+        /* Tambahan CSS inline agar logo e-wallet terformat dengan rapi dan presisi */
+        .payment-logo {
+            width: auto;
+            height: 24px; /* Menyamakan tinggi logo agar sejajar dan rapi */
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .payment-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar Premium -->
@@ -42,7 +57,7 @@
 
     <!-- Premium Banner -->
     <div class="banner-wrapper" data-aos="fade-down" data-aos-duration="600">
-        <a href="&"
+        <a href="#"
            class="banner-link"
            target="_blank"
            title="Klik untuk lihat gambar asli">
@@ -256,7 +271,7 @@
                     </div>
                 </div>
 
-                <!-- Pembayaran Section -->
+                <!-- Pembayaran Section (BAGIAN YANG DI-UPGRADE) -->
                 <div class="section">
                     <h2 class="section-title">
                         <i class="fas fa-credit-card"></i>
@@ -265,33 +280,37 @@
                     </h2>
 
                     <div class="payment-grid">
+                        <!-- DANA -->
                         <div class="payment-card" data-payment="DANA">
                             <div class="payment-left">
-                                <i class="fas fa-wallet" style="color: #1088d6;"></i>
+                                <img src="dana.png" alt="Logo DANA" class="payment-logo">
                                 <span>DANA</span>
                             </div>
                             <span class="payment-amount" id="priceDANA">Rp 0</span>
                         </div>
 
+                        <!-- OVO -->
                         <div class="payment-card" data-payment="OVO">
                             <div class="payment-left">
-                                <i class="fas fa-circle" style="color: #5a3e9e;"></i>
+                                <img src="ovo.png" alt="Logo OVO" class="payment-logo">
                                 <span>OVO</span>
                             </div>
                             <span class="payment-amount" id="priceOVO">Rp 0</span>
                         </div>
 
+                        <!-- GoPay -->
                         <div class="payment-card" data-payment="GoPay">
                             <div class="payment-left">
-                                <i class="fas fa-mobile-alt" style="color: #00aed6;"></i>
+                                <img src="gopay.png" alt="Logo GoPay" class="payment-logo">
                                 <span>GoPay</span>
                             </div>
                             <span class="payment-amount" id="priceGoPay">Rp 0</span>
                         </div>
 
+                        <!-- QRIS -->
                         <div class="payment-card" data-payment="QRIS">
                             <div class="payment-left">
-                                <i class="fas fa-qrcode" style="color: #6c5ce7;"></i>
+                                <img src="qrislogo.png" alt="Logo QRIS" class="payment-logo">
                                 <span>QRIS</span>
                             </div>
                             <span class="payment-amount" id="priceQRIS">Rp 0</span>
