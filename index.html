@@ -103,7 +103,7 @@
       --input-bg: rgba(30, 58, 138, 0.04);
     }
 
-    /* DARK MODE - Gradasi Biru Tua ke Biru Muda */
+    /* DARK MODE */
     body.dark {
       --bg-body: #020617;
       --bg-card: #0f172a;
@@ -392,7 +392,7 @@
       gap: 10px;
     }
 
-    /* BANNER SLIDER */
+    /* BANNER SLIDER - OPTIMIZED RESOLUTION */
     .banner-slider {
       border-radius: 28px;
       overflow: hidden;
@@ -401,32 +401,55 @@
     }
     .swiper {
       width: 100%;
-      height: 160px;
+      height: auto;
+      aspect-ratio: 21 / 9; /* Proporsi ideal layar desktop/tablet lebar */
+    }
+    @media (max-width: 480px) {
+      .swiper {
+        aspect-ratio: 5 / 2; /* Proporsi standar rasio gambar mobile agar terlihat utuh & tajam */
+      }
     }
     .swiper-slide {
-      background-size: cover;
-      background-position: center;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      background: #000;
     }
+    /* Render gambar dari resolusi asli menggunakan tag img */
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      /* Memaksa engine browser merender piksel gambar se-optimal mungkin (anti-blur) */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+    /* Lapisan overlay halus di atas gambar banner */
     .swiper-slide::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+      background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 0%);
+      z-index: 1;
+      pointer-events: none;
     }
     .swiper-slide span {
-      position: relative;
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
       z-index: 2;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(10px);
-      padding: 8px 24px;
-      border-radius: 60px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 18px;
+      border-radius: 50px;
       color: white;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     /* SECTION TITLE */
@@ -599,7 +622,7 @@
     .voucher-icon i { font-size: 2rem; color: white; }
     .voucher-title { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: var(--text-primary); }
     .voucher-desc { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 12px; }
-    .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(59, 130, 246, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
+    .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(59, 130, 246, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7amp; font-weight: 700; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
 
     /* KEUNGGULAN */
     .keunggulan-section {
@@ -684,7 +707,7 @@
     .popup-image { width: 100%; height: 100%; object-fit: cover; }
     .popup-button { background: var(--gradient-primary); border: none; padding: 14px; border-radius: 60px; color: white; font-weight: 800; width: 100%; margin-top: 16px; cursor: pointer; }
 
-    /* Tambahan untuk popup tutup */
+    /* POPUP TUTUP */
     .popup-tutup {
       background: var(--popup-bg);
       border: 1px solid var(--border-muted);
@@ -749,13 +772,24 @@
     </div>
     <div id="warningBanner" class="warning-banner" style="display: none;"><i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko sedang tutup</span></div>
 
+    <!-- BANNER SLIDER DENGAN TAG IMG RESOLUSI ASLI -->
     <div class="banner-slider" data-aos="zoom-in">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/YTjpgrpn/Banner-Ramadan-Dekoratif-Ornamental-Coklat-Krem-20260306-201402-000.jpg');"></div>
-          <div class="swiper-slide" style="background-image: url('https://assets.pikiran-rakyat.com/crop/0x0:0x0/720x0/webp/photo/2024/03/11/412049712.jpg');"><span>🔥 FREE FIRE EVENT</span></div>
-          <div class="swiper-slide" style="background-image: url('https://i.ibb.co.com/Q3tncwc1/images-5.jpg');"><span>⚡ MLBB SPECIAL</span></div>
-          <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format');"><span>🎯 TOP UP AMAN</span></div>
+          <div class="swiper-slide">
+            <img src="https://i.ibb.co.com/cSDHMzQ3/IMG-1369.png" alt="STAA PAY Banner 1">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg" alt="FF">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg" alt="MLBB Special Offer">
+            <span>⚡ MLBB SPECIAL</span>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format" alt="Top Up Aman">
+            <span>🎯 TOP UP AMAN</span>
+          </div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -823,7 +857,7 @@
   <div class="popup-container">
     <div class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></div>
     <h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA PAY</h2>
-    <div class="popup-image-container"><img src="https://i.ibb.co.com/jPZzjzcM/527285496-2.jpg" class="popup-image"></div>
+    <div class="popup-image-container"><img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519003356441.jpg" class="popup-image"></div>
     <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
     <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;"><input type="checkbox" id="dontShowAgain"> <label style="font-size:0.7rem;">Jangan tampilkan lagi</label></div>
   </div>
