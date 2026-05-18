@@ -1,272 +1,223 @@
-// ===== KONFIGURASI =====
-const CONFIG = {
-    whatsapp: "6289524206963",
-    gameName: "Free Fire",
-    
-    // Konfigurasi biaya admin per metode pembayaran
-    fees: {
-        DANA: { fixed: 0, percent: 0 },
-        OVO: { fixed: 0, percent: 0.5 },
-        GoPay: { fixed: 0, percent: 0 },
-        QRIS: { fixed: 0, percent: 0.7 }
+// Inisialisasi AOS
+AOS.init({
+    once: true,
+    duration: 600,
+    offset: 20,
+});
+
+// ========== THEME TOGGLE ==========
+const themeToggle = document.getElementById('themeToggleNav');
+const body = document.body;
+
+const setTheme = (theme) => {
+    if (theme === 'dark') {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
     }
 };
 
-// ===== STATE =====
-let selectedProduct = null;
-let selectedPrice = 0;
-let selectedPayment = null;
-let selectedType = 'diamond';
-let basePrice = 0;
-let currentInvoice = '';
+const savedTheme = localStorage.getItem('theme') || 'light';
+setTheme(savedTheme);
 
-// ===== ELEMENTS =====
-const playerId = document.getElementById('playerId');
+themeToggle.addEventListener('click', () => {
+    const current = body.hasAttribute('data-theme') ? 'dark' : 'light';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ========== DOM ELEMENTS ==========
+const playerIdInput = document.getElementById('playerId');
 const productCards = document.querySelectorAll('.product-card');
 const paymentCards = document.querySelectorAll('.payment-card');
-const whatsappBtn = document.getElementById('whatsappBtn');
-const notesInput = document.getElementById('notes');
-const orderSummary = document.getElementById('orderSummary');
-
-// Summary elements
 const summaryId = document.getElementById('summaryId');
 const summaryDiamond = document.getElementById('summaryDiamond');
 const summaryPayment = document.getElementById('summaryPayment');
-const summaryPrice = document.getElementById('summaryPrice');
 const summaryFee = document.getElementById('summaryFee');
-const summaryNotesRow = document.getElementById('summaryNotesRow');
+const summaryPrice = document.getElementById('summaryPrice');
 const summaryNotes = document.getElementById('summaryNotes');
+const summaryNotesRow = document.getElementById('summaryNotesRow');
+const feeRow = document.getElementById('feeRow');
+const whatsappBtn = document.getElementById('whatsappBtn');
+const notesInput = document.getElementById('notes');
+const categoryTabs = document.querySelectorAll('.category-tab');
+const diamondGrid = document.getElementById('diamondProducts');
+const membershipGrid = document.getElementById('membershipProducts');
+const step1 = document.getElementById('step1');
+const step2 = document.getElementById('step2');
+const step3 = document.getElementById('step3');
 
-// Payment price elements
-const priceDANA = document.getElementById('priceDANA');
-const priceOVO = document.getElementById('priceOVO');
-const priceGoPay = document.getElementById('priceGoPay');
-const priceQRIS = document.getElementById('priceQRIS');
+let selectedProduct = null;
+let selectedPayment = null;
+let activeCategory = 'diamond';
 
-// ===== FUNGSI GENERATE INVOICE =====
-function generateInvoice() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let invoice = '';
-    for (let i = 0; i < 6; i++) {
-        invoice += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return invoice;
-}
+// ========== CATEGORY TABS ==========
+categoryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeCategory = tab.dataset.category;
 
-// ===== FUNGSI HITUNG BIAYA ADMIN =====
-function calculateTotalPrice(basePrice, paymentMethod) {
-    const fee = CONFIG.fees[paymentMethod] || { fixed: 0, percent: 0 };
-    const percentAmount = (basePrice * fee.percent) / 100;
-    return Math.round(basePrice + fee.fixed + percentAmount);
-}
+        if (activeCategory === 'diamond') {
+            diamondGrid.classList.add('active');
+            membershipGrid.classList.remove('active');
+        } else {
+            diamondGrid.classList.remove('active');
+            membershipGrid.classList.add('active');
+        }
 
-// ===== FUNGSI UPDATE SEMUA HARGA =====
-function updateAllPaymentPrices(basePrice) {
-    if (!basePrice) return;
-    
-    priceDANA.textContent = `Rp ${calculateTotalPrice(basePrice, 'DANA').toLocaleString('id-ID')}`;
-    priceOVO.textContent = `Rp ${calculateTotalPrice(basePrice, 'OVO').toLocaleString('id-ID')}`;
-    priceGoPay.textContent = `Rp ${calculateTotalPrice(basePrice, 'GoPay').toLocaleString('id-ID')}`;
-    priceQRIS.textContent = `Rp ${calculateTotalPrice(basePrice, 'QRIS').toLocaleString('id-ID')}`;
-}
-
-// ===== FUNGSI GENERATE INVOICE BARU =====
-function generateNewInvoice() {
-    currentInvoice = generateInvoice();
-    return currentInvoice;
-}
-
-// ===== INITIALIZE =====
-function init() {
-    AOS.init({ duration: 800, once: true });
-    
-    // Generate invoice pertama
-    generateNewInvoice();
-    
-    // Category tabs
-    document.querySelectorAll('.category-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.products-grid').forEach(g => g.classList.remove('active'));
-            
-            this.classList.add('active');
-            const category = this.dataset.category;
-            document.getElementById(category + 'Products').classList.add('active');
-        });
-    });
-    
-    // Product click
-    productCards.forEach(card => {
-        card.addEventListener('click', function() {
-            productCards.forEach(c => c.classList.remove('selected'));
-            this.classList.add('selected');
-            
-            selectedType = this.dataset.type || 'diamond';
-            basePrice = parseInt(this.dataset.price);
-            
-            if (selectedType === 'diamond') {
-                selectedProduct = this.dataset.diamond + ' Diamond';
-            } else {
-                selectedProduct = this.dataset.diamond;
-            }
-            
-            updateAllPaymentPrices(basePrice);
-            
-            if (selectedPayment) {
-                updateSummary();
-            }
-            
-            checkForm();
-            updateSteps();
-        });
-    });
-    
-    // Payment click
-    paymentCards.forEach(card => {
-        card.addEventListener('click', function() {
-            paymentCards.forEach(c => c.classList.remove('selected'));
-            this.classList.add('selected');
-            
-            selectedPayment = this.dataset.payment;
-            
-            if (basePrice > 0) {
-                updateSummary();
-            }
-            
-            checkForm();
-            updateSteps();
-        });
-    });
-    
-    // Player ID input
-    playerId.addEventListener('input', function() {
-        this.value = this.value.replace(/[^0-9]/g, '');
+        // Reset product selection when switching category
+        deselectProducts();
         updateSummary();
-        checkForm();
-        updateSteps();
+        updateProgressSteps();
     });
-    
-    // Notes input
-    notesInput.addEventListener('input', updateSummary);
-    
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggleNav');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('ffTheme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        });
-        
-        if (localStorage.getItem('ffTheme') === 'dark') {
-            document.body.classList.add('dark');
-        }
-    }
-    
-    console.log('Free Fire initialized');
-}
-
-// ===== UPDATE SUMMARY =====
-function updateSummary() {
-    const id = playerId.value.trim();
-    const notes = notesInput.value.trim();
-    
-    if (id && selectedProduct && selectedPayment) {
-        orderSummary.style.display = 'block';
-        summaryId.textContent = id;
-        summaryDiamond.textContent = selectedProduct;
-        summaryPayment.textContent = selectedPayment;
-        
-        const totalPrice = calculateTotalPrice(basePrice, selectedPayment);
-        summaryPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-        
-        const fee = CONFIG.fees[selectedPayment] || { fixed: 0, percent: 0 };
-        const percentAmount = (basePrice * fee.percent) / 100;
-        const totalFee = fee.fixed + percentAmount;
-        
-        if (totalFee > 0) {
-            summaryFee.textContent = `Rp ${Math.round(totalFee).toLocaleString('id-ID')}`;
-            document.getElementById('feeRow').style.display = 'flex';
-        } else {
-            summaryFee.textContent = 'Rp 0';
-        }
-        
-        if (notes) {
-            summaryNotes.textContent = notes;
-            summaryNotesRow.style.display = 'flex';
-        } else {
-            summaryNotesRow.style.display = 'none';
-        }
-    } else {
-        orderSummary.style.display = 'none';
-    }
-}
-
-function checkForm() {
-    const id = playerId.value.trim();
-    const isValidId = id.length >= 9 && id.length <= 10 && /^\d+$/.test(id);
-    whatsappBtn.disabled = !(isValidId && selectedProduct && selectedPayment);
-}
-
-function updateSteps() {
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-    
-    step1.classList.remove('active');
-    step2.classList.remove('active');
-    step3.classList.remove('active');
-    
-    if (playerId.value.trim().length >= 9) {
-        step1.classList.add('active');
-    }
-    
-    if (selectedProduct) {
-        step2.classList.add('active');
-    }
-    
-    if (selectedPayment) {
-        step3.classList.add('active');
-    }
-}
-
-// ===== WHATSAPP BUTTON =====
-whatsappBtn.addEventListener('click', () => {
-    const id = playerId.value.trim();
-    const notes = notesInput.value.trim();
-    const totalPrice = calculateTotalPrice(basePrice, selectedPayment);
-    const fee = CONFIG.fees[selectedPayment] || { fixed: 0, percent: 0 };
-    
-    // Generate invoice baru setiap kali klik WhatsApp
-    const invoiceNumber = generateNewInvoice();
-    
-    let message = `🎮 *TOP UP ${CONFIG.gameName.toUpperCase()}* 🎮\n`;
-    message += `━━━━━━━━━━━━━━━━━━━\n`;
-    message += `🧾 *INVOICE: ${invoiceNumber}*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `📋 *DETAIL PESANAN*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `🆔 *ID Player:* ${id}\n`;
-    message += `📦 *Produk:* ${selectedProduct}\n`;
-    message += `💰 *Harga Produk:* Rp ${basePrice.toLocaleString('id-ID')}\n`;
-    
-    if (fee.percent > 0) {
-        const percentAmount = (basePrice * fee.percent) / 100;
-        message += `💳 *Biaya Admin:* ${fee.percent}% (Rp ${Math.round(percentAmount).toLocaleString('id-ID')})\n`;
-    }
-    
-    message += `💳 *Pembayaran:* ${selectedPayment}\n`;
-    
-    if (notes) message += `📝 *Catatan:* ${notes}\n`;
-    
-    message += `\n━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 *TOTAL: Rp ${totalPrice.toLocaleString('id-ID')}*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `✅ *Proses max 10 menit*\n`;
-    message += `📌 *Simpan nomor invoice untuk memudahkan jika ada kendala*\n\n`;
-    message += `Silahkan konfirmasi pembayaran. Terima kasih! 🙏`;
-    
-    window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
 });
 
-// Start
-init();
+function deselectProducts() {
+    productCards.forEach(c => c.classList.remove('selected'));
+    selectedProduct = null;
+}
+
+// ========== PRODUCT SELECTION ==========
+productCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // Only allow selection if card is visible (matches active category)
+        if (card.dataset.type !== activeCategory) return;
+
+        productCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedProduct = {
+            diamond: card.dataset.diamond,
+            price: parseInt(card.dataset.price),
+            type: card.dataset.type
+        };
+        updateSummary();
+        updateProgressSteps();
+    });
+});
+
+// ========== PAYMENT SELECTION ==========
+paymentCards.forEach(card => {
+    card.addEventListener('click', () => {
+        paymentCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedPayment = card.dataset.payment;
+        updateSummary();
+        updateProgressSteps();
+    });
+});
+
+// ========== PROGRESS STEPS ==========
+function updateProgressSteps() {
+    const playerId = playerIdInput.value.trim();
+    const isPlayerIdValid = playerId.length >= 9 && playerId.length <= 12 && /^\d+$/.test(playerId);
+
+    // Step 1: Player ID
+    if (isPlayerIdValid) {
+        step1.classList.add('active');
+    } else {
+        step1.classList.remove('active');
+    }
+
+    // Step 2: Product
+    if (selectedProduct) {
+        step2.classList.add('active');
+    } else {
+        step2.classList.remove('active');
+    }
+
+    // Step 3: Payment
+    if (selectedPayment) {
+        step3.classList.add('active');
+    } else {
+        step3.classList.remove('active');
+    }
+}
+
+// ========== UPDATE SUMMARY ==========
+function updateSummary() {
+    const playerId = playerIdInput.value.trim();
+    const isPlayerIdValid = playerId.length >= 9 && playerId.length <= 12 && /^\d+$/.test(playerId);
+
+    // Update summary values
+    summaryId.textContent = isPlayerIdValid ? playerId : '-';
+    summaryDiamond.textContent = selectedProduct ? selectedProduct.diamond : '-';
+    summaryPayment.textContent = selectedPayment || '-';
+
+    // Calculate prices
+    let basePrice = selectedProduct ? selectedProduct.price : 0;
+    let feePercent = 0;
+    if (selectedPayment === 'OVO') feePercent = 0.005;
+    else if (selectedPayment === 'QRIS') feePercent = 0.007;
+    const feeAmount = Math.round(basePrice * feePercent);
+    const total = basePrice + feeAmount;
+
+    // Update fee & total
+    summaryFee.textContent = 'Rp ' + feeAmount.toLocaleString('id-ID');
+    summaryPrice.textContent = 'Rp ' + total.toLocaleString('id-ID');
+
+    // Show/hide fee row
+    if (feeAmount > 0 && selectedProduct) {
+        feeRow.style.display = 'flex';
+    } else {
+        feeRow.style.display = 'none';
+    }
+
+    // Update notes in summary
+    const notes = notesInput.value.trim();
+    if (notes && selectedProduct) {
+        summaryNotes.textContent = notes;
+        summaryNotesRow.style.display = 'flex';
+    } else {
+        summaryNotesRow.style.display = 'none';
+    }
+
+    // Update payment amounts display
+    document.getElementById('priceDANA').textContent = basePrice > 0 ? 'Rp ' + basePrice.toLocaleString('id-ID') : 'Rp 0';
+    document.getElementById('priceOVO').textContent = basePrice > 0 ? 'Rp ' + Math.round(basePrice * 1.005).toLocaleString('id-ID') : 'Rp 0';
+    document.getElementById('priceGoPay').textContent = basePrice > 0 ? 'Rp ' + basePrice.toLocaleString('id-ID') : 'Rp 0';
+    document.getElementById('priceQRIS').textContent = basePrice > 0 ? 'Rp ' + Math.round(basePrice * 1.007).toLocaleString('id-ID') : 'Rp 0';
+
+    // Enable/disable WhatsApp button
+    const isFormValid = isPlayerIdValid && selectedProduct && selectedPayment;
+    whatsappBtn.disabled = !isFormValid;
+
+    updateProgressSteps();
+}
+
+// ========== EVENT LISTENERS ==========
+playerIdInput.addEventListener('input', updateSummary);
+notesInput.addEventListener('input', updateSummary);
+
+// ========== WHATSAPP BUTTON ==========
+whatsappBtn.addEventListener('click', () => {
+    if (whatsappBtn.disabled) return;
+
+    const playerId = playerIdInput.value.trim();
+    const product = selectedProduct.diamond;
+    const payment = selectedPayment;
+    let basePrice = selectedProduct.price;
+    let feePercent = 0;
+    if (payment === 'OVO') feePercent = 0.005;
+    else if (payment === 'QRIS') feePercent = 0.007;
+    const feeAmount = Math.round(basePrice * feePercent);
+    const total = basePrice + feeAmount;
+    const notes = notesInput.value.trim();
+
+    let message = `🔥 *ORDER FREE FIRE - STAA PAY* 🔥%0A%0A`;
+    message += `👤 *ID Player:* ${playerId}%0A`;
+    message += `💎 *Produk:* ${product}%0A`;
+    message += `💳 *Pembayaran:* ${payment}%0A`;
+    if (feeAmount > 0) message += `🧾 *Biaya Admin:* Rp ${feeAmount.toLocaleString('id-ID')}%0A`;
+    message += `💰 *Total Bayar:* Rp ${total.toLocaleString('id-ID')}%0A`;
+    if (notes) message += `📝 *Catatan:* ${notes}%0A`;
+    message += `%0A⚡ _Mohon diproses ya kak, terima kasih!_ 🙏`;
+
+    // Ganti nomor WhatsApp di sini
+    const waNumber = '6289530398848';
+    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+});
+
+// ========== INITIAL STATE ==========
+updateSummary();
