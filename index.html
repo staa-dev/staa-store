@@ -873,7 +873,7 @@
       <div class="jam-operasional">
         <i class="fas fa-clock"></i> <span>07:00 - 21:00 WIB</span>
       </div>
-      <p style="color: var(--text-soft); font-size: 0.9rem; margin: 12px 0;">Silakan kembali lagi besok saat toko sudah buka ya! 🌚</p>
+      <p style="color: var(--text-soft); font-size: 0.9rem; margin: 12px 0;">Silakan kembali lagi besok saat toko sudah buka ya! 🌙</p>
       <button class="popup-button" style="background: #ef4444; margin-top: 8px;" onclick="closeTutupPopup()"><i class="fas fa-check"></i> MENGERTI</button>
     </div>
   </div>
@@ -883,6 +883,85 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   (function() {
+    // =============================================
+    // 🔧 PERBAIKAN UTAMA: Logic loading overlay
+    // =============================================
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    
+    /**
+     * Fungsi untuk menyembunyikan loading overlay
+     * Dipanggil saat halaman selesai dimuat & saat kembali dari bfcache
+     */
+    function hideLoadingOverlay() {
+      if (loadingOverlay && loadingOverlay.classList.contains('active')) {
+        loadingOverlay.classList.remove('active');
+      }
+      // Reset flag di sessionStorage agar loading tidak stuck
+      sessionStorage.removeItem('staa-loading-active');
+    }
+
+    /**
+     * Fungsi untuk menampilkan loading overlay + redirect
+     * Hanya dipakai saat user klik link produk
+     */
+    function showLoadingAndRedirect(url) {
+      if (!url || loadingOverlay.classList.contains('active')) return;
+      
+      // Tandai bahwa loading sedang aktif
+      sessionStorage.setItem('staa-loading-active', 'true');
+      loadingOverlay.classList.add('active');
+      
+      // Redirect setelah animasi loading terlihat
+      setTimeout(() => {
+        window.location.href = url;
+      }, 800);
+    }
+
+    // ✅ Event DOMContentLoaded: pastikan loading di-reset saat DOM siap
+    document.addEventListener('DOMContentLoaded', () => {
+      // Jika ada flag loading aktif dari sessionStorage (artinya user baru redirect),
+      // kita tampilkan loading dulu sebentar lalu hilangkan — memberikan kesan transisi
+      if (sessionStorage.getItem('staa-loading-active') === 'true') {
+        loadingOverlay.classList.add('active');
+        setTimeout(() => {
+          hideLoadingOverlay();
+        }, 400); // durasi singkat agar animasi terlihat smooth
+      } else {
+        // Pastikan loading dalam keadaan tidak active
+        hideLoadingOverlay();
+      }
+    });
+
+    // ✅ Event pageshow: menangani navigasi back/forward (bfcache)
+    window.addEventListener('pageshow', (event) => {
+      // Jika halaman dimuat dari bfcache (persisted === true), 
+      // artinya user kembali via tombol Back/Forward
+      if (event.persisted) {
+        // Reset loading karena halaman sudah selesai
+        hideLoadingOverlay();
+        // Re-inisialisasi status operasional & link agar UI tetap konsisten
+        updatePAYStatus();
+      }
+      
+      // Selalu bersihkan flag loading setelah halaman tampil
+      sessionStorage.removeItem('staa-loading-active');
+    });
+
+    // ✅ Event beforeunload: reset flag saat user meninggalkan halaman
+    // (tidak diperlukan untuk perbaikan ini, tapi menjaga kebersihan state)
+    window.addEventListener('beforeunload', () => {
+      // Tidak perlu melakukan apa-apa, sessionStorage akan tetap ada
+      // sampai halaman berikutnya dimuat
+    });
+
+    // ✅ Fallback: jika karena suatu alasan loading masih aktif setelah 2 detik,
+    // paksa hide (safety net)
+    setTimeout(() => {
+      hideLoadingOverlay();
+    }, 2500);
+
+    // =============================================
+    // Inisialisasi AOS
     AOS.init({ once: true, duration: 500 });
 
     // Theme Toggle
@@ -1021,15 +1100,7 @@
       else localStorage.removeItem('popupClosed'); 
     });
 
-    // Loading
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    function showLoadingAndRedirect(url) {
-      if (!url) return;
-      if (loadingOverlay.classList.contains('active')) return;
-      loadingOverlay.classList.add('active');
-      setTimeout(() => { window.location.href = url; }, 1000);
-    }
-    
+    // 🔧 PERBAIKAN: Handler link dengan loading overlay yang sudah diperbaiki
     function handleLinkClick(e) {
       if (this.classList.contains('disabled')) { 
         e.preventDefault();
