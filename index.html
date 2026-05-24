@@ -14,639 +14,274 @@
 
     <style>
         :root {
-            /* Premium Color System */
-            --surface-primary: #ffffff;
-            --surface-secondary: #f8fafc;
-            --surface-tertiary: #f1f5f9;
-            
-            --text-primary: #0f172a;
-            --text-secondary: #334155;
-            --text-tertiary: #64748b;
-            --text-inverse: #ffffff;
-            
-            --brand-primary: #1e3a8a;
-            --brand-secondary: #2563eb;
-            --brand-tertiary: #3b82f6;
-            --brand-muted: #dbeafe;
-            
-            --accent-success: #10b981;
-            --accent-warning: #f59e0b;
-            --accent-error: #ef4444;
-            --accent-info: #06b6d4;
-            
-            /* Depth System */
-            --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
-            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
-            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
-            --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.12);
-            --shadow-xl: 0 24px 64px rgba(15, 23, 42, 0.16);
-            --shadow-brand: 0 8px 24px rgba(30, 58, 138, 0.2);
-            
-            /* Glass System */
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(30, 58, 138, 0.08);
-            --glass-blur: blur(20px) saturate(180%);
-            
-            /* Border System */
-            --radius-xs: 8px;
-            --radius-sm: 12px;
-            --radius-md: 16px;
-            --radius-lg: 20px;
-            --radius-xl: 24px;
-            --radius-2xl: 32px;
-            
-            /* Transition System */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-            --duration-fast: 150ms;
-            --duration-base: 250ms;
-            --duration-slow: 400ms;
-            --duration-lazy: 600ms;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface2: #f1f5f9;
+            --text: #0f172a;
+            --text2: #475569;
+            --text3: #94a3b8;
+            --brand: #4f46e5;
+            --brand2: #6366f1;
+            --brand3: #818cf8;
+            --brand-light: #eef2ff;
+            --accent: #06b6d4;
+            --accent2: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+            --glass: rgba(255,255,255,0.7);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --radius-sm: 14px;
         }
 
         body.dark {
-            --surface-primary: #0f172a;
-            --surface-secondary: #1e293b;
-            --surface-tertiary: #334155;
-            
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-tertiary: #94a3b8;
-            --text-inverse: #0f172a;
-            
-            --brand-primary: #3b82f6;
-            --brand-secondary: #60a5fa;
-            --brand-tertiary: #93c5fd;
-            --brand-muted: #1e3a8a;
-            
-            --glass-bg: rgba(15, 23, 42, 0.75);
-            --glass-border: rgba(59, 130, 246, 0.12);
-            
-            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
-            --shadow-brand: 0 8px 24px rgba(59, 130, 246, 0.3);
+            --bg: #0b0f19;
+            --surface: #131a2b;
+            --surface2: #1a2332;
+            --text: #e2e8f0;
+            --text2: #94a3b8;
+            --text3: #64748b;
+            --brand: #818cf8;
+            --brand2: #6366f1;
+            --brand3: #a5b4fc;
+            --brand-light: #1e1b4b;
+            --border: #1e293b;
+            --glass: rgba(19,26,43,0.7);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--surface-secondary);
-            color: var(--text-primary);
-            transition: background var(--duration-slow) var(--ease-out-expo),
-                        color var(--duration-slow) var(--ease-out-expo);
-            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
             height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
+            overflow: hidden;
+            position: fixed;
+            inset: 0;
         }
 
         #app-root {
             display: flex;
             flex-direction: column;
             height: 100vh;
+            height: 100dvh;
             max-width: 480px;
             margin: 0 auto;
-            background: var(--surface-primary);
+            background: var(--surface);
             position: relative;
-            box-shadow: var(--shadow-xl);
-            transition: background var(--duration-slow) var(--ease-out-expo);
+            box-shadow: var(--shadow-lg);
         }
 
-        /* Scrollable Content */
-        .app-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 16px 16px;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            overscroll-behavior: contain;
-        }
-        
-        .app-content::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-        }
-
-        /* HEADER REDESIGN - Sticky Premium */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 18px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 20;
-            transition: all var(--duration-base) var(--ease-out-expo);
+            flex-shrink: 0;
         }
-
-        .brand-app {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .brand-app { display:flex; align-items:center; gap:10px; }
         .brand-app .icon-wrapper {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-brand);
-            transition: transform var(--duration-fast) var(--ease-spring);
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--brand), var(--brand2));
+            border-radius: 12px;
+            display: flex; align-items:center; justify-content:center;
             overflow: hidden;
         }
-        
-        .brand-app .icon-wrapper:active {
-            transform: scale(0.95);
-        }
-
-        .brand-app .icon-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .brand-app h1 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            color: var(--text-primary);
-            transition: color var(--duration-base) var(--ease-out-expo);
-        }
+        .brand-app .icon-wrapper img { width:100%; height:100%; object-fit:cover; }
+        .brand-app h1 { font-size:1.2rem; font-weight:800; color:var(--text); }
+        .brand-app h1 span { background:linear-gradient(135deg,var(--brand),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 
         .theme-toggle-app {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--surface-tertiary);
-            border: 1px solid transparent;
+            display:flex; align-items:center; gap:6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
             border-radius: 40px;
-            padding: 8px 16px;
+            padding: 7px 14px;
             cursor: pointer;
-            color: var(--text-secondary);
+            color: var(--text2);
             font-weight: 600;
-            font-size: 0.8rem;
-            transition: all var(--duration-fast) var(--ease-out-expo);
-            -webkit-tap-highlight-color: transparent;
+            font-size: 0.75rem;
+            transition: all 0.2s;
         }
-        
-        .theme-toggle-app:active {
-            transform: scale(0.96);
-            background: var(--surface-secondary);
-        }
-        
-        .theme-toggle-app i {
-            font-size: 0.9rem;
-            transition: transform var(--duration-fast) var(--ease-spring);
-        }
+        .theme-toggle-app:active { transform:scale(0.95); }
 
-        /* OPERATIONAL PANEL - Dashboard Style */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 16px 8px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        .app-content::-webkit-scrollbar { width:0; }
+
         .operational-panel {
-            background: var(--surface-secondary);
-            border-radius: var(--radius-lg);
-            padding: 14px 16px;
-            margin: 14px 0;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-xs);
+            background: var(--surface2);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            margin: 12px 0;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all var(--duration-base) var(--ease-out-expo);
-        }
-
-        .time-display {
-            display: flex;
-            align-items: center;
             gap: 6px;
-            color: var(--text-tertiary);
-            font-feature-settings: "tnum";
-            font-variant-numeric: tabular-nums;
-        }
-        
-        .time-display i {
-            color: var(--brand-secondary);
-            font-size: 0.85rem;
-        }
-
-        .status-badge {
-            padding: 5px 14px;
-            border-radius: 40px;
-            font-weight: 700;
             font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            letter-spacing: 0.3px;
-            transition: all var(--duration-base) var(--ease-out-expo);
+            font-weight: 500;
+            color: var(--text2);
+            border: 1px solid var(--border);
         }
+        .time-display { display:flex; align-items:center; gap:5px; }
+        .time-display i { color:var(--brand2); font-size:0.75rem; }
+        .status-badge {
+            padding: 5px 12px; border-radius: 40px;
+            font-weight: 700; font-size: 0.65rem;
+            display: flex; align-items:center; gap:5px;
+        }
+        .status-badge.open { background: rgba(16,185,129,0.1); color: var(--accent2); }
+        .status-badge.closed { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .status-dot { width:6px; height:6px; border-radius:50%; }
+        .status-badge.open .status-dot { background:var(--accent2); animation:pulse 2s infinite; }
+        .status-badge.closed .status-dot { background:var(--danger); }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-        .status-badge.open {
-            background: rgba(16, 185, 129, 0.08);
-            color: var(--accent-success);
-        }
-        
-        .status-badge.open i {
-            animation: softPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes softPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.9); }
-        }
-
-        .status-badge.closed {
-            background: rgba(239, 68, 68, 0.08);
-            color: var(--accent-error);
-        }
-
-        .new-version-badge {
-            background: linear-gradient(135deg, var(--accent-success), #34d399);
-            padding: 5px 14px;
-            border-radius: 40px;
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
-            transition: transform var(--duration-fast) var(--ease-spring);
+        .new-badge {
+            background: linear-gradient(135deg, var(--accent2), #34d399);
+            padding: 5px 12px; border-radius: 40px;
+            font-size: 0.6rem; font-weight: 700; color: white;
+            display: inline-flex; align-items:center; gap:4px;
             white-space: nowrap;
         }
-        
-        .new-version-badge:hover {
-            transform: translateY(-1px);
-        }
-        
-        .new-version-badge i {
-            font-size: 0.6rem;
-            animation: starPulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes starPulse {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(15deg) scale(1.1); }
-        }
 
-        /* WARNING BANNER */
         .warning-banner {
-            background: rgba(245, 158, 11, 0.06);
-            color: var(--accent-warning);
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 14px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: 1px solid rgba(245, 158, 11, 0.15);
-            transition: all var(--duration-base) var(--ease-out-expo);
+            background: rgba(245,158,11,0.08);
+            color: var(--warning);
+            padding: 10px 14px; border-radius: var(--radius-sm);
+            margin-bottom: 10px; font-size: 0.7rem; font-weight: 600;
+            display: flex; align-items:center; justify-content:center; gap:6px;
+            border: 1px solid rgba(245,158,11,0.2);
         }
 
-        /* BANNER SLIDER - Cinematic */
-        .banner-slider {
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            margin-bottom: 18px;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--duration-base) var(--ease-out-expo);
-        }
-        
-        .banner-slider:active {
-            transform: scale(0.98);
-        }
+        .banner-slider { border-radius: var(--radius); overflow:hidden; margin-bottom:14px; box-shadow: var(--shadow-md); }
+        .swiper { width:100%; aspect-ratio:16/9; border-radius:var(--radius); }
+        .swiper-slide img { width:100%; height:100%; object-fit:cover; }
+        .swiper-pagination-bullet { background:rgba(255,255,255,0.5); opacity:0.5; width:6px; height:6px; }
+        .swiper-pagination-bullet-active { background:white; opacity:1; width:18px; border-radius:10px; }
 
-        .swiper {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: var(--radius-xl);
-        }
-
-        .swiper-slide {
-            position: relative;
-        }
-        
-        .swiper-slide::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.15) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--duration-slow) var(--ease-out-expo);
-        }
-        
-        .swiper-slide-active img {
-            transform: scale(1.02);
-        }
-        
-        .swiper-pagination-bullet {
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.7);
-            opacity: 0.5;
-            transition: all var(--duration-base) var(--ease-out-expo);
-        }
-        
-        .swiper-pagination-bullet-active {
-            width: 20px;
-            border-radius: 10px;
-            opacity: 1;
-            background: white;
-        }
-
-        /* SECTION TITLE */
         .section-title {
-            margin: 18px 0 12px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: -0.2px;
-            transition: color var(--duration-base) var(--ease-out-expo);
+            margin: 14px 0 8px;
+            font-size: 1rem; font-weight: 800;
+            color: var(--text);
+            display: flex; align-items:center; gap:7px;
         }
-        
-        .section-title i {
-            color: var(--brand-secondary);
-            font-size: 1rem;
-        }
+        .section-title i { color:var(--brand2); font-size:0.9rem; }
 
-        /* GAME SCROLL */
         .game-scroll-wrapper {
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow-x: auto; overflow-y: hidden;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 6px;
-            scroll-snap-type: x proximity;
+            padding-bottom: 4px;
         }
+        .game-scroll-wrapper::-webkit-scrollbar { height:3px; background:transparent; }
+        .game-scroll-wrapper::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+        .game-horizontal-flex { display:inline-flex; gap:10px; padding-right:16px; }
+        .product-column { display:flex; flex-direction:column; gap:10px; width:135px; }
 
-        .game-scroll-wrapper::-webkit-scrollbar {
-            height: 4px;
-            background: transparent;
-            border-radius: 10px;
-        }
-
-        .game-scroll-wrapper::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 10px;
-        }
-
-        .game-horizontal-flex {
-            display: inline-flex;
-            gap: 12px;
-            padding-right: 16px;
-        }
-
-        .product-column {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 140px;
-            scroll-snap-align: start;
-        }
-
-        /* GAME CARD REDESIGN */
         .game-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            background: var(--surface-primary);
-            border-radius: var(--radius-lg);
-            padding: 18px 10px 14px;
+            display:flex; flex-direction:column; align-items:center;
+            width:100%; background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 16px 8px 12px;
             text-align: center;
-            transition: all var(--duration-base) var(--ease-out-expo);
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border);
             cursor: pointer;
             text-decoration: none;
-            color: var(--text-primary);
-            box-shadow: var(--shadow-xs);
-            position: relative;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .game-card:active {
-            transform: scale(0.96);
+            color: var(--text);
             box-shadow: var(--shadow-sm);
-            background: var(--surface-secondary);
+            transition: all 0.3s;
         }
-        
-        .game-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--brand-muted);
-        }
-
-        .game-card.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            filter: grayscale(0.2) brightness(0.95);
-        }
-        
-        .game-card.disabled:hover {
-            transform: none;
-            box-shadow: var(--shadow-xs);
-        }
+        .game-card:active { transform: scale(0.96); }
+        .game-card.disabled { opacity:0.5; pointer-events:none; filter:grayscale(0.3); }
 
         .logo-gambar {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 10px;
-            border-radius: var(--radius-md);
+            width: 70px; height: 70px;
+            margin: 0 auto 8px;
+            border-radius: 16px;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--surface-tertiary), var(--surface-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--surface2);
+            display: flex; align-items:center; justify-content:center;
             box-shadow: var(--shadow-sm);
-            transition: all var(--duration-base) var(--ease-out-expo);
         }
-        
-        .game-card:hover .logo-gambar {
-            box-shadow: var(--shadow-md);
-            transform: scale(1.03);
-        }
+        .logo-gambar img { width:100%; height:100%; object-fit:cover; }
+        .game-name { font-weight:700; font-size:0.78rem; margin-bottom:2px; }
+        .game-card small { font-size:0.6rem; color:var(--text3); font-weight:500; }
 
-        .logo-gambar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .game-name {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-            color: var(--text-primary);
-            letter-spacing: -0.1px;
-        }
-
-        .game-card small {
-            font-size: 0.65rem;
-            color: var(--text-tertiary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-        
-        .game-card small i {
-            font-size: 0.55rem;
-            opacity: 0.8;
-        }
-
-        /* KEUNGGULAN */
         .keunggulan-section {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 18px 0;
-            padding: 12px 10px;
-            background: var(--surface-secondary);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--glass-border);
-        }
-
-        .keunggulan-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
-            font-size: 0.72rem;
-            padding: 6px 12px;
-            border-radius: 40px;
-            background: var(--surface-primary);
-            color: var(--text-secondary);
-            border: 1px solid var(--glass-border);
-            transition: all var(--duration-fast) var(--ease-out-expo);
-        }
-        
-        .keunggulan-item i {
-            color: var(--brand-secondary);
-            font-size: 0.75rem;
-        }
-
-        /* FOOTER */
-        .footer-staa {
-            text-align: center;
-            padding: 18px 0;
-            font-size: 0.68rem;
-            color: var(--text-tertiary);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 14px;
-            letter-spacing: 0.2px;
-        }
-
-        /* BOTTOM NAVIGATION - Floating Glass */
-        .bottom-nav {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 16px 16px;
-            z-index: 30;
-            position: relative;
-        }
-        
-        .bottom-nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 16px;
-            right: 16px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-tertiary);
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 8px 12px;
+            display: flex; justify-content:space-around; flex-wrap:wrap; gap:6px;
+            margin: 12px 0; padding: 10px;
+            background: var(--surface2);
             border-radius: var(--radius-sm);
-            transition: all var(--duration-fast) var(--ease-spring);
-            -webkit-tap-highlight-color: transparent;
+            border: 1px solid var(--border);
+        }
+        .keunggulan-item {
+            display:flex; align-items:center; gap:5px;
+            font-weight:600; font-size:0.65rem; padding:5px 10px;
+            border-radius:40px; background:var(--surface);
+            color:var(--text2); border:1px solid var(--border);
+        }
+        .keunggulan-item i { color:var(--brand2); font-size:0.65rem; }
+
+        .footer-staa {
+            text-align:center; padding:12px 0;
+            font-size:0.62rem; color:var(--text3);
+            border-top:1px solid var(--border); margin-top:10px;
+        }
+
+        .bottom-nav {
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 12px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+            flex-shrink: 0;
+            z-index: 30;
+            min-height: 60px;
+        }
+        .nav-item {
+            display:flex; flex-direction:column; align-items:center; gap:2px;
+            background:none; border:none; cursor:pointer;
+            color:var(--text3); font-size:0.6rem; font-weight:600;
+            padding: 6px 8px; border-radius:10px;
+            transition: all 0.2s;
             position: relative;
+            min-width: 50px;
         }
-        
-        .nav-item i {
-            font-size: 1.2rem;
-            transition: transform var(--duration-fast) var(--ease-spring);
-        }
-        
-        .nav-item:active {
-            transform: scale(0.9);
-        }
+        .nav-item i { font-size:1.1rem; }
+        .nav-item.active { color:var(--brand2); }
+        .nav-item.active i { transform: translateY(-2px); }
 
-        .nav-item.active {
-            color: var(--brand-secondary);
-        }
-        
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            width: 20px;
-            height: 3px;
-            background: var(--brand-secondary);
-            border-radius: 2px;
-            transition: all var(--duration-base) var(--ease-spring);
-        }
-        
-        .nav-item.active i {
-            transform: translateY(-2px);
-        }
-
-        /* POPUP - Modern Modal */
-        .popup-overlay {
+        /* ========== POPUP DEVELOPMENT PREMIUM ========== */
+        .popup-dev-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(0,0,0,0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             display: flex;
@@ -655,213 +290,209 @@
             z-index: 9999;
             opacity: 0;
             visibility: hidden;
-            transition: all var(--duration-slow) var(--ease-out-expo);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
             padding: 20px;
         }
-
-        .popup-overlay.active {
+        .popup-dev-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-
-        .popup-container {
+        .popup-dev-container {
             width: 100%;
-            max-width: 360px;
-            background: var(--surface-primary);
-            border-radius: var(--radius-2xl);
-            padding: 28px 20px 24px;
+            max-width: 340px;
+            background: var(--surface);
+            border-radius: 28px;
+            padding: 32px 20px 24px;
             text-align: center;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-xl);
-            transform: scale(0.92) translateY(20px);
-            transition: transform var(--duration-slow) var(--ease-spring);
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
             position: relative;
         }
-
-        .popup-overlay.active .popup-container {
+        .popup-dev-overlay.active .popup-dev-container {
             transform: scale(1) translateY(0);
         }
-
-        .popup-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 32px;
-            height: 32px;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 50%;
+        .popup-dev-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, var(--brand-light), var(--brand-light));
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-error);
-            cursor: pointer;
-            border: none;
-            font-size: 0.85rem;
-            transition: all var(--duration-fast) var(--ease-out-expo);
+            font-size: 2.5rem;
+            animation: floatIcon 3s ease-in-out infinite;
         }
-        
-        .popup-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            transform: rotate(90deg);
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
-
-        .popup-image {
+        .popup-dev-icon i {
+            background: linear-gradient(135deg, var(--brand), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .popup-dev-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .popup-dev-subtitle {
+            font-size: 0.82rem;
+            color: var(--text2);
+            margin-bottom: 8px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .popup-dev-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin: 12px 0 16px;
+        }
+        .popup-dev-feature {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .popup-dev-feature i {
+            color: var(--accent2);
+            font-size: 0.6rem;
+        }
+        .popup-dev-progress {
             width: 100%;
-            border-radius: var(--radius-lg);
-            margin: 12px 0;
-            box-shadow: var(--shadow-md);
+            height: 6px;
+            background: var(--surface2);
+            border-radius: 10px;
+            margin: 8px 0 16px;
+            overflow: hidden;
         }
-
-        .popup-button {
+        .popup-dev-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--brand), var(--accent));
+            border-radius: 10px;
+            width: 65%;
+            animation: progressGlow 2s ease-in-out infinite;
+        }
+        @keyframes progressGlow {
+            0%, 100% { box-shadow: 0 0 8px rgba(99,102,241,0.3); }
+            50% { box-shadow: 0 0 20px rgba(99,102,241,0.6); }
+        }
+        .popup-dev-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            background: linear-gradient(135deg, var(--brand), var(--brand2));
             border: none;
             border-radius: 50px;
             color: white;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            margin-top: 12px;
-            box-shadow: var(--shadow-brand);
-            transition: all var(--duration-fast) var(--ease-spring);
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
         }
-        
-        .popup-button:active {
+        .popup-dev-btn:active {
             transform: scale(0.96);
-            box-shadow: var(--shadow-sm);
         }
-        
-        .popup-container input[type="checkbox"] {
-            accent-color: var(--brand-secondary);
-            width: 16px;
-            height: 16px;
-        }
-        
-        .popup-container label {
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            font-weight: 500;
+        .popup-dev-btn i {
+            margin-right: 6px;
         }
 
-        /* LOADING - Cinematic */
-        .loading-overlay {
+        /* ========== POPUP WELCOME (AWAL) ========== */
+        .popup-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 10000;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 9998;
             opacity: 0;
             visibility: hidden;
-            transition: all var(--duration-slow) var(--ease-out-expo);
+            transition: all 0.4s;
+            padding: 20px;
         }
-
-        .loading-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .loading-container {
+        .popup-overlay.active { opacity:1; visibility:visible; }
+        .popup-container {
+            width: 100%;
+            max-width: 340px;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 24px 18px 18px;
             text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            position: relative;
+        }
+        .popup-overlay.active .popup-container { transform: scale(1) translateY(0); }
+        .popup-close {
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 28px; height: 28px;
+            background: rgba(239,68,68,0.1);
+            border-radius: 50%;
+            display: flex; align-items:center; justify-content:center;
+            color: var(--danger); cursor: pointer;
+            border: none; font-size: 0.75rem;
+        }
+        .popup-image { width:100%; border-radius:16px; margin:8px 0; }
+        .popup-button {
+            width: 100%; padding: 12px;
+            background: linear-gradient(135deg, var(--brand), var(--brand2));
+            border: none; border-radius: 50px;
+            color: white; font-weight: 800; font-size: 0.85rem;
+            cursor: pointer; margin-top: 8px;
         }
 
+        .loading-overlay {
+            position: fixed; inset: 0;
+            background: rgba(11,15,25,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: flex; align-items:center; justify-content:center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s;
+        }
+        .loading-overlay.active { opacity:1; visibility:visible; }
         .loading-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px;
-            background: white;
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
-            animation: logoBreath 2s ease-in-out infinite;
+            width: 60px; height: 60px; margin: 0 auto 12px;
+            background: white; border-radius: 14px;
+            display: flex; align-items:center; justify-content:center;
+            animation: logoBreath 2s infinite;
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.3);
         }
-
-        .loading-logo img {
-            width: 85%;
-            height: 85%;
-            object-fit: contain;
-        }
-
-        @keyframes logoBreath {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
-            }
-            50% {
-                transform: scale(1.04);
-                box-shadow: 0 0 60px rgba(37, 99, 235, 0.6);
-            }
-        }
-
+        .loading-logo img { width:85%; height:85%; object-fit:contain; }
+        @keyframes logoBreath { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
         .loading-spinner {
-            width: 32px;
-            height: 32px;
-            border: 2.5px solid rgba(255, 255, 255, 0.15);
-            border-top: 2.5px solid var(--brand-secondary);
+            width: 24px; height: 24px;
+            border: 2.5px solid rgba(255,255,255,0.15);
+            border-top: 2.5px solid var(--brand2);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 14px;
+            margin: 0 auto 10px;
         }
+        @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+        .loading-text { color: rgba(255,255,255,0.9); font-weight: 700; font-size: 0.75rem; text-align: center; }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 380px) {
-            .app-content {
-                padding: 0 12px 12px;
-            }
-            .logo-gambar {
-                width: 70px;
-                height: 70px;
-            }
-            .game-name {
-                font-size: 0.78rem;
-            }
-            .product-column {
-                width: 125px;
-                gap: 10px;
-            }
-            .game-card {
-                padding: 14px 8px 12px;
-            }
-            .brand-app h1 {
-                font-size: 1.1rem;
-            }
-            .theme-toggle-app {
-                padding: 6px 12px;
-                font-size: 0.7rem;
-            }
-            .operational-panel {
-                font-size: 0.7rem;
-                padding: 10px 12px;
-            }
-        }
-        
-        @media (min-width: 480px) {
-            #app-root {
-                border-radius: var(--radius-2xl);
-                margin-top: 12px;
-                height: calc(100vh - 24px);
-            }
+        @supports(padding-bottom: env(safe-area-inset-bottom)) {
+            .bottom-nav { padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)); }
         }
     </style>
 </head>
@@ -873,7 +504,7 @@
             <div class="icon-wrapper">
                 <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY" id="logoImg">
             </div>
-            <h1 id="namaToko">STAAPAY</h1>
+            <h1>STAA<span>PAY</span></h1>
         </div>
         <button class="theme-toggle-app" id="themeToggleBtn">
             <i class="fas fa-sun" id="iconSun"></i>
@@ -884,24 +515,21 @@
 
     <!-- CONTENT -->
     <div class="app-content" id="appContent">
-        <!-- OPERATIONAL PANEL -->
         <div class="operational-panel">
-            <span class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--</span></span>
-            <span class="time-display"><i class="fas fa-calendar"></i> <span id="jamOperasional">07:00 - 21:00 WIB</span></span>
-            <div class="status-wrapper" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--:--</span></span>
+            <span class="time-display"><i class="fas fa-calendar"></i> <span id="jamOperasional">07:00 - 21:00</span></span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                 <div class="status-badge open" id="statusBadge">
-                    <i class="fas fa-circle" style="font-size:0.45rem;"></i> <span>Memuat...</span>
+                    <span class="status-dot"></span> <span>BUKA</span>
                 </div>
-                <div class="new-version-badge"><i class="fas fa-star"></i><span>NEW VERSION</span></div>
+                <div class="new-badge"><i class="fas fa-star"></i> PREMIUM</div>
             </div>
         </div>
 
-        <!-- WARNING -->
         <div id="warningBanner" class="warning-banner" style="display:none;">
-            <i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko sedang tutup</span>
+            <i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko tutup</span>
         </div>
 
-        <!-- BANNER SLIDER -->
         <div class="banner-slider">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="bannerSlides"></div>
@@ -909,17 +537,15 @@
             </div>
         </div>
 
-        <!-- GAMES SECTION -->
         <div class="section-title"><i class="fas fa-gamepad"></i> Pilihan Top Up</div>
         <div class="game-scroll-wrapper">
             <div class="game-horizontal-flex" id="gameHorizontalList">
-                <div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);">
-                    <i class="fas fa-spinner fa-spin"></i> Memuat produk...
+                <div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text3);">
+                    <i class="fas fa-spinner fa-spin"></i> Memuat...
                 </div>
             </div>
         </div>
 
-        <!-- KEUNGGULAN -->
         <div class="keunggulan-section">
             <div class="keunggulan-item"><i class="fas fa-bolt"></i> Proses Cepat</div>
             <div class="keunggulan-item"><i class="fas fa-shield-alt"></i> 100% Aman</div>
@@ -927,8 +553,7 @@
             <div class="keunggulan-item"><i class="fas fa-tag"></i> Termurah</div>
         </div>
 
-        <!-- FOOTER -->
-        <div class="footer-staa">© 2026 <span id="footerNama">STAA PAY</span> • Top Up Premium</div>
+        <div class="footer-staa">© 2026 <span id="footerNama">STAA PAY</span> • #TopUpPremium</div>
     </div>
 
     <!-- BOTTOM NAV -->
@@ -940,7 +565,7 @@
     </div>
 </div>
 
-<!-- LOADING OVERLAY -->
+<!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-container">
         <div class="loading-logo"><img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY"></div>
@@ -949,400 +574,207 @@
     </div>
 </div>
 
-<!-- POPUP PREMIUM -->
+<!-- POPUP WELCOME -->
 <div class="popup-overlay" id="premiumPopup">
     <div class="popup-container">
-        <button class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></button>
-        <h2 style="font-weight:800;font-size:1.4rem;margin:8px 0;color:var(--text-primary);">🚀 <span id="popupNama">STAA PAY</span></h2>
+        <button class="popup-close" onclick="closeWelcomePopup()"><i class="fas fa-times"></i></button>
+        <h2 style="font-weight:800;font-size:1.2rem;margin:4px 0;color:var(--text);">🚀 <span id="popupNama">STAA PAY</span></h2>
         <img src="https://i.ibb.co.com/sJW5WyKP/quality-restoration-20260519003356441.jpg" class="popup-image" alt="STAA PAY" id="popupImg">
-        <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
-        <div style="display:flex;justify-content:center;gap:10px;margin-top:14px;">
+        <button class="popup-button" onclick="closeWelcomePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
+        <div style="display:flex;justify-content:center;gap:10px;margin-top:12px;">
             <input type="checkbox" id="dontShowAgain">
-            <label for="dontShowAgain">Jangan tampilkan lagi</label>
+            <label for="dontShowAgain" style="font-size:0.65rem;color:var(--text3);">Jangan tampilkan lagi</label>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    // =============================================
-    // 🔧 KONFIGURASI - GANTI SHEET ID KAMU DISINI
-    // =============================================
-    const SHEET_ID = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
+<!-- POPUP FITUR DALAM PENGEMBANGAN (PREMIUM) -->
+<div class="popup-dev-overlay" id="devPopup">
+    <div class="popup-dev-container">
+        <div class="popup-dev-icon">
+            <i class="fas fa-code"></i>
+        </div>
+        <div class="popup-dev-title">🚧 Dalam Pengembangan</div>
+        <div class="popup-dev-subtitle">Fitur ini sedang kami kerjakan dengan <strong>sepenuh hati</strong> untuk memberikan pengalaman terbaik buat kamu!</div>
+        
+        <div class="popup-dev-progress">
+            <div class="popup-dev-progress-bar"></div>
+        </div>
+        
+        <div class="popup-dev-features">
+            <div class="popup-dev-feature"><i class="fas fa-check-circle"></i> Desain UI</div>
+            <div class="popup-dev-feature"><i class="fas fa-spinner fa-spin"></i> Backend</div>
+            <div class="popup-dev-feature"><i class="fas fa-clock"></i> Testing</div>
+            <div class="popup-dev-feature"><i class="fas fa-gift"></i> Hadiah</div>
+        </div>
+        
+        <button class="popup-dev-btn" onclick="closeDevPopup()">
+            <i class="fas fa-rocket"></i> NOTIFIKASI KETIKA SUDAH RILIS
+        </button>
+        
+        <p style="font-size:0.6rem;color:var(--text3);margin-top:10px;">
+            Estimasi rilis: <strong style="color:var(--brand2);">Juni 2026</strong>
+        </p>
+    </div>
+</div>
 
-    // =============================================
-    // 🎨 THEME TOGGLE
-    // =============================================
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="api.js"></script>
+<script>
+(function() {
+    'use strict';
+    
+    // ========== THEME ==========
     const body = document.body;
     const iconSun = document.getElementById('iconSun');
     const iconMoon = document.getElementById('iconMoon');
     const themeText = document.getElementById('themeText');
-
+    
     function updateThemeUI(isDark) {
-        if (isDark) {
-            iconSun.style.display = 'none';
-            iconMoon.style.display = 'inline-block';
-            themeText.textContent = 'Dark';
-        } else {
-            iconSun.style.display = 'inline-block';
-            iconMoon.style.display = 'none';
-            themeText.textContent = 'Light';
-        }
+        if (isDark) { iconSun.style.display = 'none'; iconMoon.style.display = 'inline-block'; themeText.textContent = 'Dark'; }
+        else { iconSun.style.display = 'inline-block'; iconMoon.style.display = 'none'; themeText.textContent = 'Light'; }
     }
-
-    if (localStorage.getItem('staa-theme') === 'dark') {
-        body.classList.add('dark');
-        updateThemeUI(true);
-    }
-
-    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+    
+    if (localStorage.getItem('staa-theme') === 'dark') { body.classList.add('dark'); updateThemeUI(true); }
+    
+    document.getElementById('themeToggleBtn').addEventListener('click', function() {
         const isDark = body.classList.toggle('dark');
         localStorage.setItem('staa-theme', isDark ? 'dark' : 'light');
         updateThemeUI(isDark);
     });
-
-    // =============================================
-    // 📡 FETCH DARI GOOGLE SHEETS (CSV)
-    // =============================================
-    async function fetchSheetCSV(sheetName) {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
-        console.log(`📡 Fetch: ${sheetName} | ${url}`);
-
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        const text = await response.text();
-        if (!text.trim()) {
-            console.warn(`⚠️ Sheet "${sheetName}" kosong`);
-            return [];
-        }
-
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-
-        const data = [];
-        for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-            const row = {};
-            headers.forEach((h, idx) => { row[h] = values[idx] !== undefined ? values[idx] : ''; });
-            data.push(row);
-        }
-
-        console.log(`✅ ${sheetName}: ${data.length} baris`);
-        return data;
-    }
-
-    // =============================================
-    // ⚙️ LOAD SETTINGS
-    // =============================================
-    async function loadSettings() {
-        try {
-            const data = await fetchSheetCSV('pengaturan');
-            if (data.length === 0) {
-                console.warn('⚠️ Sheet pengaturan kosong, pakai default');
-                return null;
-            }
-
-            const settings = {};
-            data.forEach(row => {
-                if (row.kunci && row.nilai !== undefined) {
-                    settings[row.kunci] = row.nilai;
-                }
-            });
-
-            console.log('📊 Settings loaded:', settings);
-            return settings;
-        } catch (e) {
-            console.error('❌ Gagal load settings:', e.message);
-            return null;
-        }
-    }
-
-    // =============================================
-    // 🎮 LOAD GAMES
-    // =============================================
-    async function loadGames() {
-        try {
-            const data = await fetchSheetCSV('games');
-            const active = data.filter(g => g.aktif === '1');
-            console.log(`🎮 ${active.length} games aktif dari ${data.length} total`);
-            return active;
-        } catch (e) {
-            console.error('❌ Gagal load games:', e.message);
-            return [];
-        }
-    }
-
-    // =============================================
-    // 🖼️ RENDER BANNER SLIDER
-    // =============================================
-    function renderBanners(settings) {
-        const slides = document.getElementById('bannerSlides');
-        const banners = [];
-
-        if (settings) {
-            for (let i = 1; i <= 6; i++) {
-                const banner = settings[`banner_${i}`];
-                if (banner) banners.push(banner);
-            }
-        }
-
-        // Fallback banners
-        if (banners.length === 0) {
-            banners.push(
-                'https://i.ibb.co.com/cSDHMzQ3/IMG-1369.png',
-                'https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg',
-                'https://i.ibb.co.com/Q3tncwc1/images-5.jpg'
-            );
-        }
-
-        slides.innerHTML = banners.map((url, i) => `
-            <div class="swiper-slide">
-                <img src="${url}" alt="Banner ${i + 1}" onerror="this.src='https://via.placeholder.com/800x400/1e3a8a/ffffff?text=STAA+PAY'">
-            </div>
-        `).join('');
-
-        new Swiper('.mySwiper', {
-            loop: true,
-            autoplay: { delay: 3000, disableOnInteraction: false },
-            pagination: { el: '.swiper-pagination', clickable: true }
-        });
-    }
-
-    // =============================================
-    // 🎯 RENDER GAMES
-    // =============================================
-    function renderGames(games) {
-        const container = document.getElementById('gameHorizontalList');
-
-        if (games.length === 0) {
-            container.innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);"><i class="fas fa-box-open"></i> Belum ada produk</div>';
-            return;
-        }
-
-        const columns = [];
-        for (let i = 0; i < games.length; i += 2) {
-            columns.push(games.slice(i, i + 2));
-        }
-
-        container.innerHTML = columns.map(col => {
-            const cards = col.map(game => `
-                <a href="${game.link}" class="game-card" data-game="${game.game_id}">
-                    <div class="logo-gambar">
-                        <img src="${game.img_url}" alt="${game.nama}" onerror="this.src='https://via.placeholder.com/85/3b82f6/fff?text=${encodeURIComponent(game.nama.charAt(0))}'">
-                    </div>
-                    <span class="game-name">${game.nama}</span>
-                    <small><i class="fa-regular fa-hand-pointer"></i> ${game.badge || 'Top Up'}</small>
-                </a>
-            `).join('');
-            return `<div class="product-column">${cards}</div>`;
-        }).join('');
-
-        attachGameListeners();
-    }
-
-    // =============================================
-    // 🔗 ATTACH GAME LISTENERS
-    // =============================================
-    function attachGameListeners() {
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (this.classList.contains('disabled')) {
-                    e.preventDefault();
-                    alert('⚠️ Toko sedang tutup. Silakan kembali saat jam operasional.');
-                    return;
-                }
-
-                const url = this.getAttribute('href');
-                if (url && !url.startsWith('#')) {
-                    e.preventDefault();
-                    showLoading(url);
-                }
-            });
-        });
-    }
-
-    // =============================================
-    // ⏰ CLOCK & STORE STATUS
-    // =============================================
-    let appSettings = null;
-
+    
+    // ========== CLOCK ==========
     function updateTime() {
         const now = new Date();
         const wib = new Date(now.getTime() + 7 * 60 * 60 * 1000);
-        const h = String(wib.getUTCHours()).padStart(2, '0');
-        const m = String(wib.getUTCMinutes()).padStart(2, '0');
-        const s = String(wib.getUTCSeconds()).padStart(2, '0');
-        document.getElementById('currentTime').textContent = `${h}:${m}:${s}`;
+        const el = document.getElementById('currentTime');
+        if (el) el.textContent = String(wib.getUTCHours()).padStart(2,'0') + ':' + String(wib.getUTCMinutes()).padStart(2,'0') + ':' + String(wib.getUTCSeconds()).padStart(2,'0');
     }
-
+    setInterval(updateTime, 1000); updateTime();
+    
+    // ========== STORE STATUS ==========
+    let appSettings = null;
     function updateStoreUI() {
-        if (!appSettings) {
-            appSettings = { jam_buka: '7', jam_tutup: '21' };
-        }
-
-        const openHour = parseInt(appSettings.jam_buka) || 7;
-        const closeHour = parseInt(appSettings.jam_tutup) || 21;
-
-        const now = new Date();
-        const wib = new Date(now.getTime() + 7 * 60 * 60 * 1000);
-        const currentHour = wib.getUTCHours();
-        const isOpen = currentHour >= openHour && currentHour < closeHour;
-
+        if (!appSettings) appSettings = { jam_buka: '7', jam_tutup: '21' };
+        const oh = parseInt(appSettings.jam_buka) || 7, ch = parseInt(appSettings.jam_tutup) || 21;
+        const wib = new Date(new Date().getTime() + 7 * 60 * 60 * 1000);
+        const isOpen = wib.getUTCHours() >= oh && wib.getUTCHours() < ch;
+        
+        const jamOp = document.getElementById('jamOperasional');
+        if (jamOp) jamOp.textContent = String(oh).padStart(2,'0') + ':00 - ' + String(ch).padStart(2,'0') + ':00';
+        
         const badge = document.getElementById('statusBadge');
         const warning = document.getElementById('warningBanner');
-        const warningMsg = document.getElementById('warningMessage');
-        const jamOp = document.getElementById('jamOperasional');
-
-        if (jamOp) {
-            jamOp.textContent = `${String(openHour).padStart(2, '0')}:00 - ${String(closeHour).padStart(2, '0')}:00 WIB`;
+        if (badge) {
+            if (isOpen) { badge.className = 'status-badge open'; badge.innerHTML = '<span class="status-dot"></span><span>BUKA</span>'; }
+            else { badge.className = 'status-badge closed'; badge.innerHTML = '<span class="status-dot"></span><span>TUTUP</span>'; }
         }
-
-        if (isOpen) {
-            badge.className = 'status-badge open';
-            badge.innerHTML = '<i class="fas fa-circle" style="font-size:0.45rem;"></i><span>BUKA</span>';
-            warning.style.display = 'none';
-        } else {
-            badge.className = 'status-badge closed';
-            badge.innerHTML = '<i class="fas fa-circle" style="font-size:0.45rem;"></i><span>TUTUP</span>';
-            warning.style.display = 'flex';
-            if (warningMsg) {
-                warningMsg.textContent = `Toko tutup (${String(openHour).padStart(2, '0')}:00 - ${String(closeHour).padStart(2, '0')}:00 WIB)`;
-            }
+        if (warning) {
+            if (isOpen) warning.style.display = 'none';
+            else { warning.style.display = 'flex'; const msg = document.getElementById('warningMessage'); if (msg) msg.textContent = 'Toko tutup (' + String(oh).padStart(2,'0') + ':00 - ' + String(ch).padStart(2,'0') + ':00)'; }
         }
-
-        document.querySelectorAll('.game-card').forEach(card => {
-            if (!isOpen) card.classList.add('disabled');
-            else card.classList.remove('disabled');
+        document.querySelectorAll('.game-card').forEach(function(c) { if (!isOpen) c.classList.add('disabled'); else c.classList.remove('disabled'); });
+    }
+    setInterval(updateStoreUI, 30000);
+    
+    // ========== BANNERS ==========
+    function renderBanners(s) {
+        const slides = document.getElementById('bannerSlides');
+        const bn = [];
+        if (s) { for (let i = 1; i <= 6; i++) { if (s['banner_' + i]) bn.push(s['banner_' + i]); } }
+        if (bn.length === 0) bn.push('https://i.ibb.co.com/cSDHMzQ3/IMG-1369.png', 'https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg', 'https://i.ibb.co.com/Q3tncwc1/images-5.jpg');
+        if (slides) slides.innerHTML = bn.map(function(u, i) { return '<div class="swiper-slide"><img src="' + u + '" alt="Banner"></div>'; }).join('');
+        new Swiper('.mySwiper', { loop: true, autoplay: { delay: 3000 }, pagination: { el: '.swiper-pagination', clickable: true } });
+    }
+    
+    // ========== GAMES ==========
+    function renderGames(g) {
+        const c = document.getElementById('gameHorizontalList');
+        if (!c) return;
+        if (g.length === 0) { c.innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text3);">Belum ada produk</div>'; return; }
+        const cols = [];
+        for (let i = 0; i < g.length; i += 2) cols.push(g.slice(i, i + 2));
+        c.innerHTML = cols.map(function(col) {
+            return '<div class="product-column">' + col.map(function(game) {
+                return '<a href="' + game.link + '" class="game-card"><div class="logo-gambar"><img src="' + game.img_url + '" alt="' + game.nama + '"></div><span class="game-name">' + game.nama + '</span><small><i class="fa-regular fa-hand-pointer"></i> ' + (game.badge || 'Top Up') + '</small></a>';
+            }).join('') + '</div>';
+        }).join('');
+        document.querySelectorAll('.game-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                if (this.classList.contains('disabled')) { e.preventDefault(); alert('⚠️ Toko sedang tutup.'); return; }
+                const u = this.getAttribute('href');
+                if (u && !u.startsWith('#')) { e.preventDefault(); document.getElementById('loadingOverlay').classList.add('active'); setTimeout(function() { window.location.href = u; }, 600); }
+            });
         });
-
-        console.log(`⏰ Jam: ${currentHour}:00 | ${isOpen ? '🟢 BUKA' : '🔴 TUTUP'} (${openHour}:00-${closeHour}:00)`);
+        updateStoreUI();
     }
-
-    setInterval(updateTime, 1000);
-    setInterval(updateStoreUI, 60000);
-    updateTime();
-
-    // =============================================
-    // 🔄 LOADING OVERLAY
-    // =============================================
-    function showLoading(url) {
-        document.getElementById('loadingOverlay').classList.add('active');
-        setTimeout(() => { window.location.href = url; }, 600);
-    }
-
-    function hideLoading() {
-        document.getElementById('loadingOverlay').classList.remove('active');
-    }
-
-    // =============================================
-    // 🎉 POPUP
-    // =============================================
-    if (!localStorage.getItem('popupClosed')) {
-        setTimeout(() => document.getElementById('premiumPopup').classList.add('active'), 800);
-    }
-
-    window.closePopup = function() {
+    
+    function hideLoading() { document.getElementById('loadingOverlay').classList.remove('active'); }
+    
+    // ========== POPUP WELCOME ==========
+    if (!localStorage.getItem('popupClosed')) { setTimeout(function() { document.getElementById('premiumPopup').classList.add('active'); }, 800); }
+    window.closeWelcomePopup = function() {
         document.getElementById('premiumPopup').classList.remove('active');
-        if (document.getElementById('dontShowAgain').checked) {
-            localStorage.setItem('popupClosed', 'true');
-        }
+        if (document.getElementById('dontShowAgain').checked) localStorage.setItem('popupClosed', 'true');
     };
-
-    // =============================================
-    // 📱 BOTTOM NAVIGATION
-    // =============================================
-    document.querySelectorAll('.nav-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const nav = btn.dataset.nav;
+    
+    // ========== POPUP DEVELOPMENT ==========
+    function showDevPopup() {
+        document.getElementById('devPopup').classList.add('active');
+    }
+    window.closeDevPopup = function() {
+        document.getElementById('devPopup').classList.remove('active');
+    };
+    
+    // ========== BOTTOM NAV (DENGAN POPUP DEV) ==========
+    document.querySelectorAll('.nav-item').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            
+            const nav = this.dataset.nav;
             if (nav !== 'home') {
-                alert('🎁 Fitur ini akan segera hadir!\n\nStay tuned di STAA PAY!');
+                showDevPopup();
                 document.querySelector('[data-nav="home"]').classList.add('active');
-                btn.classList.remove('active');
+                this.classList.remove('active');
             }
         });
     });
-
-    // =============================================
-    // 🚀 INISIALISASI UTAMA
-    // =============================================
+    
+    // ========== INIT ==========
     async function init() {
-        console.log('🚀 STAA PAY - Inisialisasi...');
-        console.log(`📋 Sheet ID: ${SHEET_ID}`);
-
+        console.clear(); console.log('🚀 STAA PAY PREMIUM');
         hideLoading();
-
-        // Load Settings
-        try {
-            appSettings = await loadSettings();
-
-            if (appSettings) {
-                // Update UI dari settings
-                if (appSettings.nama_toko) {
-                    document.getElementById('namaToko').textContent = appSettings.nama_toko;
-                    document.getElementById('footerNama').textContent = appSettings.nama_toko;
-                    document.getElementById('popupNama').textContent = appSettings.nama_toko;
-                    document.title = appSettings.nama_toko + ' · TOP UP APP';
-                }
-                if (appSettings.logo_url) {
-                    document.getElementById('logoImg').src = appSettings.logo_url;
-                }
-                if (appSettings.popup_img) {
-                    document.getElementById('popupImg').src = appSettings.popup_img;
-                }
-
-                // Render banners
-                renderBanners(appSettings);
-            } else {
-                renderBanners(null);
-            }
-        } catch (e) {
-            console.error('❌ Gagal init settings:', e);
-            appSettings = { jam_buka: '7', jam_tutup: '21' };
-            renderBanners(null);
+        
+        try { if (typeof fetchSettings === 'function') appSettings = await fetchSettings(); } catch(e) {}
+        
+        if (appSettings && appSettings.nama_toko) {
+            ['namaToko', 'footerNama', 'popupNama'].forEach(function(id) {
+                const el = document.getElementById(id); if (el) el.textContent = appSettings.nama_toko;
+            });
+            document.title = appSettings.nama_toko;
         }
-
-        // Update store UI
+        if (appSettings && appSettings.logo_url) { const el = document.getElementById('logoImg'); if (el) el.src = appSettings.logo_url; }
+        if (appSettings && appSettings.popup_img) { const el = document.getElementById('popupImg'); if (el) el.src = appSettings.popup_img; }
+        
+        renderBanners(appSettings || null);
         updateStoreUI();
-
-        // Load & Render Games
+        
         try {
-            const games = await loadGames();
-            renderGames(games);
-        } catch (e) {
-            console.error('❌ Gagal load games:', e);
-            document.getElementById('gameHorizontalList').innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);"><i class="fas fa-exclamation-triangle"></i> Gagal memuat produk</div>';
+            if (typeof fetchGames === 'function') { const games = await fetchGames(); renderGames(games); }
+        } catch(e) {
+            const c = document.getElementById('gameHorizontalList');
+            if (c) c.innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text3);">❌ Gagal memuat produk</div>';
         }
-
-        // Update lagi setelah games dirender
+        
         updateStoreUI();
-
-        console.log('✅ Inisialisasi selesai!');
+        console.log('✅ Selesai!');
     }
-
-    // =============================================
-    // 🔄 BFCACHE HANDLER
-    // =============================================
-    window.addEventListener('pageshow', (e) => {
-        if (e.persisted) {
-            hideLoading();
-            if (appSettings) updateStoreUI();
-        }
-    });
-
-    // =============================================
-    // 🛡️ SAFETY NET
-    // =============================================
-    setTimeout(hideLoading, 4000);
-
-    // =============================================
-    // ▶️ START
-    // =============================================
+    
     document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('pageshow', function(e) { if (e.persisted) { hideLoading(); updateStoreUI(); } });
+    setTimeout(hideLoading, 4000);
+})();
 </script>
 </body>
 </html>
