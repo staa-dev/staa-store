@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA PAY • ADMIN DASHBOARD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <style>
+        :root {
+            --bg: #f0f4ff; --surface: #ffffff; --surface2: #f8fafc;
+            --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+            --brand: #6366f1; --brand2: #4f46e5; --brand-light: #eef2ff;
+            --accent: #06b6d4; --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+            --border: #e2e8f0; --shadow: 0 4px 24px rgba(0,0,0,0.06); --shadow-lg: 0 12px 48px rgba(0,0,0,0.1);
+            --radius: 18px; --radius-sm: 12px;
+        }
+        body.dark {
+            --bg: #060b14; --surface: #0f1729; --surface2: #131d2e;
+            --text: #e2e8f0; --text2: #94a3b8; --text3: #64748b;
+            --brand-light: #1e1b4b; --border: #1e293b;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3); --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: all 0.3s; }
+
+        .login-page {
+            position: fixed; inset: 0; background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; transition: all 0.6s; padding: 20px;
+        }
+        .login-page.hidden { opacity: 0; visibility: hidden; transform: scale(1.1); pointer-events: none; }
+        .login-container {
+            width: 100%; max-width: 400px; background: var(--surface);
+            border-radius: 28px; padding: 40px 28px 32px; text-align: center;
+            border: 1px solid var(--border); box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+        }
+        .login-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--brand), var(--accent), var(--success)); }
+        .login-icon-3d { margin: 0 auto 16px; width: 90px; height: 90px; }
+        .login-container h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+        .login-container p { font-size: 0.8rem; color: var(--text2); margin-bottom: 24px; }
+        .input-wrapper { position: relative; margin-bottom: 16px; }
+        .input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text3); z-index: 2; }
+        .input-wrapper input {
+            width: 100%; padding: 14px 16px 14px 44px; border: 2px solid var(--border);
+            border-radius: 14px; font-size: 0.9rem; font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif; background: var(--surface2); color: var(--text);
+        }
+        .input-wrapper input:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+        .login-btn {
+            width: 100%; padding: 14px; background: linear-gradient(135deg, var(--brand), var(--brand2));
+            border: none; border-radius: 14px; color: white; font-weight: 800; font-size: 0.95rem;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(99,102,241,0.3); transition: all 0.3s;
+        }
+        .login-btn:hover { transform: translateY(-2px); }
+        .login-error { color: var(--danger); font-size: 0.75rem; font-weight: 600; margin-top: 8px; display: none; }
+        .login-error.show { display: block; animation: shake 0.4s; }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+        .admin-page { display: none; min-height: 100vh; }
+        .admin-page.active { display: block; }
+        .admin-header {
+            background: var(--surface); border-bottom: 1px solid var(--border);
+            padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+        }
+        .admin-header h1 { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .badge-admin { background: linear-gradient(135deg, var(--brand), var(--accent)); padding: 4px 12px; border-radius: 20px; font-size: 0.6rem; color: white; font-weight: 700; }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .btn {
+            padding: 9px 16px; border-radius: 50px; border: none; font-weight: 700; font-size: 0.73rem;
+            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif; white-space: nowrap;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: var(--brand); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: #1e293b; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 5px 10px; font-size: 0.65rem; }
+
+        .admin-container { max-width: 1300px; margin: 0 auto; padding: 20px 24px; }
+
+        /* STATS - 5 KOLOM */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--surface); border-radius: var(--radius); padding: 16px 14px;
+            border: 1px solid var(--border); box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .stat-emoji { font-size: 2rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stat-info h3 { font-size: 1.3rem; font-weight: 800; }
+        .stat-info p { font-size: 0.62rem; color: var(--text2); font-weight: 500; }
+
+        /* TABS */
+        .tabs {
+            display: flex; gap: 4px; background: var(--surface);
+            border-radius: var(--radius); padding: 4px; margin-bottom: 18px;
+            border: 1px solid var(--border); flex-wrap: wrap;
+        }
+        .tab {
+            padding: 9px 14px; border-radius: 14px; border: none; background: transparent;
+            color: var(--text2); font-weight: 600; font-size: 0.72rem; cursor: pointer;
+            transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif;
+            white-space: nowrap; display: flex; align-items: center; gap: 6px;
+        }
+        .tab.active { background: var(--brand); color: white; }
+        .tab:hover:not(.active) { background: var(--surface2); }
+
+        .card {
+            background: var(--surface); border-radius: var(--radius);
+            padding: 20px 24px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px;
+        }
+        .card h3 { font-size: 0.95rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+        .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.73rem; }
+        th { background: var(--surface2); padding: 10px 12px; text-align: left; font-weight: 700; color: var(--text2); white-space: nowrap; font-size: 0.65rem; text-transform: uppercase; }
+        td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+        tr:hover td { background: var(--surface2); }
+        tr:last-child td { border-bottom: none; }
+
+        input, select {
+            padding: 10px 14px; border: 2px solid var(--border); border-radius: 12px;
+            font-size: 0.78rem; font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--surface); color: var(--text); width: 100%;
+        }
+        input:focus, select:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+        .input-group { margin-bottom: 10px; }
+        .input-group label { display: block; font-size: 0.68rem; font-weight: 700; margin-bottom: 3px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: 700; }
+        .badge-success { background: rgba(16,185,129,0.1); color: var(--success); }
+        .badge-danger { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .badge-info { background: rgba(6,182,212,0.1); color: var(--accent); }
+        .badge-purple { background: rgba(124,58,237,0.1); color: #7c3aed; }
+        .badge-pink { background: rgba(236,72,153,0.1); color: #ec4899; }
+        .badge-blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal {
+            background: var(--surface); border-radius: 24px; padding: 24px;
+            width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto;
+            border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .modal h3 { margin-bottom: 14px; font-size: 1rem; }
+
+        .popup-premium-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.4s;
+        }
+        .popup-premium-overlay.active { opacity: 1; visibility: visible; }
+        .popup-premium {
+            background: var(--surface); border-radius: 28px; padding: 32px 24px;
+            width: 90%; max-width: 380px; text-align: center;
+            border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+            transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            position: relative;
+        }
+        .popup-premium-overlay.active .popup-premium { transform: scale(1); }
+        .popup-premium-close {
+            position: absolute; top: 12px; right: 12px;
+            width: 30px; height: 30px; background: rgba(239,68,68,0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--danger); cursor: pointer; border: none;
+        }
+        .popup-premium-icon { margin: 0 auto 16px; width: 100px; height: 100px; }
+        .popup-premium h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .popup-premium p { font-size: 0.8rem; color: var(--text2); margin-bottom: 20px; }
+        .popup-premium .progress-bar { width: 100%; height: 6px; background: var(--surface2); border-radius: 10px; margin: 12px 0 18px; overflow: hidden; }
+        .popup-premium .progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent), var(--success)); border-radius: 10px; width: 68%; animation: progressGlow 2s infinite; }
+        @keyframes progressGlow { 0%,100%{box-shadow:0 0 8px rgba(99,102,241,0.3)} 50%{box-shadow:0 0 20px rgba(99,102,241,0.6)} }
+        .popup-premium .feature-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
+        .popup-premium .feature-tag { background: var(--surface2); padding: 5px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+        .popup-premium .feature-tag i { color: var(--success); }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--surface); padding: 12px 18px; border-radius: 12px;
+            font-weight: 700; font-size: 0.75rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            z-index: 1000; opacity: 0; transform: translateY(20px);
+            transition: all 0.3s; border: 1px solid var(--border);
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--danger); }
+
+        @media (max-width: 768px) {
+            .admin-container { padding: 12px; }
+            .admin-header { padding: 10px 14px; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .tab { padding: 7px 10px; font-size: 0.65rem; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page" id="loginPage">
+        <div class="login-container">
+            <div class="login-icon-3d"><lord-icon src="https://cdn.lordicon.com/ajkxzzfb.json" trigger="loop" colors="primary:#6366f1,secondary:#06b6d4" style="width:90px;height:90px"></lord-icon></div>
+            <h2>Admin Access</h2>
+            <p>Masukkan password untuk melanjutkan</p>
+            <div class="input-wrapper"><i class="fas fa-lock"></i><input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')login()"></div>
+            <button class="login-btn" onclick="login()"><i class="fas fa-arrow-right-to-bracket"></i> Masuk</button>
+            <div class="login-error" id="loginError">❌ Password salah!</div>
+        </div>
+    </div>
+
+    <div class="admin-page" id="adminPage">
+        <div class="admin-header">
+            <h1><lord-icon src="https://cdn.lordicon.com/gqdnbnwt.json" trigger="loop" colors="primary:#6366f1,secondary:#f59e0b" style="width:28px;height:28px"></lord-icon> STAA PAY <span class="badge-admin">ADMIN</span></h1>
+            <div class="header-actions">
+                <button class="btn btn-outline btn-sm" onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark</button>
+                <button class="btn btn-outline btn-sm" onclick="syncAll()"><i class="fas fa-sync-alt"></i> Sync</button>
+                <button class="btn btn-danger btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+            </div>
+        </div>
+
+        <div class="admin-container">
+            <!-- STATS 5 KOLOM -->
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-emoji">🔥</div><div class="stat-info"><h3 id="stat-ff">-</h3><p>Free Fire</p></div></div>
+                <div class="stat-card"><div class="stat-emoji">💀</div><div class="stat-info"><h3 id="stat-ml">-</h3><p>MLBB</p></div></div>
+                <div class="stat-card"><div class="stat-emoji">🎬</div><div class="stat-info"><h3 id="stat-cc">-</h3><p>CapCut</p></div></div>
+                <div class="stat-card"><div class="stat-emoji">🎥</div><div class="stat-info"><h3 id="stat-am">-</h3><p>Alight Motion</p></div></div>
+                <div class="stat-card"><div class="stat-emoji">🎮</div><div class="stat-info"><h3 id="stat-games">-</h3><p>Games</p></div></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="pengaturan"><i class="fas fa-cog"></i> Pengaturan</button>
+                <button class="tab" data-tab="freefire"><i class="fas fa-fire"></i> FF</button>
+                <button class="tab" data-tab="mobilelegends"><i class="fas fa-skull"></i> MLBB</button>
+                <button class="tab" data-tab="capcut"><i class="fas fa-film"></i> CapCut</button>
+                <button class="tab" data-tab="alightmotion"><i class="fas fa-video"></i> AM</button>
+                <button class="tab" data-tab="games"><i class="fas fa-gamepad"></i> Games</button>
+            </div>
+
+            <div class="tab-content active" id="tab-pengaturan">
+                <div class="card"><h3><i class="fas fa-sliders-h"></i> Konfigurasi Toko</h3>
+                    <div class="input-row">
+                        <div class="input-group"><label>Nama Toko</label><input type="text" id="set-nama_toko"></div>
+                        <div class="input-group"><label>No WhatsApp</label><input type="text" id="set-nomor_wa"></div>
+                        <div class="input-group"><label>Jam Buka</label><input type="number" id="set-jam_buka" min="0" max="23"></div>
+                        <div class="input-group"><label>Jam Tutup</label><input type="number" id="set-jam_tutup" min="0" max="23"></div>
+                        <div class="input-group"><label>Admin OVO (%)</label><input type="number" id="set-biaya_admin_ovo" step="0.1"></div>
+                        <div class="input-group"><label>Admin QRIS (%)</label><input type="number" id="set-biaya_admin_qris" step="0.1"></div>
+                        <div class="input-group"><label>Logo URL</label><input type="text" id="set-logo_url"></div>
+                        <div class="input-group"><label>Popup Image URL</label><input type="text" id="set-popup_img"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-freefire" style="display:none;"><div class="card"><h3><i class="fas fa-fire"></i> Free Fire</h3><div class="table-wrapper"><table id="table-freefire"><thead><tr><th>Nama</th><th>Tipe</th><th>Harga</th><th>Badge</th><th>Aktif</th><th>Aksi</th></tr></thead><tbody></tbody></table></div><button class="btn btn-success" onclick="showAddModal('freefire')" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah</button></div></div>
+            <div class="tab-content" id="tab-mobilelegends" style="display:none;"><div class="card"><h3><i class="fas fa-skull"></i> MLBB</h3><div class="table-wrapper"><table id="table-mobilelegends"><thead><tr><th>Nama</th><th>Tipe</th><th>Harga</th><th>Badge</th><th>Aktif</th><th>Aksi</th></tr></thead><tbody></tbody></table></div><button class="btn btn-success" onclick="showAddModal('mobilelegends')" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah</button></div></div>
+            <div class="tab-content" id="tab-capcut" style="display:none;"><div class="card"><h3><i class="fas fa-film"></i> CapCut</h3><div class="table-wrapper"><table id="table-capcut"><thead><tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Badge</th><th>Aksi</th></tr></thead><tbody></tbody></table></div><button class="btn btn-success" onclick="showAddModal('capcut')" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah</button></div></div>
+            <div class="tab-content" id="tab-alightmotion" style="display:none;"><div class="card"><h3><i class="fas fa-video"></i> Alight Motion</h3><div class="table-wrapper"><table id="table-alightmotion"><thead><tr><th>Nama</th><th>Harga</th><th>Stok</th><th>Badge</th><th>Aksi</th></tr></thead><tbody></tbody></table></div><button class="btn btn-success" onclick="showAddModal('alightmotion')" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah</button></div></div>
+            <div class="tab-content" id="tab-games" style="display:none;"><div class="card"><h3><i class="fas fa-gamepad"></i> Daftar Game</h3><div class="table-wrapper"><table id="table-games"><thead><tr><th>Game</th><th>Link</th><th>Badge</th><th>Aktif</th><th>Aksi</th></tr></thead><tbody></tbody></table></div><button class="btn btn-success" onclick="showAddModal('games')" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah</button></div></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalAdd"><div class="modal"><h3 id="modalTitle">Tambah</h3><div id="modalFields"></div><div style="display:flex;gap:10px;margin-top:14px;"><button class="btn btn-primary" onclick="saveProduct()"><i class="fas fa-save"></i> Simpan</button><button class="btn btn-outline" onclick="closeModal()">Batal</button></div></div></div>
+
+    <div class="popup-premium-overlay" id="premiumPopup">
+        <div class="popup-premium">
+            <button class="popup-premium-close" onclick="closePremiumPopup()"><i class="fas fa-times"></i></button>
+            <div class="popup-premium-icon"><lord-icon src="https://cdn.lordicon.com/xzaukvsk.json" trigger="loop" colors="primary:#6366f1,secondary:#f59e0b" style="width:100px;height:100px"></lord-icon></div>
+            <h2>🚀 Fitur Premium</h2>
+            <p>Beberapa fitur masih dalam pengembangan. Sabar ya bro!</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div class="feature-tags"><div class="feature-tag"><i class="fas fa-check-circle"></i> Dashboard</div><div class="feature-tag"><i class="fas fa-spinner fa-spin"></i> Notifikasi</div><div class="feature-tag"><i class="fas fa-clock"></i> Laporan</div><div class="feature-tag"><i class="fas fa-gift"></i> Hadiah</div></div>
+            <button class="btn btn-primary" onclick="closePremiumPopup()" style="width:100%;"><i class="fas fa-check"></i> Mengerti</button>
+            <p style="font-size:0.6rem;color:var(--text3);margin-top:8px;">Estimasi rilis: Juni 2026</p>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const SHEET_ID = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2QbIRC5hv3w-BzkKxwCLKw-8e4P8gdcxa8Q9v-kBVBVkhkw1GfUlQzaEsk7FW2s0eEQ/exec';
+        const ENCRYPTED_PASSWORD = 'ZGVzdGExNjM=';
+        let currentTab = 'pengaturan', currentSheet = '', editingIndex = -1;
+
+        // TIPE PRODUK LENGKAP
+        const PRODUCT_TYPES = ['diamond', 'membership', 'weekly', 'reguler', 'akun', 'ewallet'];
+        const TYPE_LABELS = { diamond: '💎 Diamond', membership: '👑 Membership', weekly: '📅 Weekly Pass', reguler: '📦 Reguler', akun: '👤 Akun', ewallet: '💸 E-Wallet' };
+
+        function login() {
+            if (btoa(document.getElementById('passwordInput').value) === ENCRYPTED_PASSWORD) {
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('adminPage').classList.add('active');
+                document.getElementById('loginError').classList.remove('show');
+                sessionStorage.setItem('admin_logged_in', 'true');
+                loadSettings(); updateStats();
+            } else { document.getElementById('loginError').classList.add('show'); document.getElementById('passwordInput').value = ''; }
+        }
+        function logout() { sessionStorage.removeItem('admin_logged_in'); document.getElementById('loginPage').classList.remove('hidden'); document.getElementById('adminPage').classList.remove('active'); }
+        if (sessionStorage.getItem('admin_logged_in') === 'true') { document.getElementById('loginPage').classList.add('hidden'); document.getElementById('adminPage').classList.add('active'); setTimeout(() => { loadSettings(); updateStats(); }, 500); }
+
+        function toggleTheme() { document.body.classList.toggle('dark'); }
+        function showToast(m, t = 'success') { const toast = document.getElementById('toast'); toast.textContent = m; toast.className = 'toast ' + t + ' show'; setTimeout(() => toast.classList.remove('show'), 3000); }
+        function showPremiumPopup() { document.getElementById('premiumPopup').classList.add('active'); }
+        function closePremiumPopup() { document.getElementById('premiumPopup').classList.remove('active'); }
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active'); currentTab = tab.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                const target = document.getElementById('tab-' + currentTab);
+                if (target) target.style.display = 'block';
+                currentTab === 'pengaturan' ? loadSettings() : loadProducts(currentTab);
+            });
+        });
+
+        async function fetchSheetCSV(sheetName) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+            const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error('HTTP ' + r.status);
+            const text = await r.text(); if (!text.trim()) return [];
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const data = [];
+            for (let i = 1; i < lines.length; i++) { const vals = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, '')); if (vals.length === 0 || vals.every(v => v === '')) continue; const row = {}; headers.forEach((h, idx) => { row[h] = vals[idx] !== undefined ? vals[idx] : ''; }); data.push(row); }
+            return data;
+        }
+
+        // UPDATE STATS (5 PRODUK)
+        async function updateStats() {
+            try {
+                const [ff, ml, cc, am, games] = await Promise.all([
+                    fetchSheetCSV('freefire'), fetchSheetCSV('mobilelegends'),
+                    fetchSheetCSV('capcut'), fetchSheetCSV('alightmotion'), fetchSheetCSV('games')
+                ]);
+                document.getElementById('stat-ff').textContent = ff.length;
+                document.getElementById('stat-ml').textContent = ml.length;
+                document.getElementById('stat-cc').textContent = cc.length;
+                document.getElementById('stat-am').textContent = am.length;
+                document.getElementById('stat-games').textContent = games.filter(g => g.aktif === '1').length;
+            } catch(e) {}
+        }
+
+        async function loadSettings() { const data = await fetchSheetCSV('pengaturan'); const s = {}; data.forEach(r => { if (r.kunci) s[r.kunci] = r.nilai; }); ['nama_toko','nomor_wa','jam_buka','jam_tutup','biaya_admin_ovo','biaya_admin_qris','logo_url','popup_img'].forEach(f => { const el = document.getElementById('set-' + f); if (el) el.value = s[f] || ''; }); }
+        async function saveSettings() { const fields = ['nama_toko','nomor_wa','jam_buka','jam_tutup','biaya_admin_ovo','biaya_admin_qris','logo_url','popup_img']; await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'saveSettings', sheet: 'pengaturan', data: fields.map(f => ({ kunci: f, nilai: document.getElementById('set-' + f).value })) }) }); showToast('✅ Pengaturan disimpan!'); }
+
+        async function loadProducts(sheetName) {
+            const data = await fetchSheetCSV(sheetName); const tbody = document.querySelector('#table-' + sheetName + ' tbody'); if (!tbody) return;
+            if (sheetName === 'games') {
+                tbody.innerHTML = data.map((r, i) => `<tr><td><strong>${r.nama||''}</strong> <span class="badge badge-info">${r.game_id||''}</span></td><td>${r.link||''}</td><td>${r.badge||''}</td><td><span class="badge ${r.aktif==='1'?'badge-success':'badge-danger'}">${r.aktif==='1'?'AKTIF':'OFF'}</span></td><td><button class="btn btn-warning btn-sm" onclick="editProduct('${sheetName}',${i})"><i class="fas fa-edit"></i></button><button class="btn btn-outline btn-sm" onclick="toggleActive('${sheetName}',${i})"><i class="fas fa-power-off"></i></button></td></tr>`).join('');
+            } else if (sheetName === 'capcut' || sheetName === 'alightmotion') {
+                const badgeClass = sheetName === 'capcut' ? 'badge-info' : 'badge-purple';
+                tbody.innerHTML = data.map((r, i) => `<tr><td><strong>${r.nama||''}</strong> <span class="badge ${badgeClass}">${r.tipe||'reguler'}</span></td><td>Rp ${parseInt(r.harga||0).toLocaleString('id-ID')}</td><td><span class="badge ${parseInt(r.stok||0)>0?'badge-success':'badge-danger'}">${r.stok||0} pcs</span></td><td>${r.badge||''}</td><td><button class="btn btn-warning btn-sm" onclick="editProduct('${sheetName}',${i})"><i class="fas fa-edit"></i></button><button class="btn btn-outline btn-sm" onclick="editStock('${sheetName}',${i})"><i class="fas fa-boxes"></i></button></td></tr>`).join('');
+            } else {
+                tbody.innerHTML = data.map((r, i) => `<tr><td><strong>${r.nama||''}</strong></td><td><span class="badge badge-info">${r.tipe||''}</span></td><td>Rp ${parseInt(r.harga||0).toLocaleString('id-ID')}</td><td>${r.badge||''}</td><td><span class="badge ${r.aktif==='1'?'badge-success':'badge-danger'}">${r.aktif==='1'?'AKTIF':'OFF'}</span></td><td><button class="btn btn-warning btn-sm" onclick="editProduct('${sheetName}',${i})"><i class="fas fa-edit"></i></button><button class="btn btn-outline btn-sm" onclick="toggleActive('${sheetName}',${i})"><i class="fas fa-power-off"></i></button></td></tr>`).join('');
+            }
+        }
+
+        async function toggleActive(sheetName, index) { const data = await fetchSheetCSV(sheetName); if (data[index]) { data[index].aktif = data[index].aktif === '1' ? '0' : '1'; await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAll', sheet: sheetName, data: data }) }); showToast('✅ Toggled!'); loadProducts(sheetName); updateStats(); } }
+        async function editStock(sheetName, index) { const data = await fetchSheetCSV(sheetName); const v = prompt('Stok baru:', data[index].stok); if (v !== null) { data[index].stok = v; await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAll', sheet: sheetName, data: data }) }); showToast('✅ Updated!'); loadProducts(sheetName); updateStats(); } }
+
+        // MODAL DENGAN PILIHAN TIPE LENGKAP
+        function showAddModal(sheetName) {
+            currentSheet = sheetName; editingIndex = -1;
+            document.getElementById('modalTitle').textContent = 'Tambah - ' + sheetName;
+            let f = '';
+            if (sheetName === 'capcut' || sheetName === 'alightmotion') {
+                f = `<div class="input-group"><label>Tipe</label><select id="md-tipe">${PRODUCT_TYPES.map(t => `<option value="${t}">${TYPE_LABELS[t]}</option>`).join('')}</select></div>
+                     <div class="input-group"><label>Nama</label><input id="md-nama"></div>
+                     <div class="input-group"><label>Harga</label><input id="md-harga" type="number"></div>
+                     <div class="input-group"><label>Stok</label><input id="md-stok" type="number"></div>
+                     <div class="input-group"><label>Badge</label><input id="md-badge"></div>`;
+            } else if (sheetName === 'games') {
+                f = `<div class="input-group"><label>Game ID</label><input id="md-game_id"></div>
+                     <div class="input-group"><label>Nama</label><input id="md-nama"></div>
+                     <div class="input-group"><label>Link</label><input id="md-link"></div>
+                     <div class="input-group"><label>Image URL</label><input id="md-img_url"></div>
+                     <div class="input-group"><label>Badge</label><input id="md-badge"></div>`;
+            } else {
+                f = `<div class="input-group"><label>Tipe</label><select id="md-tipe">${PRODUCT_TYPES.map(t => `<option value="${t}">${TYPE_LABELS[t]}</option>`).join('')}</select></div>
+                     <div class="input-group"><label>Nama</label><input id="md-nama"></div>
+                     <div class="input-group"><label>Harga</label><input id="md-harga" type="number"></div>
+                     <div class="input-group"><label>Badge</label><input id="md-badge"></div>`;
+            }
+            document.getElementById('modalFields').innerHTML = f;
+            document.getElementById('modalAdd').classList.add('active');
+        }
+
+        function editProduct(sheetName, index) {
+            currentSheet = sheetName; editingIndex = index;
+            document.getElementById('modalTitle').textContent = 'Edit - ' + sheetName;
+            fetchSheetCSV(sheetName).then(data => {
+                const r = data[index]; let f = '';
+                if (sheetName === 'capcut' || sheetName === 'alightmotion') {
+                    f = `<div class="input-group"><label>Tipe</label><select id="md-tipe">${PRODUCT_TYPES.map(t => `<option value="${t}" ${r.tipe===t?'selected':''}>${TYPE_LABELS[t]}</option>`).join('')}</select></div>
+                         <div class="input-group"><label>Nama</label><input id="md-nama" value="${r.nama||''}"></div>
+                         <div class="input-group"><label>Harga</label><input id="md-harga" type="number" value="${r.harga||''}"></div>
+                         <div class="input-group"><label>Stok</label><input id="md-stok" type="number" value="${r.stok||''}"></div>
+                         <div class="input-group"><label>Badge</label><input id="md-badge" value="${r.badge||''}"></div>`;
+                } else if (sheetName === 'games') {
+                    f = `<div class="input-group"><label>Game ID</label><input id="md-game_id" value="${r.game_id||''}"></div>
+                         <div class="input-group"><label>Nama</label><input id="md-nama" value="${r.nama||''}"></div>
+                         <div class="input-group"><label>Link</label><input id="md-link" value="${r.link||''}"></div>
+                         <div class="input-group"><label>Image URL</label><input id="md-img_url" value="${r.img_url||''}"></div>
+                         <div class="input-group"><label>Badge</label><input id="md-badge" value="${r.badge||''}"></div>`;
+                } else {
+                    f = `<div class="input-group"><label>Tipe</label><select id="md-tipe">${PRODUCT_TYPES.map(t => `<option value="${t}" ${r.tipe===t?'selected':''}>${TYPE_LABELS[t]}</option>`).join('')}</select></div>
+                         <div class="input-group"><label>Nama</label><input id="md-nama" value="${r.nama||''}"></div>
+                         <div class="input-group"><label>Harga</label><input id="md-harga" type="number" value="${r.harga||''}"></div>
+                         <div class="input-group"><label>Badge</label><input id="md-badge" value="${r.badge||''}"></div>`;
+                }
+                document.getElementById('modalFields').innerHTML = f;
+            });
+            document.getElementById('modalAdd').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('modalAdd').classList.remove('active'); }
+
+        async function saveProduct() {
+            const data = await fetchSheetCSV(currentSheet);
+            const row = {};
+            if (currentSheet === 'capcut' || currentSheet === 'alightmotion') {
+                row.tipe = document.getElementById('md-tipe')?.value || 'reguler';
+                row.nama = document.getElementById('md-nama')?.value || '';
+                row.harga = document.getElementById('md-harga')?.value || '0';
+                row.stok = document.getElementById('md-stok')?.value || '0';
+                row.badge = document.getElementById('md-badge')?.value || ''; row.aktif = '1';
+            } else if (currentSheet === 'games') {
+                row.game_id = document.getElementById('md-game_id')?.value || '';
+                row.nama = document.getElementById('md-nama')?.value || '';
+                row.link = document.getElementById('md-link')?.value || '';
+                row.img_url = document.getElementById('md-img_url')?.value || '';
+                row.badge = document.getElementById('md-badge')?.value || ''; row.aktif = '1';
+            } else {
+                row.tipe = document.getElementById('md-tipe')?.value || 'diamond';
+                row.nama = document.getElementById('md-nama')?.value || '';
+                row.harga = document.getElementById('md-harga')?.value || '0';
+                row.badge = document.getElementById('md-badge')?.value || ''; row.aktif = '1';
+            }
+            if (editingIndex >= 0) { data[editingIndex] = { ...data[editingIndex], ...row }; }
+            else { data.push(row); }
+            await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAll', sheet: currentSheet, data: data }) });
+            showToast('✅ Disimpan!'); closeModal(); loadProducts(currentSheet); updateStats();
+        }
+        function syncAll() { currentTab === 'pengaturan' ? loadSettings() : loadProducts(currentTab); updateStats(); showToast('🔄 Synced!'); }
+        if (sessionStorage.getItem('admin_logged_in') === 'true') { loadSettings(); updateStats(); }
+    </script>
+</body>
+</html>

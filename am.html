@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA PAY • ALIGHT MOTION PRO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="amstyle.css">
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <div class="loading-logo"><img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY"></div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">MEMUAT...</div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>STAA <span class="store-highlight">PAY</span></span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" class="nav-item" title="Beranda"><i class="fas fa-home"></i></a>
+                <button class="nav-item theme-toggle-nav" id="themeToggleNav" title="Ganti Tema" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i><i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="banner-wrapper" data-aos="fade-down" data-aos-duration="600">
+        <div class="banner-container">
+            <img src="https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png" alt="Alight Motion Banner" class="banner-image" loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <span class="banner-badge"><i class="fas fa-bolt"></i> PREMIUM DEAL</span>
+                    <h4 class="banner-title">ALIGHT <span class="banner-highlight">MOTION</span></h4>
+                    <div class="banner-stats">
+                        <div class="stat"><i class="fas fa-users"></i> 3K+ Editors</div>
+                        <div class="stat"><i class="fas fa-clock"></i> Proses &lt;10 Menit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="game-header" data-aos="fade-up" data-aos-duration="500">
+            <div class="game-logo-wrapper">
+                <img src="https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png" alt="Alight Motion Logo" class="game-logo" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80/7c3aed/fff?text=AM'">
+                <div class="game-logo-glow"></div>
+            </div>
+            <div class="game-info">
+                <h2>Alight Motion Pro</h2>
+                <div class="game-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Indonesia</span>
+                    <span><i class="fas fa-clock"></i> Masa Aktif</span>
+                </div>
+            </div>
+            <div class="game-badge" id="storeStatus"><i class="fas fa-spinner fa-spin"></i><span>Memuat...</span></div>
+        </div>
+
+        <main>
+            <div class="card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
+                <div class="progress-steps">
+                    <div class="step" id="step1"><div class="step-number">1</div><div class="step-text">ID / Email</div></div>
+                    <div class="step" id="step2"><div class="step-number">2</div><div class="step-text">Pilih Masa Aktif</div></div>
+                    <div class="step" id="step3"><div class="step-number">3</div><div class="step-text">Pembayaran</div></div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-id-card"></i> Masukkan ID / Email Alight Motion <span class="required-badge">Wajib</span></h2>
+                    <div class="form-group premium-input">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="text" id="userId" placeholder="Contoh: user@email.com atau ID Alight Motion" autocomplete="off">
+                        </div>
+                        <div class="input-hint"><i class="fas fa-info-circle"></i><span>Masukkan email atau ID Alight Motion Anda yang ingin diaktivasi</span></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-shopping-bag"></i> Pilih Masa Aktif <span class="product-count" id="productCount">Memuat...</span></h2>
+                    <div class="products-grid active" id="productOptions">
+                        <div class="loading-placeholder"><i class="fas fa-spinner fa-spin"></i><span>Memuat produk...</span></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-credit-card"></i> Metode Pembayaran <span class="required-badge">Wajib</span></h2>
+                    <div class="payment-grid">
+                        <div class="payment-card" data-payment="DANA">
+                            <div class="payment-left"><img src="dana.png" alt="DANA" class="payment-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><i class="fas fa-wallet payment-logo-fallback" style="color:#1088d6;display:none;"></i><span>DANA</span></div>
+                            <span class="payment-amount" id="priceDANA">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="OVO">
+                            <div class="payment-left"><img src="ovo.png" alt="OVO" class="payment-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><i class="fas fa-circle payment-logo-fallback" style="color:#5a3e9e;display:none;"></i><span>OVO</span></div>
+                            <span class="payment-amount" id="priceOVO">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="GoPay">
+                            <div class="payment-left"><img src="gopay.png" alt="GoPay" class="payment-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><i class="fas fa-mobile-alt payment-logo-fallback" style="color:#00aed6;display:none;"></i><span>GoPay</span></div>
+                            <span class="payment-amount" id="priceGoPay">Rp 0</span>
+                        </div>
+                        <div class="payment-card" data-payment="QRIS">
+                            <div class="payment-left"><img src="qrislogo.png" alt="QRIS" class="payment-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"><i class="fas fa-qrcode payment-logo-fallback" style="color:#6c5ce7;display:none;"></i><span>QRIS</span></div>
+                            <span class="payment-amount" id="priceQRIS">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="notes-section">
+                        <label class="notes-label" for="notes"><i class="fas fa-pen"></i> Catatan <span style="font-weight:400;color:var(--text3);">(Opsional)</span></label>
+                        <textarea id="notes" placeholder="Tulis pesan khusus, request, atau catatan lainnya di sini..." rows="3"></textarea>
+                        <small><i class="fas fa-info-circle"></i> Kosongkan jika tidak ada catatan tambahan</small>
+                    </div>
+                </div>
+
+                <div class="order-summary" id="orderSummary">
+                    <div class="summary-header"><i class="fas fa-shopping-cart"></i><h3>Ringkasan Pesanan</h3></div>
+                    <div class="summary-body">
+                        <div class="summary-row"><span>ID / Email</span><span class="summary-value" id="summaryId">-</span></div>
+                        <div class="summary-row"><span>Masa Aktif</span><span class="summary-value" id="summaryProduct">-</span></div>
+                        <div class="summary-row"><span>Pembayaran</span><span class="summary-value" id="summaryPayment">-</span></div>
+                        <div class="summary-row" id="feeRow" style="display:none;"><span>Biaya Admin</span><span class="summary-value" id="summaryFee">Rp 0</span></div>
+                        <div class="summary-row notes-row" id="summaryNotesRow" style="display:none;"><span>Catatan</span><span class="summary-value" id="summaryNotes">-</span></div>
+                    </div>
+                    <div class="summary-total"><span>Total Dibayar</span><span class="total-price" id="summaryPrice">Rp 0</span></div>
+                </div>
+
+                <button class="whatsapp-btn" id="whatsappBtn" disabled>
+                    <i class="fab fa-whatsapp"></i><span>Pesan via WhatsApp</span><i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="info-grid" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">
+                <div class="info-card"><div class="info-icon"><i class="fas fa-bolt"></i></div><div class="info-content"><h4>Proses Kilat</h4><p>Maksimal 10 menit</p></div></div>
+                <div class="info-card"><div class="info-icon"><i class="fas fa-shield-alt"></i></div><div class="info-content"><h4>Terpercaya</h4><p>Garansi 100%</p></div></div>
+                <div class="info-card"><div class="info-icon"><i class="fas fa-headset"></i></div><div class="info-content"><h4>Support 24/7</h4><p>Siap bantu kamu</p></div></div>
+            </div>
+        </main>
+
+        <footer><p>&copy; 2026 STAA PAY &bull; Alight Motion Pro Premium</p></footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="api.js"></script>
+    <script src="amscript.js"></script>
+</body>
+</html>
