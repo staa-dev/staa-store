@@ -1,39 +1,47 @@
-// ========== KONFIGURASI GOOGLE SHEETS ==========
+// ========== KONFIGURASI ==========
 const SHEET_ID = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
 
-// ========== FETCH CSV DARI GOOGLE SHEETS ==========
+// Cache di memory (tidak perlu fetch ulang)
+const cacheMemory = {};
+
+// ========== FETCH CSV SUPER CEPAT ==========
 async function fetchSheetCSV(sheetName) {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
-    
-    console.log(`📡 [${new Date().toLocaleTimeString()}] Fetch: ${sheetName}`);
-    
-    const response = await fetch(url, {
-        cache: 'no-store',
-        headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-    });
-    
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    
-    const text = await response.text();
-    
-    if (!text || text.trim() === '') throw new Error(`Sheet "${sheetName}" kosong`);
-    
-    const lines = text.trim().split('\n');
-    if (lines.length < 2) throw new Error(`Sheet "${sheetName}" hanya header`);
-    
-    const headers = parseCSVLine(lines[0]);
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        const values = parseCSVLine(lines[i]);
-        if (values.length === 0 || values.every(v => v === '')) continue;
-        const row = {};
-        headers.forEach((h, idx) => { row[h] = values[idx] !== undefined ? values[idx] : ''; });
-        if (Object.values(row).some(v => v !== '')) data.push(row);
+    // Cek cache dulu
+    const cacheKey = `sheet_${sheetName}`;
+    if (cacheMemory[cacheKey]) {
+        console.log(`⚡ ${sheetName}: dari cache`);
+        return cacheMemory[cacheKey];
     }
     
-    console.log(`✅ ${sheetName}: ${data.length} baris`);
-    return data;
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+    
+    try {
+        const response = await fetch(url, { cache: 'default' }); // pakai browser cache
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        if (!text.trim()) throw new Error('Sheet kosong');
+        
+        const lines = text.trim().split('\n');
+        const headers = parseCSVLine(lines[0]);
+        const data = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            const values = parseCSVLine(lines[i]);
+            if (values.length === 0 || values.every(v => v === '')) continue;
+            const row = {};
+            headers.forEach((h, idx) => { row[h] = values[idx] !== undefined ? values[idx] : ''; });
+            if (Object.values(row).some(v => v !== '')) data.push(row);
+        }
+        
+        // Simpan ke cache
+        cacheMemory[cacheKey] = data;
+        
+        console.log(`📡 ${sheetName}: ${data.length} baris`);
+        return data;
+    } catch(e) {
+        console.error(`❌ ${sheetName}: ${e.message}`);
+        return [];
+    }
 }
 
 function parseCSVLine(line) {
@@ -50,20 +58,11 @@ function parseCSVLine(line) {
     return result.map(v => v.replace(/^"|"$/g, '').trim());
 }
 
-// ========== FETCH FUNCTIONS ==========
+// ========== FETCH FUNCTIONS (PARALEL) ==========
 async function fetchSettings() {
-    console.log('⚙️ FETCH SETTINGS');
     const data = await fetchSheetCSV('pengaturan');
-    if (data.length === 0) throw new Error('Sheet pengaturan kosong');
-    
     const settings = {};
-    data.forEach(row => {
-        if (row.kunci && row.nilai !== undefined && row.nilai !== '') {
-            settings[row.kunci] = row.nilai;
-        }
-    });
-    
-    console.log('📊 Settings:', JSON.stringify(settings));
+    data.forEach(row => { if (row.kunci && row.nilai) settings[row.kunci] = row.nilai; });
     return settings;
 }
 
@@ -84,6 +83,24 @@ async function fetchProducts(sheetName) {
 async function fetchVouchers() {
     const data = await fetchSheetCSV('voucher');
     return data.filter(v => v.aktif === '1');
+}
+
+// ========== LOAD ALL DATA SEKALIGUS (PARALEL) ==========
+async function loadAllData() {
+    console.time('⚡ Total load time');
+    
+    // Fetch settings & products PARALEL (bersamaan)
+    const [settings, games, freefire, mobilelegends, capcut] = await Promise.all([
+        fetchSettings(),
+        fetchGames(),
+        fetchProducts('freefire'),
+        fetchProducts('mobilelegends'),
+        fetchProducts('capcut')
+    ]);
+    
+    console.timeEnd('⚡ Total load time');
+    
+    return { settings, games, freefire, mobilelegends, capcut };
 }
 
 // ========== HELPERS ==========
@@ -122,4 +139,4 @@ function sendWhatsApp(data) {
     window.open(`https://wa.me/${data.waNumber}?text=${message}`, '_blank');
 }
 
-console.log('🚀 api.js FINAL loaded | Sheet:', SHEET_ID);
+console.log('🚀 api.js OPTIMIZED loaded');
