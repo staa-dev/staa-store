@@ -1,1188 +1,1348 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0">
-  <title>STAA PAY · TOP UP APP</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- AOS Animation -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0">
+    <title>STAA PAY · TOP UP APP</title>
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg-body);
-      color: var(--text-primary);
-      transition: background-color 0.4s ease, color 0.3s ease;
-      position: relative;
-    }
+    <style>
+        :root {
+            /* Premium Color System */
+            --surface-primary: #ffffff;
+            --surface-secondary: #f8fafc;
+            --surface-tertiary: #f1f5f9;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-tertiary: #64748b;
+            --text-inverse: #ffffff;
+            
+            --brand-primary: #1e3a8a;
+            --brand-secondary: #2563eb;
+            --brand-tertiary: #3b82f6;
+            --brand-muted: #dbeafe;
+            
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-error: #ef4444;
+            --accent-info: #06b6d4;
+            
+            /* Depth System */
+            --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.12);
+            --shadow-xl: 0 24px 64px rgba(15, 23, 42, 0.16);
+            --shadow-brand: 0 8px 24px rgba(30, 58, 138, 0.2);
+            
+            /* Glass System */
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(30, 58, 138, 0.08);
+            --glass-blur: blur(20px) saturate(180%);
+            
+            /* Border System */
+            --radius-xs: 8px;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --radius-2xl: 32px;
+            
+            /* Transition System */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --duration-fast: 150ms;
+            --duration-base: 250ms;
+            --duration-slow: 400ms;
+            --duration-lazy: 600ms;
+        }
 
-    /* FULLSCREEN APP */
-    #app-root {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-card);
-      overflow: hidden;
-    }
+        body.dark {
+            --surface-primary: #0f172a;
+            --surface-secondary: #1e293b;
+            --surface-tertiary: #334155;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --brand-primary: #3b82f6;
+            --brand-secondary: #60a5fa;
+            --brand-tertiary: #93c5fd;
+            --brand-muted: #1e3a8a;
+            
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(59, 130, 246, 0.12);
+            
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
+            --shadow-brand: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
 
-    /* SCROLLABLE CONTENT */
-    .app-content {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 0 20px 20px 20px;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    .app-content::-webkit-scrollbar {
-      width: 4px;
-    }
-    .app-content::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .app-content::-webkit-scrollbar-thumb {
-      background: var(--accent-primary);
-      border-radius: 10px;
-    }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface-secondary);
+            color: var(--text-primary);
+            transition: background var(--duration-slow) var(--ease-out-expo),
+                        color var(--duration-slow) var(--ease-out-expo);
+            overflow: hidden;
+            height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-    /* VARIABEL LIGHT - Gradasi Biru Tua ke Biru Muda */
-    :root {
-      --bg-body: #f0f4ff;
-      --bg-card: #ffffff;
-      --text-primary: #0a1628;
-      --text-soft: #3a4f6f;
-      --accent-primary: #1e3a8a;
-      --accent-secondary: #3b82f6;
-      --accent-light: #60a5fa;
-      --accent-lighter: #93bbfd;
-      --border-muted: rgba(30, 58, 138, 0.12);
-      --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
-      --gradient-secondary: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-      --shadow-sm: 0 4px 20px rgba(30, 58, 138, 0.06);
-      --shadow-md: 0 8px 30px rgba(30, 58, 138, 0.1);
-      --shadow-lg: 0 20px 40px rgba(30, 58, 138, 0.12);
-      --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
-      --glass-bg: rgba(255, 255, 255, 0.8);
-      --bottom-nav-bg: rgba(255, 255, 255, 0.98);
-      --bottom-nav-border: rgba(30, 58, 138, 0.15);
-      --warning-bg: rgba(251, 191, 36, 0.12);
-      --warning-border: rgba(251, 191, 36, 0.25);
-      --warning-text: #d97706;
-      --keunggulan-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.06) 0%, rgba(59, 130, 246, 0.08) 100%);
-      --popup-overlay: rgba(0, 0, 0, 0.6);
-      --popup-bg: #ffffff;
-      --voucher-bg: rgba(30, 58, 138, 0.04);
-      --new-badge-bg: linear-gradient(135deg, #059669, #10b981);
-      --reward-card-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.08), rgba(59, 130, 246, 0.1));
-      --input-bg: rgba(30, 58, 138, 0.04);
-    }
+        #app-root {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--surface-primary);
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            transition: background var(--duration-slow) var(--ease-out-expo);
+        }
 
-    /* DARK MODE */
-    body.dark {
-      --bg-body: #020617;
-      --bg-card: #0f172a;
-      --text-primary: #e2e8f0;
-      --text-soft: #94a3b8;
-      --accent-primary: #60a5fa;
-      --accent-secondary: #3b82f6;
-      --accent-light: #93bbfd;
-      --accent-lighter: #bfdbfe;
-      --border-muted: rgba(96, 165, 250, 0.15);
-      --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
-      --gradient-secondary: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.35);
-      --glass-bg: rgba(15, 23, 42, 0.85);
-      --bottom-nav-bg: rgba(15, 23, 42, 0.98);
-      --bottom-nav-border: rgba(96, 165, 250, 0.2);
-      --warning-bg: rgba(251, 191, 36, 0.08);
-      --warning-text: #fbbf24;
-      --keunggulan-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%);
-      --popup-bg: #0f172a;
-      --voucher-bg: rgba(59, 130, 246, 0.08);
-      --new-badge-bg: linear-gradient(135deg, #059669, #10b981);
-      --reward-card-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.25), rgba(59, 130, 246, 0.2));
-      --input-bg: rgba(59, 130, 246, 0.08);
-    }
+        /* Scrollable Content */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 16px 16px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            overscroll-behavior: contain;
+        }
+        
+        .app-content::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
 
-    /* LOADING SCREEN OVERLAY */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(2, 6, 23, 0.95);
-      backdrop-filter: blur(12px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    .loading-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .loading-container {
-      text-align: center;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
-    }
-    .loading-overlay.active .loading-container {
-      transform: scale(1);
-    }
-    .loading-logo {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 20px;
-      background: white;
-      border-radius: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-      animation: pulseLogo 1s ease-in-out infinite;
-      overflow: hidden;
-      border: 3px solid #1e3a8a;
-    }
-    .loading-logo img {
-      width: 85%;
-      height: 85%;
-      object-fit: contain;
-      display: block;
-    }
-    @keyframes pulseLogo {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
-      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
-    }
-    .loading-spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top: 4px solid #1e3a8a;
-      border-right: 4px solid #60a5fa;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 20px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .loading-text {
-      color: white;
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      margin-top: 12px;
-      background: linear-gradient(135deg, #60a5fa, #3b82f6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .loading-sub {
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.6);
-      margin-top: 8px;
-    }
+        /* HEADER REDESIGN - Sticky Premium */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
 
-    /* HEADER */
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-muted);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
+        .brand-app {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .brand-app {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-app .icon-wrapper {
-      width: 44px;
-      height: 44px;
-      background: var(--gradient-primary);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-glow);
-      overflow: hidden;
-    }
-    .brand-app .icon-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .brand-app i {
-      display: none;
-    }
-    .brand-app h1 {
-      font-size: 1.7rem;
-      font-weight: 800;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-    }
+        .brand-app .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-brand);
+            transition: transform var(--duration-fast) var(--ease-spring);
+            overflow: hidden;
+        }
+        
+        .brand-app .icon-wrapper:active {
+            transform: scale(0.95);
+        }
 
-    .theme-toggle-app {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--gradient-primary);
-      border: none;
-      border-radius: 40px;
-      padding: 8px 20px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-    }
-    .theme-toggle-app:hover {
-      transform: scale(1.02);
-    }
-    .theme-toggle-app i {
-      font-size: 1rem;
-      color: white;
-      display: inline-block;
-    }
-    .theme-toggle-app span {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: white;
-    }
+        .brand-app .icon-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    /* OPERATIONAL PANEL */
-    .operational-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 28px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border-muted);
-      box-shadow: var(--shadow-sm);
-    }
-    .time-info {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .time-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border: 1px solid var(--border-muted);
-    }
-    .time-display i {
-      color: var(--accent-secondary);
-    }
-    .status-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .status-badge {
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .status-badge.open {
-      background: rgba(16, 185, 129, 0.15);
-      color: #10b981;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .status-badge.closed {
-      background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .new-version-badge {
-      background: var(--new-badge-bg);
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-      animation: pulseGlow 2s infinite;
-      white-space: nowrap;
-    }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); opacity: 1; }
-      50% { box-shadow: 0 4px 15px rgba(16, 185, 129, 0.6); opacity: 0.9; }
-    }
-    .new-version-badge i {
-      font-size: 0.7rem;
-      animation: rotateIcon 1s ease-in-out infinite;
-    }
-    @keyframes rotateIcon {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(15deg); }
-      75% { transform: rotate(-5deg); }
-    }
+        .brand-app h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+            transition: color var(--duration-base) var(--ease-out-expo);
+        }
 
-    .warning-banner {
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
-      color: var(--warning-text);
-      padding: 14px 18px;
-      border-radius: 28px;
-      margin-bottom: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
+        .theme-toggle-app {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface-tertiary);
+            border: 1px solid transparent;
+            border-radius: 40px;
+            padding: 8px 16px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .theme-toggle-app:active {
+            transform: scale(0.96);
+            background: var(--surface-secondary);
+        }
+        
+        .theme-toggle-app i {
+            font-size: 0.9rem;
+            transition: transform var(--duration-fast) var(--ease-spring);
+        }
 
-    /* BANNER SLIDER - OPTIMIZED RESOLUTION */
-    .banner-slider {
-      border-radius: 28px;
-      overflow: hidden;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow-md);
-    }
-    .swiper {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 21 / 9; /* Proporsi ideal layar desktop/tablet lebar */
-    }
-    @media (max-width: 480px) {
-      .swiper {
-        aspect-ratio: 5 / 2; /* Proporsi standar rasio gambar mobile agar terlihat utuh & tajam */
-      }
-    }
-    .swiper-slide {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #000;
-    }
-    /* Render gambar dari resolusi asli menggunakan tag img */
-    .swiper-slide img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      display: block;
-      /* Memaksa engine browser merender piksel gambar se-optimal mungkin (anti-blur) */
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-    }
-    /* Lapisan overlay halus di atas gambar banner */
-    .swiper-slide::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 0%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .swiper-slide span {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 6px 18px;
-      border-radius: 50px;
-      color: white;
-      font-weight: 700;
-      font-size: 0.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+        /* OPERATIONAL PANEL - Dashboard Style */
+        .operational-panel {
+            background: var(--surface-secondary);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+            margin: 14px 0;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-xs);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
 
-    /* SECTION TITLE */
-    .section-title {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin: 24px 0 16px 0;
-    }
-    .section-title h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .section-title span {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-    }
+        .time-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-tertiary);
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .time-display i {
+            color: var(--brand-secondary);
+            font-size: 0.85rem;
+        }
 
-    /* HORIZONTAL SCROLL - 2 KOLOM VERTIKAL */
-    .game-scroll-wrapper {
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
-      cursor: grab;
-    }
-    .game-scroll-wrapper::-webkit-scrollbar {
-      height: 5px;
-      background: var(--border-muted);
-      border-radius: 10px;
-    }
-    .game-scroll-wrapper::-webkit-scrollbar-thumb {
-      background: var(--accent-secondary);
-      border-radius: 10px;
-    }
-    .game-horizontal-flex {
-      display: inline-flex;
-      gap: 18px;
-      padding-right: 20px;
-    }
-    .product-column {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      width: 150px;
-    }
-    .game-simple-link {
-      display: block;
-      width: 100%;
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border-radius: 32px;
-      padding: 20px 12px;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      border: 1px solid var(--border-muted);
-      cursor: pointer;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-    .game-simple-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-primary);
-      transform: translateX(-100%);
-      transition: transform 0.4s ease;
-    }
-    .game-simple-link:hover:not(.disabled)::before {
-      transform: translateX(0);
-    }
-    .game-simple-link:hover:not(.disabled) {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-lg);
-    }
-    .game-simple-link.disabled {
-      opacity: 0.5;
-      pointer-events: none;
-      filter: grayscale(0.3);
-    }
-    .logo-gambar {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 12px;
-      border-radius: 28px;
-      overflow: hidden;
-      background: var(--gradient-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
-    }
-    .game-simple-link:hover:not(.disabled) .logo-gambar {
-      transform: scale(1.05);
-      box-shadow: var(--shadow-glow);
-    }
-    .logo-gambar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .game-name {
-      font-weight: 800;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-    .ff-name { background: linear-gradient(135deg, #1e3a8a, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .ml-name { background: linear-gradient(135deg, #1e40af, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .capcut-name { background: linear-gradient(135deg, #1e3a8a, #93bbfd); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .aligthmotion-name { background: linear-gradient(135deg, #2563eb, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .change-name { background: linear-gradient(135deg, #1e3a8a, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .valorant-name { background: linear-gradient(135deg, #1e40af, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .codm-name { background: linear-gradient(135deg, #1e3a8a, #93bbfd); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .pubg-name { background: linear-gradient(135deg, #2563eb, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .game-simple-link small {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
+        .status-badge {
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.3px;
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
 
-    /* REWARD SECTION */
-    .reward-section { margin: 20px 0; }
-    .reward-header { text-align: center; margin-bottom: 24px; }
-    .reward-header i { font-size: 3rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 8px; }
-    .reward-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
-    .reward-header p { font-size: 0.8rem; color: var(--text-soft); }
-    .reward-card {
-      background: var(--reward-card-bg);
-      border: 1px solid var(--border-muted);
-      border-radius: 32px;
-      padding: 24px;
-      text-align: center;
-      margin-bottom: 20px;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-    }
-    .reward-card:hover { transform: translateY(-4px); border-color: var(--accent-secondary); box-shadow: var(--shadow-md); }
-    .reward-icon { width: 80px; height: 80px; background: var(--gradient-primary); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: var(--shadow-glow); }
-    .reward-icon i { font-size: 2.5rem; color: white; }
-    .reward-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
-    .reward-points { display: inline-flex; align-items: center; gap: 6px; background: var(--glass-bg); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
-    .game-selector { margin-bottom: 20px; }
-    .game-option { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
-    .game-btn { flex: 1; padding: 12px; background: var(--glass-bg); border: 2px solid var(--border-muted); border-radius: 60px; font-weight: 700; font-size: 0.9rem; color: var(--text-soft); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .game-btn.active { background: var(--gradient-primary); border-color: transparent; color: white; box-shadow: var(--shadow-glow); }
-    .input-group { margin-bottom: 16px; text-align: left; }
-    .input-group label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; color: var(--text-soft); }
-    .input-group input { width: 100%; padding: 14px 18px; background: var(--input-bg); border: 1px solid var(--border-muted); border-radius: 60px; font-size: 0.9rem; color: var(--text-primary); outline: none; }
-    .input-group input:focus { border-color: var(--accent-secondary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
-    .redeem-button { width: 100%; padding: 14px; background: var(--gradient-primary); border: none; border-radius: 60px; color: white; font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
-    .coming-soon-message { text-align: center; padding: 20px; background: var(--glass-bg); border-radius: 28px; margin-top: 20px; border: 1px solid var(--border-muted); }
-    .voucher-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .voucher-card { background: var(--voucher-bg); border: 1px solid var(--border-muted); border-radius: 28px; padding: 20px 16px; text-align: center; transition: all 0.3s ease; }
-    .voucher-card:hover { transform: translateY(-4px); border-color: var(--accent-secondary); }
-    .voucher-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 25px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
-    .voucher-icon i { font-size: 2rem; color: white; }
-    .voucher-title { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: var(--text-primary); }
-    .voucher-desc { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 12px; }
-    .coming-soon-badge { display: inline-block; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(59, 130, 246, 0.2)); padding: 6px 16px; border-radius: 50px; font-size: 0.7amp; font-weight: 700; color: var(--accent-secondary); border: 1px solid var(--border-muted); }
+        .status-badge.open {
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--accent-success);
+        }
+        
+        .status-badge.open i {
+            animation: softPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes softPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
 
-    /* KEUNGGULAN */
-    .keunggulan-section {
-      background: var(--keunggulan-bg);
-      border-radius: 32px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-around;
-      margin: 20px 0;
-      flex-wrap: wrap;
-      gap: 16px;
-      border: 1px solid var(--border-muted);
-      backdrop-filter: blur(8px);
-    }
-    .keunggulan-item { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.85rem; padding: 8px 12px; border-radius: 60px; background: var(--glass-bg); }
-    .keunggulan-item i { font-size: 1.4rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .footer-staa { text-align: center; padding: 20px 0 30px; font-size: 0.7rem; color: var(--text-soft); border-top: 1px solid var(--border-muted); margin-top: 16px; }
+        .status-badge.closed {
+            background: rgba(239, 68, 68, 0.08);
+            color: var(--accent-error);
+        }
 
-    /* BOTTOM NAVIGATION */
-    .bottom-nav {
-      position: relative;
-      background: var(--bottom-nav-bg);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid var(--bottom-nav-border);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 12px 20px 20px;
-      z-index: 30;
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--text-soft);
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      font-size: 0.7rem;
-      padding: 8px 16px;
-      border-radius: 40px;
-    }
-    .nav-item i { font-size: 1.5rem; transition: transform 0.2s ease; }
-    .nav-item.active { color: var(--accent-secondary); background: var(--glass-bg); }
-    .nav-item.active i { transform: translateY(-2px); }
+        .new-version-badge {
+            background: linear-gradient(135deg, var(--accent-success), #34d399);
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+            transition: transform var(--duration-fast) var(--ease-spring);
+            white-space: nowrap;
+        }
+        
+        .new-version-badge:hover {
+            transform: translateY(-1px);
+        }
+        
+        .new-version-badge i {
+            font-size: 0.6rem;
+            animation: starPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes starPulse {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+        }
 
-    /* POPUP */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(16px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-    .popup-overlay.active { opacity: 1; visibility: visible; }
-    .popup-container {
-      width: 88%;
-      max-width: 380px;
-      background: var(--popup-bg);
-      border-radius: 48px;
-      padding: 28px 24px;
-      position: relative;
-      box-shadow: 0 30px 60px rgba(30, 58, 138, 0.4);
-      border: 1px solid var(--border-muted);
-      transform: scale(0.9);
-      transition: transform 0.4s ease;
-    }
-    .popup-overlay.active .popup-container { transform: scale(1); }
-    .popup-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; }
-    .popup-image-container { width: 100%; height: 180px; border-radius: 32px; overflow: hidden; margin: 16px 0; }
-    .popup-image { width: 100%; height: 100%; object-fit: cover; }
-    .popup-button { background: var(--gradient-primary); border: none; padding: 14px; border-radius: 60px; color: white; font-weight: 800; width: 100%; margin-top: 16px; cursor: pointer; }
+        /* WARNING BANNER */
+        .warning-banner {
+            background: rgba(245, 158, 11, 0.06);
+            color: var(--accent-warning);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
 
-    /* POPUP TUTUP */
-    .popup-tutup {
-      background: var(--popup-bg);
-      border: 1px solid var(--border-muted);
-    }
-    .popup-tutup .popup-close {
-      background: #ef4444;
-    }
-    .popup-tutup h2 {
-      color: #ef4444;
-      font-weight: 800;
-      font-size: 1.6rem;
-    }
-    .popup-tutup .jam-operasional {
-      background: rgba(239, 68, 68, 0.1);
-      padding: 12px;
-      border-radius: 20px;
-      margin: 16px 0;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: #ef4444;
-    }
+        /* BANNER SLIDER - Cinematic */
+        .banner-slider {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
+        
+        .banner-slider:active {
+            transform: scale(0.98);
+        }
 
-    @media (max-width: 480px) {
-      .app-content { padding: 0 16px 16px 16px; }
-      .logo-gambar { width: 80px; height: 80px; }
-      .game-name { font-size: 0.95rem; }
-      .brand-app h1 { font-size: 1.4rem; }
-      .product-column { width: 135px; gap: 16px; }
-      .game-simple-link { padding: 16px 8px; }
-    }
-  </style>
+        .swiper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-xl);
+        }
+
+        .swiper-slide {
+            position: relative;
+        }
+        
+        .swiper-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--duration-slow) var(--ease-out-expo);
+        }
+        
+        .swiper-slide-active img {
+            transform: scale(1.02);
+        }
+        
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.7);
+            opacity: 0.5;
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
+        
+        .swiper-pagination-bullet-active {
+            width: 20px;
+            border-radius: 10px;
+            opacity: 1;
+            background: white;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            margin: 18px 0 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.2px;
+            transition: color var(--duration-base) var(--ease-out-expo);
+        }
+        
+        .section-title i {
+            color: var(--brand-secondary);
+            font-size: 1rem;
+        }
+
+        /* GAME SCROLL */
+        .game-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 6px;
+            scroll-snap-type: x proximity;
+        }
+
+        .game-scroll-wrapper::-webkit-scrollbar {
+            height: 4px;
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        .game-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .game-horizontal-flex {
+            display: inline-flex;
+            gap: 12px;
+            padding-right: 16px;
+        }
+
+        .product-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 140px;
+            scroll-snap-align: start;
+        }
+
+        /* GAME CARD REDESIGN */
+        .game-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background: var(--surface-primary);
+            border-radius: var(--radius-lg);
+            padding: 18px 10px 14px;
+            text-align: center;
+            transition: all var(--duration-base) var(--ease-out-expo);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-xs);
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .game-card:active {
+            transform: scale(0.96);
+            box-shadow: var(--shadow-sm);
+            background: var(--surface-secondary);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--brand-muted);
+        }
+
+        .game-card.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            filter: grayscale(0.2) brightness(0.95);
+        }
+        
+        .game-card.disabled:hover {
+            transform: none;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .logo-gambar {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--surface-tertiary), var(--surface-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--duration-base) var(--ease-out-expo);
+        }
+        
+        .game-card:hover .logo-gambar {
+            box-shadow: var(--shadow-md);
+            transform: scale(1.03);
+        }
+
+        .logo-gambar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            color: var(--text-primary);
+            letter-spacing: -0.1px;
+        }
+
+        .game-card small {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .game-card small i {
+            font-size: 0.55rem;
+            opacity: 0.8;
+        }
+
+        /* KEUNGGULAN */
+        .keunggulan-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0;
+            padding: 12px 10px;
+            background: var(--surface-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+        }
+
+        .keunggulan-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.72rem;
+            padding: 6px 12px;
+            border-radius: 40px;
+            background: var(--surface-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+        
+        .keunggulan-item i {
+            color: var(--brand-secondary);
+            font-size: 0.75rem;
+        }
+
+        /* FOOTER */
+        .footer-staa {
+            text-align: center;
+            padding: 18px 0;
+            font-size: 0.68rem;
+            color: var(--text-tertiary);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        /* BOTTOM NAVIGATION - Floating Glass */
+        .bottom-nav {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 16px 16px;
+            z-index: 30;
+            position: relative;
+        }
+        
+        .bottom-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 16px;
+            right: 16px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            transition: all var(--duration-fast) var(--ease-spring);
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            transition: transform var(--duration-fast) var(--ease-spring);
+        }
+        
+        .nav-item:active {
+            transform: scale(0.9);
+        }
+
+        .nav-item.active {
+            color: var(--brand-secondary);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            width: 20px;
+            height: 3px;
+            background: var(--brand-secondary);
+            border-radius: 2px;
+            transition: all var(--duration-base) var(--ease-spring);
+        }
+        
+        .nav-item.active i {
+            transform: translateY(-2px);
+        }
+
+        /* POPUP - Modern Modal */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--duration-slow) var(--ease-out-expo);
+            padding: 20px;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-container {
+            width: 100%;
+            max-width: 360px;
+            background: var(--surface-primary);
+            border-radius: var(--radius-2xl);
+            padding: 28px 20px 24px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.92) translateY(20px);
+            transition: transform var(--duration-slow) var(--ease-spring);
+            position: relative;
+        }
+
+        .popup-overlay.active .popup-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-error);
+            cursor: pointer;
+            border: none;
+            font-size: 0.85rem;
+            transition: all var(--duration-fast) var(--ease-out-expo);
+        }
+        
+        .popup-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .popup-image {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            margin: 12px 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .popup-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: var(--shadow-brand);
+            transition: all var(--duration-fast) var(--ease-spring);
+            letter-spacing: 0.2px;
+        }
+        
+        .popup-button:active {
+            transform: scale(0.96);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .popup-container input[type="checkbox"] {
+            accent-color: var(--brand-secondary);
+            width: 16px;
+            height: 16px;
+        }
+        
+        .popup-container label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        /* LOADING - Cinematic */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--duration-slow) var(--ease-out-expo);
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-container {
+            text-align: center;
+        }
+
+        .loading-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            background: white;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
+            animation: logoBreath 2s ease-in-out infinite;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .loading-logo img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+
+        @keyframes logoBreath {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 60px rgba(37, 99, 235, 0.6);
+            }
+        }
+
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 2.5px solid rgba(255, 255, 255, 0.15);
+            border-top: 2.5px solid var(--brand-secondary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 14px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 380px) {
+            .app-content {
+                padding: 0 12px 12px;
+            }
+            .logo-gambar {
+                width: 70px;
+                height: 70px;
+            }
+            .game-name {
+                font-size: 0.78rem;
+            }
+            .product-column {
+                width: 125px;
+                gap: 10px;
+            }
+            .game-card {
+                padding: 14px 8px 12px;
+            }
+            .brand-app h1 {
+                font-size: 1.1rem;
+            }
+            .theme-toggle-app {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            .operational-panel {
+                font-size: 0.7rem;
+                padding: 10px 12px;
+            }
+        }
+        
+        @media (min-width: 480px) {
+            #app-root {
+                border-radius: var(--radius-2xl);
+                margin-top: 12px;
+                height: calc(100vh - 24px);
+            }
+        }
+    </style>
 </head>
 <body>
 <div id="app-root">
-  <div class="app-header">
-    <div class="brand-app">
-      <div class="icon-wrapper">
-        <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY LOGO">
-      </div>
-      <h1>STAA PAY</h1>
-    </div>
-    <div class="theme-toggle-app" id="themeToggleBtn">
-      <i class="fas fa-sun" id="toggleIconSun"></i>
-      <i class="fas fa-moon" id="toggleIconMoon" style="display: none;"></i>
-      <span id="toggleText">Light</span>
-    </div>
-  </div>
-
-  <div class="app-content" id="appContent">
-    <div class="operational-panel" data-aos="fade-up">
-      <div class="time-info">
-        <div class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--:--</span></div>
-        <div class="time-display"><i class="fas fa-calendar-check"></i> <span>07:00 - 21:00 WIB</span></div>
-        <div class="status-wrapper">
-          <div id="statusBadge" class="status-badge open"><i class="fas fa-check-circle"></i> <span>BUKA</span></div>
-          <div class="new-version-badge"><i class="fas fa-star-of-life"></i><span>NEW VERSION</span><i class="fas fa-bolt"></i></div>
+    <!-- HEADER -->
+    <div class="app-header">
+        <div class="brand-app">
+            <div class="icon-wrapper">
+                <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY" id="logoImg">
+            </div>
+            <h1 id="namaToko">STAAPAY</h1>
         </div>
-      </div>
+        <button class="theme-toggle-app" id="themeToggleBtn">
+            <i class="fas fa-sun" id="iconSun"></i>
+            <i class="fas fa-moon" id="iconMoon" style="display:none;"></i>
+            <span id="themeText">Light</span>
+        </button>
     </div>
-    <div id="warningBanner" class="warning-banner" style="display: none;"><i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko sedang tutup</span></div>
 
-    <!-- BANNER SLIDER DENGAN TAG IMG RESOLUSI ASLI -->
-    <div class="banner-slider" data-aos="zoom-in">
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://i.ibb.co.com/cSDHMzQ3/IMG-1369.png" alt="STAA PAY Banner 1">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg" alt="FF">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg" alt="MLBB Special Offer">
-            <span>⚡ MLBB SPECIAL</span>
-          </div>
-          <div class="swiper-slide">
-            <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format" alt="Top Up Aman">
-            <span>🎯 TOP UP AMAN</span>
-          </div>
+    <!-- CONTENT -->
+    <div class="app-content" id="appContent">
+        <!-- OPERATIONAL PANEL -->
+        <div class="operational-panel">
+            <span class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--</span></span>
+            <span class="time-display"><i class="fas fa-calendar"></i> <span id="jamOperasional">07:00 - 21:00 WIB</span></span>
+            <div class="status-wrapper" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div class="status-badge open" id="statusBadge">
+                    <i class="fas fa-circle" style="font-size:0.45rem;"></i> <span>Memuat...</span>
+                </div>
+                <div class="new-version-badge"><i class="fas fa-star"></i><span>NEW VERSION</span></div>
+            </div>
         </div>
-        <div class="swiper-pagination"></div>
-      </div>
-    </div>
 
-    <div id="berandaSection">
-      <div class="section-title"><h3><i class="fas fa-gamepad"></i> Pilihan Top Up</h3><span>Geser ke kiri/kanan</span></div>
-      <div class="game-scroll-wrapper">
-        <div class="game-horizontal-flex" id="gameHorizontalList">
-          <!-- Konten akan di-generate JS -->
+        <!-- WARNING -->
+        <div id="warningBanner" class="warning-banner" style="display:none;">
+            <i class="fas fa-exclamation-triangle"></i> <span id="warningMessage">Toko sedang tutup</span>
         </div>
-      </div>
+
+        <!-- BANNER SLIDER -->
+        <div class="banner-slider">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper" id="bannerSlides"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!-- GAMES SECTION -->
+        <div class="section-title"><i class="fas fa-gamepad"></i> Pilihan Top Up</div>
+        <div class="game-scroll-wrapper">
+            <div class="game-horizontal-flex" id="gameHorizontalList">
+                <div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);">
+                    <i class="fas fa-spinner fa-spin"></i> Memuat produk...
+                </div>
+            </div>
+        </div>
+
+        <!-- KEUNGGULAN -->
+        <div class="keunggulan-section">
+            <div class="keunggulan-item"><i class="fas fa-bolt"></i> Proses Cepat</div>
+            <div class="keunggulan-item"><i class="fas fa-shield-alt"></i> 100% Aman</div>
+            <div class="keunggulan-item"><i class="fas fa-headset"></i> CS 24/7</div>
+            <div class="keunggulan-item"><i class="fas fa-tag"></i> Termurah</div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-staa">© 2026 <span id="footerNama">STAA PAY</span> • Top Up Premium</div>
     </div>
 
-    <div id="rewardSection" style="display: none;">
-      <div class="reward-header"><i class="fas fa-gift"></i><h2>Reward Center</h2><p>Redeem voucher hadiah spesial untukmu!</p></div>
-      <div class="reward-card"><div class="reward-icon"><i class="fas fa-ticket-alt"></i></div><div class="reward-title">Redeem Voucher Hadiah</div><div class="reward-points"><i class="fas fa-star"></i> Masukkan Kode Voucher & Data Akun</div>
-        <div class="game-selector"><div class="game-option"><button class="game-btn active" onclick="selectGame('ff')" id="btnFF"><i class="fas fa-fire"></i> Free Fire</button><button class="game-btn" onclick="selectGame('ml')" id="btnML"><i class="fas fa-skull"></i> Mobile Legends</button></div></div>
-        <div class="input-group"><label><i class="fas fa-ticket-alt"></i> Kode Voucher</label><input type="text" id="voucherCode" placeholder="Contoh: STAA2026 / FREEFIRE10 / MLBB2026"></div>
-        <div id="ffFields"><div class="input-group"><label><i class="fas fa-id-card"></i> ID Free Fire</label><input type="text" id="ffId" placeholder="Masukkan ID Free Fire"></div></div>
-        <div id="mlFields" style="display: none;"><div class="input-group"><label><i class="fas fa-id-card"></i> ID Mobile Legends</label><input type="text" id="mlId" placeholder="Masukkan ID MLBB"></div><div class="input-group"><label><i class="fas fa-server"></i> Server ID</label><input type="text" id="mlServer" placeholder="Masukkan Server ID"></div></div>
-        <button class="redeem-button" onclick="showRedeemComingSoon()"><i class="fas fa-exchange-alt"></i> Redeem Sekarang</button>
-      </div>
-      <div class="coming-soon-message"><i class="fas fa-clock"></i><strong style="display: block; margin-bottom: 8px;">🎁 Fitur Redeem Voucher Segera Hadir!</strong><p style="font-size: 0.75rem;">Dapatkan voucher diskon, diamond gratis, dan hadiah spesial lainnya.</p></div>
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+        <button class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Beranda</span></button>
+        <button class="nav-item" data-nav="reward"><i class="fas fa-gift"></i><span>Reward</span></button>
+        <button class="nav-item" data-nav="promo"><i class="fas fa-ticket-alt"></i><span>Promo</span></button>
+        <button class="nav-item" data-nav="profile"><i class="fas fa-user"></i><span>Akun</span></button>
     </div>
-
-    <div id="promoSection" style="display: none;">
-      <div class="section-title"><h3><i class="fas fa-ticket-alt"></i> Voucher Spesial</h3><span>Segera Hadir</span></div>
-      <div class="voucher-grid"><div class="voucher-card"><div class="voucher-icon"><i class="fas fa-gem"></i></div><div class="voucher-title">DISKON 20%</div><div class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</div></div></div>
-    </div>
-
-    <div id="profileSection" style="display: none;">
-      <div class="section-title"><h3><i class="fas fa-user-circle"></i> Akun Saya</h3><span>Premium Member</span></div>
-      <div class="voucher-grid" style="grid-template-columns: 1fr;"><div class="voucher-card" style="padding: 30px;"><div class="voucher-icon" style="width: 90px; height: 90px;"><i class="fas fa-user-astronaut"></i></div><div class="voucher-title" style="font-size: 1.2rem;">STAA Premium User</div><div class="coming-soon-badge"><i class="fas fa-rocket"></i> Coming Soon</div></div></div>
-    </div>
-
-    <div id="keunggulanFooter">
-      <div class="keunggulan-section"><div class="keunggulan-item"><i class="fas fa-bolt"></i><span>Proses Cepat</span></div><div class="keunggulan-item"><i class="fas fa-shield-alt"></i><span>100% Aman</span></div><div class="keunggulan-item"><i class="fas fa-headset"></i><span>CS 24/7</span></div><div class="keunggulan-item"><i class="fas fa-tag"></i><span>Termurah</span></div></div>
-      <div class="footer-staa"><span>✦</span> <strong>© 2026 STAA PAY</strong> <span>✦</span> <i class="fa-solid fa-circle" style="font-size: 0.4rem;"></i> <span>#TopUpPremium</span></div>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <button class="nav-item active" data-nav="home"><i class="fas fa-home"></i><span>Beranda</span></button>
-    <button class="nav-item" data-nav="reward"><i class="fas fa-gift"></i><span>Reward</span></button>
-    <button class="nav-item" data-nav="promo"><i class="fas fa-ticket-alt"></i><span>Promo</span></button>
-    <button class="nav-item" data-nav="profile"><i class="fas fa-user"></i><span>Akun</span></button>
-  </div>
 </div>
 
 <!-- LOADING OVERLAY -->
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-container">
-    <div class="loading-logo">
-      <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY">
+    <div class="loading-container">
+        <div class="loading-logo"><img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY"></div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">MEMUAT...</div>
     </div>
-    <div class="loading-spinner"></div>
-    <div class="loading-text">MENGARAHKAN ANDA...</div>
-    <div class="loading-sub">STAA PAY • Top Up Termurah</div>
-  </div>
 </div>
 
 <!-- POPUP PREMIUM -->
 <div class="popup-overlay" id="premiumPopup">
-  <div class="popup-container">
-    <div class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></div>
-    <h2 style="margin: 12px 0; font-size: 1.6rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;">STAA PAY</h2>
-    <div class="popup-image-container"><img src="https://i.ibb.co.com/sJW5WyKP/quality-restoration-20260519003356441.jpg" class="popup-image"></div>
-    <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
-    <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;"><input type="checkbox" id="dontShowAgain"> <label style="font-size:0.7rem;">Jangan tampilkan lagi</label></div>
-  </div>
-</div>
-
-<!-- POPUP TOKO TUTUP -->
-<div class="popup-overlay" id="tutupPopup">
-  <div class="popup-container popup-tutup">
-    <div class="popup-close" onclick="closeTutupPopup()"><i class="fas fa-times"></i></div>
-    <div style="text-align: center; margin-top: 10px;">
-      <i class="fas fa-store-alt-slash" style="font-size: 3rem; color: #ef4444; margin-bottom: 12px;"></i>
-      <h2>Toko Sedang Tutup</h2>
-      <div class="jam-operasional">
-        <i class="fas fa-clock"></i> <span>07:00 - 21:00 WIB</span>
-      </div>
-      <p style="color: var(--text-soft); font-size: 0.9rem; margin: 12px 0;">Silakan kembali lagi besok saat toko sudah buka ya! 🌙</p>
-      <button class="popup-button" style="background: #ef4444; margin-top: 8px;" onclick="closeTutupPopup()"><i class="fas fa-check"></i> MENGERTI</button>
+    <div class="popup-container">
+        <button class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></button>
+        <h2 style="font-weight:800;font-size:1.4rem;margin:8px 0;color:var(--text-primary);">🚀 <span id="popupNama">STAA PAY</span></h2>
+        <img src="https://i.ibb.co.com/sJW5WyKP/quality-restoration-20260519003356441.jpg" class="popup-image" alt="STAA PAY" id="popupImg">
+        <button class="popup-button" onclick="closePopup()"><i class="fas fa-rocket"></i> MULAI BELANJA</button>
+        <div style="display:flex;justify-content:center;gap:10px;margin-top:14px;">
+            <input type="checkbox" id="dontShowAgain">
+            <label for="dontShowAgain">Jangan tampilkan lagi</label>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  (function() {
     // =============================================
-    // 🔧 PERBAIKAN UTAMA: Logic loading overlay
+    // 🔧 KONFIGURASI - GANTI SHEET ID KAMU DISINI
     // =============================================
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    
-    /**
-     * Fungsi untuk menyembunyikan loading overlay
-     * Dipanggil saat halaman selesai dimuat & saat kembali dari bfcache
-     */
-    function hideLoadingOverlay() {
-      if (loadingOverlay && loadingOverlay.classList.contains('active')) {
-        loadingOverlay.classList.remove('active');
-      }
-      // Reset flag di sessionStorage agar loading tidak stuck
-      sessionStorage.removeItem('staa-loading-active');
-    }
-
-    /**
-     * Fungsi untuk menampilkan loading overlay + redirect
-     * Hanya dipakai saat user klik link produk
-     */
-    function showLoadingAndRedirect(url) {
-      if (!url || loadingOverlay.classList.contains('active')) return;
-      
-      // Tandai bahwa loading sedang aktif
-      sessionStorage.setItem('staa-loading-active', 'true');
-      loadingOverlay.classList.add('active');
-      
-      // Redirect setelah animasi loading terlihat
-      setTimeout(() => {
-        window.location.href = url;
-      }, 800);
-    }
-
-    // ✅ Event DOMContentLoaded: pastikan loading di-reset saat DOM siap
-    document.addEventListener('DOMContentLoaded', () => {
-      // Jika ada flag loading aktif dari sessionStorage (artinya user baru redirect),
-      // kita tampilkan loading dulu sebentar lalu hilangkan — memberikan kesan transisi
-      if (sessionStorage.getItem('staa-loading-active') === 'true') {
-        loadingOverlay.classList.add('active');
-        setTimeout(() => {
-          hideLoadingOverlay();
-        }, 400); // durasi singkat agar animasi terlihat smooth
-      } else {
-        // Pastikan loading dalam keadaan tidak active
-        hideLoadingOverlay();
-      }
-    });
-
-    // ✅ Event pageshow: menangani navigasi back/forward (bfcache)
-    window.addEventListener('pageshow', (event) => {
-      // Jika halaman dimuat dari bfcache (persisted === true), 
-      // artinya user kembali via tombol Back/Forward
-      if (event.persisted) {
-        // Reset loading karena halaman sudah selesai
-        hideLoadingOverlay();
-        // Re-inisialisasi status operasional & link agar UI tetap konsisten
-        updatePAYStatus();
-      }
-      
-      // Selalu bersihkan flag loading setelah halaman tampil
-      sessionStorage.removeItem('staa-loading-active');
-    });
-
-    // ✅ Event beforeunload: reset flag saat user meninggalkan halaman
-    // (tidak diperlukan untuk perbaikan ini, tapi menjaga kebersihan state)
-    window.addEventListener('beforeunload', () => {
-      // Tidak perlu melakukan apa-apa, sessionStorage akan tetap ada
-      // sampai halaman berikutnya dimuat
-    });
-
-    // ✅ Fallback: jika karena suatu alasan loading masih aktif setelah 2 detik,
-    // paksa hide (safety net)
-    setTimeout(() => {
-      hideLoadingOverlay();
-    }, 2500);
+    const SHEET_ID = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
 
     // =============================================
-    // Inisialisasi AOS
-    AOS.init({ once: true, duration: 500 });
+    // 🎨 THEME TOGGLE
+    // =============================================
+    const body = document.body;
+    const iconSun = document.getElementById('iconSun');
+    const iconMoon = document.getElementById('iconMoon');
+    const themeText = document.getElementById('themeText');
 
-    // Theme Toggle
-    const themeBtn = document.getElementById('themeToggleBtn');
-    const toggleIconSun = document.getElementById('toggleIconSun');
-    const toggleIconMoon = document.getElementById('toggleIconMoon');
-    const toggleText = document.getElementById('toggleText');
     function updateThemeUI(isDark) {
-      if(isDark) { toggleIconSun.style.display = 'none'; toggleIconMoon.style.display = 'inline-block'; toggleText.innerText = 'Dark'; }
-      else { toggleIconSun.style.display = 'inline-block'; toggleIconMoon.style.display = 'none'; toggleText.innerText = 'Light'; }
+        if (isDark) {
+            iconSun.style.display = 'none';
+            iconMoon.style.display = 'inline-block';
+            themeText.textContent = 'Dark';
+        } else {
+            iconSun.style.display = 'inline-block';
+            iconMoon.style.display = 'none';
+            themeText.textContent = 'Light';
+        }
     }
-    if(localStorage.getItem('staa-theme') === 'dark') { document.body.classList.add('dark'); updateThemeUI(true); } 
-    else { updateThemeUI(false); }
-    themeBtn.addEventListener('click', () => {
-      const isDark = !document.body.classList.contains('dark');
-      if(isDark) { document.body.classList.add('dark'); localStorage.setItem('staa-theme', 'dark'); }
-      else { document.body.classList.remove('dark'); localStorage.setItem('staa-theme', 'light'); }
-      updateThemeUI(isDark);
+
+    if (localStorage.getItem('staa-theme') === 'dark') {
+        body.classList.add('dark');
+        updateThemeUI(true);
+    }
+
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        const isDark = body.classList.toggle('dark');
+        localStorage.setItem('staa-theme', isDark ? 'dark' : 'light');
+        updateThemeUI(isDark);
     });
 
-    new Swiper('.mySwiper', { loop: true, autoplay: { delay: 3000 }, pagination: { el: '.swiper-pagination', clickable: true } });
+    // =============================================
+    // 📡 FETCH DARI GOOGLE SHEETS (CSV)
+    // =============================================
+    async function fetchSheetCSV(sheetName) {
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
+        console.log(`📡 Fetch: ${sheetName} | ${url}`);
 
-    // Operational Hours
-    const currentTimeEl = document.getElementById('currentTime'), 
-          statusBadge = document.getElementById('statusBadge'), 
-          warningBanner = document.getElementById('warningBanner'), 
-          warningMessage = document.getElementById('warningMessage');
-    const OPEN_HOUR = 7, CLOSE_HOUR = 21;
-    
-    const tutupPopup = document.getElementById('tutupPopup');
-    let popupTutupSudahDitampilkan = false;
-    
-    function getAllProductLinks() {
-      return document.querySelectorAll('.game-simple-link');
-    }
-    
-    function getCurrentWIBTime() { 
-      const now = new Date(); 
-      const wibTime = new Date(now.getTime() + (7 * 60 * 60 * 1000)); 
-      return { hours: wibTime.getUTCHours(), minutes: wibTime.getUTCMinutes(), seconds: wibTime.getUTCSeconds() }; 
-    }
-    
-    function formatTime(h,m,s){ 
-      return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`; 
-    }
-    
-    function isWithinOperationalHours() { 
-      const wib = getCurrentWIBTime(); 
-      return wib.hours >= OPEN_HOUR && wib.hours < CLOSE_HOUR; 
-    }
-    
-    function updatePAYStatus() {
-      const wib = getCurrentWIBTime();
-      currentTimeEl.textContent = formatTime(wib.hours, wib.minutes, wib.seconds);
-      const isOpen = isWithinOperationalHours();
-      const allLinks = getAllProductLinks();
-      
-      if(isOpen) {
-        statusBadge.className = 'status-badge open'; 
-        statusBadge.innerHTML = '<i class="fas fa-check-circle"></i><span>BUKA</span>'; 
-        warningBanner.style.display = 'none'; 
-        allLinks.forEach(link => link?.classList.remove('disabled'));
-        popupTutupSudahDitampilkan = false;
-        tutupPopup.classList.remove('active');
-      } else {
-        statusBadge.className = 'status-badge closed'; 
-        statusBadge.innerHTML = '<i class="fas fa-times-circle"></i><span>TUTUP</span>'; 
-        warningBanner.style.display = 'flex'; 
-        warningMessage.innerText = `Toko tutup (${OPEN_HOUR}:00 - ${CLOSE_HOUR}:00 WIB).`; 
-        allLinks.forEach(link => link?.classList.add('disabled'));
-        
-        if (!popupTutupSudahDitampilkan && !tutupPopup.classList.contains('active')) {
-          tutupPopup.classList.add('active');
-          popupTutupSudahDitampilkan = true;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const text = await response.text();
+        if (!text.trim()) {
+            console.warn(`⚠️ Sheet "${sheetName}" kosong`);
+            return [];
         }
-      }
-    }
-    
-    setInterval(updatePAYStatus, 1000);
-    updatePAYStatus();
 
-    window.closeTutupPopup = function() {
-      tutupPopup.classList.remove('active');
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+        const data = [];
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+            const row = {};
+            headers.forEach((h, idx) => { row[h] = values[idx] !== undefined ? values[idx] : ''; });
+            data.push(row);
+        }
+
+        console.log(`✅ ${sheetName}: ${data.length} baris`);
+        return data;
+    }
+
+    // =============================================
+    // ⚙️ LOAD SETTINGS
+    // =============================================
+    async function loadSettings() {
+        try {
+            const data = await fetchSheetCSV('pengaturan');
+            if (data.length === 0) {
+                console.warn('⚠️ Sheet pengaturan kosong, pakai default');
+                return null;
+            }
+
+            const settings = {};
+            data.forEach(row => {
+                if (row.kunci && row.nilai !== undefined) {
+                    settings[row.kunci] = row.nilai;
+                }
+            });
+
+            console.log('📊 Settings loaded:', settings);
+            return settings;
+        } catch (e) {
+            console.error('❌ Gagal load settings:', e.message);
+            return null;
+        }
+    }
+
+    // =============================================
+    // 🎮 LOAD GAMES
+    // =============================================
+    async function loadGames() {
+        try {
+            const data = await fetchSheetCSV('games');
+            const active = data.filter(g => g.aktif === '1');
+            console.log(`🎮 ${active.length} games aktif dari ${data.length} total`);
+            return active;
+        } catch (e) {
+            console.error('❌ Gagal load games:', e.message);
+            return [];
+        }
+    }
+
+    // =============================================
+    // 🖼️ RENDER BANNER SLIDER
+    // =============================================
+    function renderBanners(settings) {
+        const slides = document.getElementById('bannerSlides');
+        const banners = [];
+
+        if (settings) {
+            for (let i = 1; i <= 6; i++) {
+                const banner = settings[`banner_${i}`];
+                if (banner) banners.push(banner);
+            }
+        }
+
+        // Fallback banners
+        if (banners.length === 0) {
+            banners.push(
+                'https://i.ibb.co.com/cSDHMzQ3/IMG-1369.png',
+                'https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg',
+                'https://i.ibb.co.com/Q3tncwc1/images-5.jpg'
+            );
+        }
+
+        slides.innerHTML = banners.map((url, i) => `
+            <div class="swiper-slide">
+                <img src="${url}" alt="Banner ${i + 1}" onerror="this.src='https://via.placeholder.com/800x400/1e3a8a/ffffff?text=STAA+PAY'">
+            </div>
+        `).join('');
+
+        new Swiper('.mySwiper', {
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true }
+        });
+    }
+
+    // =============================================
+    // 🎯 RENDER GAMES
+    // =============================================
+    function renderGames(games) {
+        const container = document.getElementById('gameHorizontalList');
+
+        if (games.length === 0) {
+            container.innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);"><i class="fas fa-box-open"></i> Belum ada produk</div>';
+            return;
+        }
+
+        const columns = [];
+        for (let i = 0; i < games.length; i += 2) {
+            columns.push(games.slice(i, i + 2));
+        }
+
+        container.innerHTML = columns.map(col => {
+            const cards = col.map(game => `
+                <a href="${game.link}" class="game-card" data-game="${game.game_id}">
+                    <div class="logo-gambar">
+                        <img src="${game.img_url}" alt="${game.nama}" onerror="this.src='https://via.placeholder.com/85/3b82f6/fff?text=${encodeURIComponent(game.nama.charAt(0))}'">
+                    </div>
+                    <span class="game-name">${game.nama}</span>
+                    <small><i class="fa-regular fa-hand-pointer"></i> ${game.badge || 'Top Up'}</small>
+                </a>
+            `).join('');
+            return `<div class="product-column">${cards}</div>`;
+        }).join('');
+
+        attachGameListeners();
+    }
+
+    // =============================================
+    // 🔗 ATTACH GAME LISTENERS
+    // =============================================
+    function attachGameListeners() {
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (this.classList.contains('disabled')) {
+                    e.preventDefault();
+                    alert('⚠️ Toko sedang tutup. Silakan kembali saat jam operasional.');
+                    return;
+                }
+
+                const url = this.getAttribute('href');
+                if (url && !url.startsWith('#')) {
+                    e.preventDefault();
+                    showLoading(url);
+                }
+            });
+        });
+    }
+
+    // =============================================
+    // ⏰ CLOCK & STORE STATUS
+    // =============================================
+    let appSettings = null;
+
+    function updateTime() {
+        const now = new Date();
+        const wib = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+        const h = String(wib.getUTCHours()).padStart(2, '0');
+        const m = String(wib.getUTCMinutes()).padStart(2, '0');
+        const s = String(wib.getUTCSeconds()).padStart(2, '0');
+        document.getElementById('currentTime').textContent = `${h}:${m}:${s}`;
+    }
+
+    function updateStoreUI() {
+        if (!appSettings) {
+            appSettings = { jam_buka: '7', jam_tutup: '21' };
+        }
+
+        const openHour = parseInt(appSettings.jam_buka) || 7;
+        const closeHour = parseInt(appSettings.jam_tutup) || 21;
+
+        const now = new Date();
+        const wib = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+        const currentHour = wib.getUTCHours();
+        const isOpen = currentHour >= openHour && currentHour < closeHour;
+
+        const badge = document.getElementById('statusBadge');
+        const warning = document.getElementById('warningBanner');
+        const warningMsg = document.getElementById('warningMessage');
+        const jamOp = document.getElementById('jamOperasional');
+
+        if (jamOp) {
+            jamOp.textContent = `${String(openHour).padStart(2, '0')}:00 - ${String(closeHour).padStart(2, '0')}:00 WIB`;
+        }
+
+        if (isOpen) {
+            badge.className = 'status-badge open';
+            badge.innerHTML = '<i class="fas fa-circle" style="font-size:0.45rem;"></i><span>BUKA</span>';
+            warning.style.display = 'none';
+        } else {
+            badge.className = 'status-badge closed';
+            badge.innerHTML = '<i class="fas fa-circle" style="font-size:0.45rem;"></i><span>TUTUP</span>';
+            warning.style.display = 'flex';
+            if (warningMsg) {
+                warningMsg.textContent = `Toko tutup (${String(openHour).padStart(2, '0')}:00 - ${String(closeHour).padStart(2, '0')}:00 WIB)`;
+            }
+        }
+
+        document.querySelectorAll('.game-card').forEach(card => {
+            if (!isOpen) card.classList.add('disabled');
+            else card.classList.remove('disabled');
+        });
+
+        console.log(`⏰ Jam: ${currentHour}:00 | ${isOpen ? '🟢 BUKA' : '🔴 TUTUP'} (${openHour}:00-${closeHour}:00)`);
+    }
+
+    setInterval(updateTime, 1000);
+    setInterval(updateStoreUI, 60000);
+    updateTime();
+
+    // =============================================
+    // 🔄 LOADING OVERLAY
+    // =============================================
+    function showLoading(url) {
+        document.getElementById('loadingOverlay').classList.add('active');
+        setTimeout(() => { window.location.href = url; }, 600);
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('active');
+    }
+
+    // =============================================
+    // 🎉 POPUP
+    // =============================================
+    if (!localStorage.getItem('popupClosed')) {
+        setTimeout(() => document.getElementById('premiumPopup').classList.add('active'), 800);
+    }
+
+    window.closePopup = function() {
+        document.getElementById('premiumPopup').classList.remove('active');
+        if (document.getElementById('dontShowAgain').checked) {
+            localStorage.setItem('popupClosed', 'true');
+        }
     };
 
-    // Navigation
-    const berandaSection = document.getElementById('berandaSection');
-    const rewardSection = document.getElementById('rewardSection');
-    const promoSection = document.getElementById('promoSection');
-    const profileSection = document.getElementById('profileSection');
-    const navItems = document.querySelectorAll('.nav-item');
-    const keunggulanFooter = document.getElementById('keunggulanFooter');
-    
-    function showSection(sectionName) {
-      berandaSection.style.display = 'none'; 
-      rewardSection.style.display = 'none'; 
-      promoSection.style.display = 'none'; 
-      profileSection.style.display = 'none';
-      if(sectionName === 'home') berandaSection.style.display = 'block';
-      else if(sectionName === 'reward') rewardSection.style.display = 'block';
-      else if(sectionName === 'promo') promoSection.style.display = 'block';
-      else if(sectionName === 'profile') profileSection.style.display = 'block';
-      keunggulanFooter.style.display = 'block';
-      document.getElementById('appContent').scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    function setActiveNav(navId) { 
-      navItems.forEach(item => { 
-        if(item.getAttribute('data-nav') === navId) item.classList.add('active'); 
-        else item.classList.remove('active'); 
-      }); 
-    }
-    
-    navItems.forEach(btn => { 
-      btn.addEventListener('click', () => { 
-        const navId = btn.getAttribute('data-nav'); 
-        setActiveNav(navId); 
-        if(navId === 'home') showSection('home'); 
-        else if(navId === 'reward') showSection('reward'); 
-        else if(navId === 'promo') showSection('promo'); 
-        else if(navId === 'profile') showSection('profile'); 
-      }); 
-    });
-    
-    showSection('home'); 
-    setActiveNav('home');
+    // =============================================
+    // 📱 BOTTOM NAVIGATION
+    // =============================================
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-    // Popup Premium
-    const popup = document.getElementById('premiumPopup');
-    if(!localStorage.getItem('popupClosed')) { 
-      setTimeout(()=> popup.classList.add('active'), 600); 
-    }
-    window.closePopup = function() { popup.classList.remove('active'); };
-    document.getElementById('dontShowAgain')?.addEventListener('change', function(e) { 
-      if(e.target.checked) localStorage.setItem('popupClosed', 'true'); 
-      else localStorage.removeItem('popupClosed'); 
+            const nav = btn.dataset.nav;
+            if (nav !== 'home') {
+                alert('🎁 Fitur ini akan segera hadir!\n\nStay tuned di STAA PAY!');
+                document.querySelector('[data-nav="home"]').classList.add('active');
+                btn.classList.remove('active');
+            }
+        });
     });
 
-    // 🔧 PERBAIKAN: Handler link dengan loading overlay yang sudah diperbaiki
-    function handleLinkClick(e) {
-      if (this.classList.contains('disabled')) { 
-        e.preventDefault();
-        e.stopPropagation();
-        if (!tutupPopup.classList.contains('active')) {
-          tutupPopup.classList.add('active');
+    // =============================================
+    // 🚀 INISIALISASI UTAMA
+    // =============================================
+    async function init() {
+        console.log('🚀 STAA PAY - Inisialisasi...');
+        console.log(`📋 Sheet ID: ${SHEET_ID}`);
+
+        hideLoading();
+
+        // Load Settings
+        try {
+            appSettings = await loadSettings();
+
+            if (appSettings) {
+                // Update UI dari settings
+                if (appSettings.nama_toko) {
+                    document.getElementById('namaToko').textContent = appSettings.nama_toko;
+                    document.getElementById('footerNama').textContent = appSettings.nama_toko;
+                    document.getElementById('popupNama').textContent = appSettings.nama_toko;
+                    document.title = appSettings.nama_toko + ' · TOP UP APP';
+                }
+                if (appSettings.logo_url) {
+                    document.getElementById('logoImg').src = appSettings.logo_url;
+                }
+                if (appSettings.popup_img) {
+                    document.getElementById('popupImg').src = appSettings.popup_img;
+                }
+
+                // Render banners
+                renderBanners(appSettings);
+            } else {
+                renderBanners(null);
+            }
+        } catch (e) {
+            console.error('❌ Gagal init settings:', e);
+            appSettings = { jam_buka: '7', jam_tutup: '21' };
+            renderBanners(null);
         }
-        return false; 
-      }
-      
-      const targetUrl = this.getAttribute('href');
-      if (targetUrl && !targetUrl.startsWith('#')) { 
-        e.preventDefault(); 
-        showLoadingAndRedirect(targetUrl); 
-      }
-    }
-    
-    function attachLinkListeners() {
-      const allGameLinks = document.querySelectorAll('.game-simple-link');
-      allGameLinks.forEach(link => {
-        link.removeEventListener('click', handleLinkClick);
-        link.addEventListener('click', handleLinkClick);
-      });
+
+        // Update store UI
+        updateStoreUI();
+
+        // Load & Render Games
+        try {
+            const games = await loadGames();
+            renderGames(games);
+        } catch (e) {
+            console.error('❌ Gagal load games:', e);
+            document.getElementById('gameHorizontalList').innerHTML = '<div class="product-column" style="width:100%;text-align:center;padding:40px;color:var(--text-tertiary);"><i class="fas fa-exclamation-triangle"></i> Gagal memuat produk</div>';
+        }
+
+        // Update lagi setelah games dirender
+        updateStoreUI();
+
+        console.log('✅ Inisialisasi selesai!');
     }
 
-    // Generate produk
-    const products = [
-      { name: "Free Fire", nameClass: "ff-name", img: "https://i.ibb.co.com/TxB12q8B/Screenshot-20250516-191232-2450692357.webp", link: "ff.html", gameId: "ff" },
-      { name: "Mobile Legends", nameClass: "ml-name", img: "https://i.ibb.co.com/8LYbYcy9/images-4.jpg", link: "ml.html", gameId: "ml" },
-      { name: "CAPCUT PRO", nameClass: "capcut-name", img: "https://i.ibb.co.com/gLkNFJxB/6af0aa39-775e-4c27-880b-62a622de54e5-removalai-preview.png", link: "cc.html", gameId: "cc" },
-      { name: "AM PREMIUM", nameClass: "aligthmotion-name", img: "https://i.ibb.co.com/gM7YstdT/Alight-Motion-Logo-PNG-Image.png", link: "am.html", gameId: "am" },
-      { name: "TUKAR SALDO", nameClass: "change-name", img: "https://i.ibb.co.com/c9H96w6/1778889627573-2.png", link: "change.html", gameId: "change" }
-    ];
+    // =============================================
+    // 🔄 BFCACHE HANDLER
+    // =============================================
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+            hideLoading();
+            if (appSettings) updateStoreUI();
+        }
+    });
 
-    function buildColumns(arr) {
-      const cols = [];
-      for (let i = 0; i < arr.length; i += 2) {
-        cols.push(arr.slice(i, i + 2));
-      }
-      return cols;
-    }
+    // =============================================
+    // 🛡️ SAFETY NET
+    // =============================================
+    setTimeout(hideLoading, 4000);
 
-    const columns = buildColumns(products);
-    const container = document.getElementById('gameHorizontalList');
-    if (container) {
-      container.innerHTML = columns.map(col => {
-        const productsHtml = col.map(p => `
-          <a href="${p.link}" target="_blank" class="game-simple-link" data-game="${p.gameId}">
-            <div class="logo-gambar"><img src="${p.img}" alt="${p.name}"></div>
-            <span class="game-name ${p.nameClass}">${p.name}</span>
-            <small><i class="fa-regular fa-hand-pointer"></i> Top Up</small>
-          </a>
-        `).join('');
-        return `<div class="product-column">${productsHtml}</div>`;
-      }).join('');
-      
-      attachLinkListeners();
-      updatePAYStatus();
-    }
-  })();
-
-  function selectGame(game) {
-    const btnFF = document.getElementById('btnFF'), 
-          btnML = document.getElementById('btnML'), 
-          ffFields = document.getElementById('ffFields'), 
-          mlFields = document.getElementById('mlFields');
-    if(game === 'ff') { 
-      btnFF.classList.add('active'); 
-      btnML.classList.remove('active'); 
-      ffFields.style.display = 'block'; 
-      mlFields.style.display = 'none'; 
-    } else { 
-      btnFF.classList.remove('active'); 
-      btnML.classList.add('active'); 
-      ffFields.style.display = 'none'; 
-      mlFields.style.display = 'block'; 
-    }
-  }
-  
-  window.showRedeemComingSoon = function() {
-    alert('🎁 Fitur Redeem Voucher Segera Hadir!\n\nDapatkan berbagai hadiah menarik seperti:\n• Diamond Gratis\n• Diskon Spesial\n• Free Skin\n• Cashback\n\nPantau terus update dari STAA PAY!');
-  }
+    // =============================================
+    // ▶️ START
+    // =============================================
+    document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>

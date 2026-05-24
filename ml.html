@@ -18,6 +18,18 @@
     <link rel="stylesheet" href="mlstyle.css">
 </head>
 <body>
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <div class="loading-logo">
+                <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY">
+            </div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">MEMUAT...</div>
+            <div class="loading-sub">STAA PAY • Mobile Legends</div>
+        </div>
+    </div>
+
     <!-- Navbar Premium -->
     <nav class="navbar">
         <div class="nav-container">
@@ -42,27 +54,23 @@
 
     <!-- Premium Banner -->
     <div class="banner-wrapper" data-aos="fade-down" data-aos-duration="600">
-        <a href="https://i.ibb.co.com/Q3tncwc1/images-5.jpg"
-           class="banner-link"
-           target="_blank"
-           title="Klik untuk lihat gambar asli">
-            <div class="banner-container">
-                <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg"
-                     alt="Mobile Legends Banner"
-                     class="banner-image"
-                     loading="eager">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <span class="banner-badge"><i class="fas fa-bolt"></i> SPECIAL OFFER</span>
-                        <h1 class="banner-title">MOBILE LEGENDS</h1>
-                        <div class="banner-stats">
-                            <div class="stat"><i class="fas fa-users"></i> 100K+ Pelanggan</div>
-                            <div class="stat"><i class="fas fa-clock"></i> Proses &lt;10 Menit</div>
-                        </div>
+        <div class="banner-container">
+            <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg"
+                 alt="Mobile Legends Banner"
+                 class="banner-image"
+                 loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <span class="banner-badge"><i class="fas fa-bolt"></i> SPECIAL OFFER</span>
+                    <h1 class="banner-title">MOBILE LEGENDS</h1>
+                    <p class="banner-subtitle">Top up diamond murah, cepat, & terpercaya</p>
+                    <div class="banner-stats">
+                        <div class="stat"><i class="fas fa-users"></i> 15K+ Pelanggan</div>
+                        <div class="stat"><i class="fas fa-clock"></i> Proses &lt;10 Menit</div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <div class="container">
@@ -73,7 +81,7 @@
                      alt="Mobile Legends Logo"
                      class="game-logo"
                      loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     onerror="this.src='https://via.placeholder.com/80x80/3b82f6/ffffff?text=ML'">
                 <div class="game-logo-glow"></div>
             </div>
             <div class="game-info">
@@ -83,9 +91,9 @@
                     <span><i class="fas fa-gem"></i> Diamond</span>
                 </div>
             </div>
-            <div class="game-badge">
-                <i class="fas fa-check-circle"></i>
-                <span>Reseller Resmi</span>
+            <div class="game-badge" id="storeStatus">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Memuat...</span>
             </div>
         </div>
 
@@ -93,7 +101,7 @@
             <div class="card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
                 <!-- Progress Steps -->
                 <div class="progress-steps">
-                    <div class="step active" id="step1">
+                    <div class="step" id="step1">
                         <div class="step-number">1</div>
                         <div class="step-text">ID Player & Server</div>
                     </div>
@@ -119,21 +127,11 @@
                         <div class="input-row">
                             <div class="input-wrapper">
                                 <i class="fas fa-gamepad input-icon"></i>
-                                <input type="text"
-                                       id="playerId"
-                                       placeholder="ID Player (contoh: 12345678)"
-                                       maxlength="12"
-                                       inputmode="numeric"
-                                       autocomplete="off">
+                                <input type="text" id="playerId" placeholder="ID Player (contoh: 12345678)" maxlength="12" inputmode="numeric" autocomplete="off">
                             </div>
                             <div class="input-wrapper">
                                 <i class="fas fa-server input-icon"></i>
-                                <input type="text"
-                                       id="serverId"
-                                       placeholder="Server (contoh: 1234)"
-                                       maxlength="4"
-                                       inputmode="numeric"
-                                       autocomplete="off">
+                                <input type="text" id="serverId" placeholder="Server (contoh: 1234)" maxlength="4" inputmode="numeric" autocomplete="off">
                             </div>
                         </div>
                         <div class="input-hint">
@@ -148,11 +146,11 @@
                     <h2 class="section-title">
                         <i class="fas fa-shopping-bag"></i>
                         Pilih Produk
-                        <span class="product-count" id="productCount">11 Pilihan</span>
+                        <span class="product-count" id="productCount">Memuat...</span>
                     </h2>
 
                     <!-- Category Tabs -->
-                    <div class="category-tabs">
+                    <div class="category-tabs" id="categoryTabs">
                         <button class="category-tab active" data-category="diamond">
                             <i class="fas fa-gem"></i>
                             <span>Diamond</span>
@@ -163,69 +161,19 @@
                         </button>
                     </div>
 
-                    <!-- Products Grid - Diamond -->
+                    <!-- Diamond Grid -->
                     <div class="products-grid active" id="diamondProducts">
-                        <div class="product-card" data-diamond="5 Diamond" data-price="1650" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">5 Diamond</div>
-                            <div class="product-price">Rp 1.650</div>
-                        </div>
-                        <div class="product-card" data-diamond="12 Diamond" data-price="3599" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">12 Diamond</div>
-                            <div class="product-price">Rp 3.599</div>
-                        </div>
-                        <div class="product-card" data-diamond="59 Diamond" data-price="16199" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">59 Diamond</div>
-                            <div class="product-price">Rp 16.199</div>
-                        </div>
-                        <div class="product-card" data-diamond="170 Diamond" data-price="45990" data-type="diamond">
-                            <div class="product-badge">POPULAR</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">170 Diamond</div>
-                            <div class="product-price">Rp 45.990</div>
-                        </div>
-                        <div class="product-card" data-diamond="214 Diamond" data-price="59199" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">214 Diamond</div>
-                            <div class="product-price">Rp 59.199</div>
-                        </div>
-                        <div class="product-card" data-diamond="296 Diamond" data-price="78499" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">296 Diamond</div>
-                            <div class="product-price">Rp 78.499</div>
-                        </div>
-                        <div class="product-card" data-diamond="429 Diamond" data-price="118199" data-type="diamond">
-                            <div class="product-badge">HEMAT</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">429 Diamond</div>
-                            <div class="product-price">Rp 118.199</div>
-                        </div>
-                        <div class="product-card" data-diamond="514 Diamond" data-price="141440" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">514 Diamond</div>
-                            <div class="product-price">Rp 141.440</div>
-                        </div>
-                        <div class="product-card" data-diamond="706 Diamond" data-price="194022" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">706 Diamond</div>
-                            <div class="product-price">Rp 194.022</div>
-                        </div>
-                        <div class="product-card" data-diamond="2195 Diamond" data-price="555800" data-type="diamond">
-                            <div class="product-badge">BEST VALUE</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">2195 Diamond</div>
-                            <div class="product-price">Rp 555.800</div>
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Memuat produk...</span>
                         </div>
                     </div>
 
-                    <!-- Products Grid - Membership -->
+                    <!-- Membership Grid -->
                     <div class="products-grid" id="membershipProducts">
-                        <div class="product-card membership" data-diamond="Weekly Pass" data-price="28500" data-type="membership">
-                            <div class="product-icon"><i class="fas fa-calendar-week"></i></div>
-                            <div class="product-amount">Weekly Pass</div>
-                            <div class="product-price">Rp 28.500</div>
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Memuat produk...</span>
                         </div>
                     </div>
                 </div>
@@ -241,50 +189,31 @@
                     <div class="payment-grid">
                         <div class="payment-card" data-payment="DANA">
                             <div class="payment-left">
-                                <img src="dana.png" 
-                                     alt="DANA" 
-                                     class="payment-logo-img"
-                                     loading="lazy"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <img src="dana.png" alt="DANA" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                                 <i class="fas fa-wallet payment-logo-fallback" style="color: #1088d6; display: none;"></i>
                                 <span>DANA</span>
                             </div>
                             <span class="payment-amount" id="priceDANA">Rp 0</span>
                         </div>
-
                         <div class="payment-card" data-payment="OVO">
                             <div class="payment-left">
-                                <img src="ovo.png" 
-                                     alt="OVO" 
-                                     class="payment-logo-img"
-                                     loading="lazy"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <img src="ovo.png" alt="OVO" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                                 <i class="fas fa-circle payment-logo-fallback" style="color: #5a3e9e; display: none;"></i>
                                 <span>OVO</span>
                             </div>
                             <span class="payment-amount" id="priceOVO">Rp 0</span>
                         </div>
-
                         <div class="payment-card" data-payment="GoPay">
                             <div class="payment-left">
-                                <img src="gopay.png" 
-                                     alt="GoPay" 
-                                     class="payment-logo-img"
-                                     loading="lazy"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <img src="gopay.png" alt="GoPay" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                                 <i class="fas fa-mobile-alt payment-logo-fallback" style="color: #00aed6; display: none;"></i>
                                 <span>GoPay</span>
                             </div>
                             <span class="payment-amount" id="priceGoPay">Rp 0</span>
                         </div>
-
                         <div class="payment-card" data-payment="QRIS">
                             <div class="payment-left">
-                                <img src="qrislogo.png" 
-                                     alt="QRIS" 
-                                     class="payment-logo-img"
-                                     loading="lazy"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <img src="qrislogo.png" alt="QRIS" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                                 <i class="fas fa-qrcode payment-logo-fallback" style="color: #6c5ce7; display: none;"></i>
                                 <span>QRIS</span>
                             </div>
@@ -302,48 +231,23 @@
                     </div>
                 </div>
 
-                <!-- Order Summary Premium -->
+                <!-- Order Summary -->
                 <div class="order-summary" id="orderSummary">
                     <div class="summary-header">
                         <i class="fas fa-shopping-cart"></i>
                         <h3>Ringkasan Pesanan</h3>
                     </div>
-
                     <div class="summary-body">
-                        <div class="summary-row">
-                            <span>ID Player</span>
-                            <span class="summary-value" id="summaryId">-</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Server</span>
-                            <span class="summary-value" id="summaryServer">-</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Produk</span>
-                            <span class="summary-value" id="summaryDiamond">-</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Pembayaran</span>
-                            <span class="summary-value" id="summaryPayment">-</span>
-                        </div>
-
-                        <div class="summary-row" id="feeRow" style="display: none;">
-                            <span>Biaya Admin</span>
-                            <span class="summary-value" id="summaryFee">Rp 0</span>
-                        </div>
-                        <div class="summary-row notes-row" id="summaryNotesRow" style="display: none;">
-                            <span>Catatan</span>
-                            <span class="summary-value" id="summaryNotes">-</span>
-                        </div>
+                        <div class="summary-row"><span>ID Player</span><span class="summary-value" id="summaryId">-</span></div>
+                        <div class="summary-row"><span>Server</span><span class="summary-value" id="summaryServer">-</span></div>
+                        <div class="summary-row"><span>Produk</span><span class="summary-value" id="summaryDiamond">-</span></div>
+                        <div class="summary-row"><span>Pembayaran</span><span class="summary-value" id="summaryPayment">-</span></div>
+                        <div class="summary-row" id="feeRow" style="display:none;"><span>Biaya Admin</span><span class="summary-value" id="summaryFee">Rp 0</span></div>
+                        <div class="summary-row notes-row" id="summaryNotesRow" style="display:none;"><span>Catatan</span><span class="summary-value" id="summaryNotes">-</span></div>
                     </div>
-
-                    <div class="summary-total">
-                        <span>Total Dibayar</span>
-                        <span class="total-price" id="summaryPrice">Rp 0</span>
-                    </div>
+                    <div class="summary-total"><span>Total Dibayar</span><span class="total-price" id="summaryPrice">Rp 0</span></div>
                 </div>
 
-                <!-- WhatsApp Button -->
                 <button class="whatsapp-btn" id="whatsappBtn" disabled>
                     <i class="fab fa-whatsapp"></i>
                     <span>Pesan via WhatsApp</span>
@@ -351,41 +255,19 @@
                 </button>
             </div>
 
-            <!-- Info Cards Premium -->
             <div class="info-grid" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">
-                <div class="info-card">
-                    <div class="info-icon"><i class="fas fa-bolt"></i></div>
-                    <div class="info-content">
-                        <h4>Proses Kilat</h4>
-                        <p>Maksimal 10 menit</p>
-                    </div>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="info-content">
-                        <h4>Terpercaya</h4>
-                        <p>Garansi 100%</p>
-                    </div>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon"><i class="fas fa-headset"></i></div>
-                    <div class="info-content">
-                        <h4>Support 24/7</h4>
-                        <p>Siap bantu kamu</p>
-                    </div>
-                </div>
+                <div class="info-card"><div class="info-icon"><i class="fas fa-bolt"></i></div><div class="info-content"><h4>Proses Kilat</h4><p>Maksimal 10 menit</p></div></div>
+                <div class="info-card"><div class="info-icon"><i class="fas fa-shield-alt"></i></div><div class="info-content"><h4>Terpercaya</h4><p>Garansi 100%</p></div></div>
+                <div class="info-card"><div class="info-icon"><i class="fas fa-headset"></i></div><div class="info-content"><h4>Support 24/7</h4><p>Siap bantu kamu</p></div></div>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2026 STAA PAY &bull; Top Up Mobile Legends Resmi</p>
+            <p>&copy; 2026 STAA PAY &bull; Mobile Legends</p>
         </footer>
     </div>
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Custom JS -->
     <script src="mlscript.js"></script>
 </body>
 </html>

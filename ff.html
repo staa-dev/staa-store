@@ -16,23 +16,20 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="ffstyle.css">
-    
-    <style>
-        /* Tambahan CSS inline agar logo e-wallet terformat dengan rapi dan presisi */
-        .payment-logo {
-            width: auto;
-            height: 24px; /* Menyamakan tinggi logo agar sejajar dan rapi */
-            object-fit: contain;
-            border-radius: 4px;
-        }
-        .payment-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-    </style>
 </head>
 <body>
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <div class="loading-logo">
+                <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY">
+            </div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">MEMUAT PRODUK...</div>
+            <div class="loading-sub">STAA PAY • Free Fire</div>
+        </div>
+    </div>
+
     <!-- Navbar Premium -->
     <nav class="navbar">
         <div class="nav-container">
@@ -57,26 +54,22 @@
 
     <!-- Premium Banner -->
     <div class="banner-wrapper" data-aos="fade-down" data-aos-duration="600">
-        <a href="#"
-           class="banner-link"
-           target="_blank"
-           title="Klik untuk lihat gambar asli">
-            <div class="banner-container">
-                <img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg"
-                     alt="Free Fire Banner"
-                     class="banner-image"
-                     loading="eager">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <span class="banner-badge"><i class="fas fa-bolt"></i> HOT DEAL</span>
-                        <h1 class="banner-title">FREE FIRE</h1> <div class="banner-stats">
-                            <div class="stat"><i class="fas fa-users"></i> 25K+ Pelanggan</div>
-                            <div class="stat"><i class="fas fa-clock"></i> Proses &lt;10 Menit</div>
-                        </div>
+        <div class="banner-container">
+            <img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg"
+                 alt="Free Fire Banner"
+                 class="banner-image"
+                 loading="eager">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <span class="banner-badge"><i class="fas fa-bolt"></i> HOT DEAL</span>
+                    <h1 class="banner-title">FREE FIRE</h1>
+                    <div class="banner-stats">
+                        <div class="stat"><i class="fas fa-users"></i> <span id="totalCustomers">25K+</span> Pelanggan</div>
+                        <div class="stat"><i class="fas fa-clock"></i> Proses &lt;10 Menit</div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <div class="container">
@@ -87,7 +80,7 @@
                      alt="Free Fire Logo"
                      class="game-logo"
                      loading="lazy"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     onerror="this.src='https://via.placeholder.com/80x80/ff4757/ffffff?text=FF'">
                 <div class="game-logo-glow"></div>
             </div>
             <div class="game-info">
@@ -97,9 +90,9 @@
                     <span><i class="fas fa-gem"></i> Diamond</span>
                 </div>
             </div>
-            <div class="game-badge">
-                <i class="fas fa-check-circle"></i>
-                <span>Official Partner</span>
+            <div class="game-badge" id="storeStatus">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Memuat...</span>
             </div>
         </div>
 
@@ -107,7 +100,7 @@
             <div class="card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
                 <!-- Progress Steps -->
                 <div class="progress-steps">
-                    <div class="step active" id="step1">
+                    <div class="step" id="step1">
                         <div class="step-number">1</div>
                         <div class="step-text">ID Player</div>
                     </div>
@@ -151,11 +144,11 @@
                     <h2 class="section-title">
                         <i class="fas fa-shopping-bag"></i>
                         Pilih Produk
-                        <span class="product-count">16 Pilihan</span>
+                        <span class="product-count" id="productCount">Memuat...</span>
                     </h2>
 
                     <!-- Category Tabs -->
-                    <div class="category-tabs">
+                    <div class="category-tabs" id="categoryTabs">
                         <button class="category-tab active" data-category="diamond">
                             <i class="fas fa-gem"></i>
                             <span>Diamond</span>
@@ -168,110 +161,22 @@
 
                     <!-- Diamond Grid -->
                     <div class="products-grid active" id="diamondProducts">
-                        <div class="product-card" data-diamond="5" data-price="950" data-type="diamond">
-                            <div class="product-badge">BEST</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">5 Diamond</div>
-                            <div class="product-price">Rp 950</div>
-                        </div>
-                        <div class="product-card" data-diamond="10" data-price="1700" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">10 Diamond</div>
-                            <div class="product-price">Rp 1.700</div>
-                        </div>
-                        <div class="product-card" data-diamond="12" data-price="1900" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">12 Diamond</div>
-                            <div class="product-price">Rp 1.900</div>
-                        </div>
-                        <div class="product-card" data-diamond="50" data-price="7160" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">50 Diamond</div>
-                            <div class="product-price">Rp 7.160</div>
-                        </div>
-                        <div class="product-card" data-diamond="70" data-price="9199" data-type="diamond">
-                            <div class="product-badge">POPULAR</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">70 Diamond</div>
-                            <div class="product-price">Rp 9.199</div>
-                        </div>
-                        <div class="product-card" data-diamond="100" data-price="13499" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">100 Diamond</div>
-                            <div class="product-price">Rp 13.499</div>
-                        </div>
-                        <div class="product-card" data-diamond="140" data-price="18399" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">140 Diamond</div>
-                            <div class="product-price">Rp 18.399</div>
-                        </div>
-                        <div class="product-card" data-diamond="210" data-price="27699" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">210 Diamond</div>
-                            <div class="product-price">Rp 27.699</div>
-                        </div>
-                        <div class="product-card" data-diamond="355" data-price="45999" data-type="diamond">
-                            <div class="product-badge">HEMAT</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">355 Diamond</div>
-                            <div class="product-price">Rp 45.999</div>
-                        </div>
-                        <div class="product-card" data-diamond="510" data-price="67099" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">510 Diamond</div>
-                            <div class="product-price">Rp 67.099</div>
-                        </div>
-                        <div class="product-card" data-diamond="720" data-price="91999" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">720 Diamond</div>
-                            <div class="product-price">Rp 91.999</div>
-                        </div>
-                        <div class="product-card" data-diamond="1000" data-price="129199" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">1000 Diamond</div>
-                            <div class="product-price">Rp 129.199</div>
-                        </div>
-                        <div class="product-card" data-diamond="1450" data-price="184899" data-type="diamond">
-                            <div class="product-badge">POPULER</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">1450 Diamond</div>
-                            <div class="product-price">Rp 184.899</div>
-                        </div>
-                        <div class="product-card" data-diamond="2000" data-price="257799" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">2000 Diamond</div>
-                            <div class="product-price">Rp 257.799</div>
-                        </div>
-                        <div class="product-card" data-diamond="6000" data-price="785899" data-type="diamond">
-                            <div class="product-badge">BEST VALUE</div>
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">6000 Diamond</div>
-                            <div class="product-price">Rp 785.899</div>
-                        </div>
-                        <div class="product-card" data-diamond="7290" data-price="923299" data-type="diamond">
-                            <div class="product-icon"><i class="fas fa-gem"></i></div>
-                            <div class="product-amount">7290 Diamond</div>
-                            <div class="product-price">Rp 923.299</div>
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Memuat produk...</span>
                         </div>
                     </div>
 
                     <!-- Membership Grid -->
                     <div class="products-grid" id="membershipProducts">
-                        <div class="product-card membership" data-diamond="Membership Mingguan" data-price="28199" data-type="membership">
-                            <div class="product-icon"><i class="fas fa-calendar-week"></i></div>
-                            <div class="product-amount">Membership Mingguan</div>
-                            <div class="product-price">Rp 28.199</div>
-                        </div>
-                        <div class="product-card membership" data-diamond="Membership Bulanan" data-price="85299" data-type="membership">
-                            <div class="product-badge">HEMAT</div>
-                            <div class="product-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <div class="product-amount">Membership Bulanan</div>
-                            <div class="product-price">Rp 85.299</div>
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Memuat produk...</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pembayaran Section (BAGIAN YANG DI-UPGRADE) -->
+                <!-- Pembayaran Section -->
                 <div class="section">
                     <h2 class="section-title">
                         <i class="fas fa-credit-card"></i>
@@ -283,7 +188,8 @@
                         <!-- DANA -->
                         <div class="payment-card" data-payment="DANA">
                             <div class="payment-left">
-                                <img src="dana.png" alt="Logo DANA" class="payment-logo">
+                                <img src="dana.png" alt="Logo DANA" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <i class="fas fa-wallet payment-logo-fallback" style="color: #1088d6; display: none;"></i>
                                 <span>DANA</span>
                             </div>
                             <span class="payment-amount" id="priceDANA">Rp 0</span>
@@ -292,7 +198,8 @@
                         <!-- OVO -->
                         <div class="payment-card" data-payment="OVO">
                             <div class="payment-left">
-                                <img src="ovo.png" alt="Logo OVO" class="payment-logo">
+                                <img src="ovo.png" alt="Logo OVO" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <i class="fas fa-circle payment-logo-fallback" style="color: #5a3e9e; display: none;"></i>
                                 <span>OVO</span>
                             </div>
                             <span class="payment-amount" id="priceOVO">Rp 0</span>
@@ -301,7 +208,8 @@
                         <!-- GoPay -->
                         <div class="payment-card" data-payment="GoPay">
                             <div class="payment-left">
-                                <img src="gopay.png" alt="Logo GoPay" class="payment-logo">
+                                <img src="gopay.png" alt="Logo GoPay" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <i class="fas fa-mobile-alt payment-logo-fallback" style="color: #00aed6; display: none;"></i>
                                 <span>GoPay</span>
                             </div>
                             <span class="payment-amount" id="priceGoPay">Rp 0</span>
@@ -310,7 +218,8 @@
                         <!-- QRIS -->
                         <div class="payment-card" data-payment="QRIS">
                             <div class="payment-left">
-                                <img src="qrislogo.png" alt="Logo QRIS" class="payment-logo">
+                                <img src="qrislogo.png" alt="Logo QRIS" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                <i class="fas fa-qrcode payment-logo-fallback" style="color: #6c5ce7; display: none;"></i>
                                 <span>QRIS</span>
                             </div>
                             <span class="payment-amount" id="priceQRIS">Rp 0</span>
@@ -405,6 +314,9 @@
 
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- API Handler -->
+    <script src="api.js"></script>
 
     <!-- Custom JS -->
     <script src="ffscript.js"></script>
