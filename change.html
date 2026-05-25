@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAA PAY • TUKAR SALDO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg:#f8fafc; --surface:#fff; --surface2:#f1f5f9; --text:#0f172a; --text2:#475569; --text3:#94a3b8;
+            --brand:#8b5cf6; --accent:#ec4899; --success:#10b981; --danger:#ef4444; --border:#e2e8f0;
+            --shadow:0 4px 24px rgba(0,0,0,0.06); --shadow-lg:0 12px 48px rgba(0,0,0,0.1);
+            --radius:20px; --radius-sm:14px;
+        }
+        body.dark { --bg:#0a0414; --surface:#130826; --surface2:#1a0d33; --text:#f0e6ff; --text2:#b89ae0; --text3:#7b5ea7; --border:#2a1552; --shadow:0 4px 24px rgba(0,0,0,0.3); --shadow-lg:0 12px 48px rgba(0,0,0,0.5); }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:all 0.4s; }
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.8); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:0 1.5rem; height:60px; display:flex; align-items:center; }
+        body.dark .navbar { background:rgba(19,8,38,0.8); }
+        .nav-container { width:100%; max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+        .nav-logo { font-weight:800; font-size:1.3rem; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:6px; }
+        .nav-logo span { background:linear-gradient(135deg,var(--brand),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .nav-item { color:var(--text2); font-size:1.2rem; text-decoration:none; }
+
+        /* ========== BANNER FIXED ========== */
+        .banner-wrapper { margin-bottom:1.5rem; border-radius:24px; overflow:hidden; box-shadow:var(--shadow-lg); }
+        .banner-container { position:relative; width:100%; overflow:hidden; border-radius:24px; aspect-ratio:16/5; min-height:180px; background:linear-gradient(135deg, #2d1060, #5b21b6, #7c3aed); }
+        .banner-image { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
+        .banner-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(45,16,96,0.15), rgba(91,33,182,0.55), rgba(10,4,20,0.92)); display:flex; align-items:flex-end; padding:1.5rem 1.8rem; }
+        .banner-content { color:#fff; width:100%; }
+        .banner-badge { background:#ec4899; color:#fff; padding:0.3rem 1rem; border-radius:50px; font-size:0.7rem; font-weight:700; display:inline-flex; align-items:center; gap:0.4rem; margin-bottom:0.5rem; }
+        .banner-title { font-size:2rem; font-weight:800; margin-bottom:0.2rem; letter-spacing:-0.5px; }
+        .banner-highlight { color:#fbbf24; }
+        .banner-stats { display:flex; gap:1.5rem; font-size:0.75rem; opacity:0.9; margin-top:0.4rem; }
+        .stat { display:flex; align-items:center; gap:0.3rem; }
+
+        .container { max-width:700px; margin:0 auto; padding:0 1.2rem 1.5rem; }
+        .card { background:var(--surface); border-radius:var(--radius); padding:20px; border:1px solid var(--border); box-shadow:var(--shadow); }
+
+        .swap-row { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:start; margin-bottom:16px; }
+        .swap-col { text-align:center; }
+        .swap-col .section-title { font-size:0.63rem; font-weight:700; color:var(--text2); text-transform:uppercase; margin-bottom:6px; }
+        .swap-col .ewallet-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:5px; }
+        .swap-col .ewallet-card {
+            background:var(--surface2); border:2px solid var(--border); border-radius:var(--radius-sm);
+            padding:8px 4px; text-align:center; cursor:pointer; transition:all 0.2s;
+            display:flex; flex-direction:column; align-items:center; gap:2px;
+        }
+        .swap-col .ewallet-card:hover { border-color:var(--brand); transform:translateY(-2px); }
+        .swap-col .ewallet-card.selected { border-color:var(--brand)!important; background:rgba(139,92,246,0.08); box-shadow:0 0 0 3px rgba(139,92,246,0.12); }
+        .swap-col .ewallet-card img { width:26px; height:26px; border-radius:6px; object-fit:contain; }
+        .swap-col .ewallet-card .icon-fallback { font-size:1.3rem; width:26px; height:26px; display:flex; align-items:center; justify-content:center; }
+        .swap-col .ewallet-card .name { font-size:0.55rem; font-weight:700; }
+        .swap-divider { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding-top:18px; }
+        .swap-divider .arrow { font-size:1.2rem; color:var(--brand); animation:bounce 1.5s infinite; }
+        @keyframes bounce { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
+        .swap-divider .text { font-size:0.5rem; color:var(--text3); text-transform:uppercase; }
+
+        .upgrade-info { background:linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.08)); border:1px solid rgba(139,92,246,0.2); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:12px; text-align:center; font-size:0.62rem; color:var(--text2); }
+        .upgrade-info i { color:var(--brand); margin-right:4px; }
+        .upgrade-info strong { color:var(--accent); }
+
+        .form-section { background:var(--surface2); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:12px; }
+        .form-section .section-title { font-size:0.63rem; font-weight:700; color:var(--text2); text-transform:uppercase; margin-bottom:10px; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+        .input-group label { font-size:0.6rem; font-weight:700; color:var(--text2); text-transform:uppercase; display:block; margin-bottom:3px; }
+        .input-group input { width:100%; padding:10px 12px; border:2px solid var(--border); border-radius:10px; font-size:0.82rem; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; background:var(--surface); color:var(--text); transition:all 0.2s; }
+        .input-group input:focus { border-color:var(--brand); outline:none; box-shadow:0 0 0 3px rgba(139,92,246,0.08); }
+        .btn-hitung { padding:10px; background:var(--brand); color:white; border:none; border-radius:10px; font-weight:700; font-size:0.82rem; cursor:pointer; width:100%; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s; }
+        .btn-hitung:active { transform:scale(0.95); }
+
+        .fee-table { background:var(--surface2); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:12px; }
+        .fee-table h4 { font-size:0.63rem; font-weight:700; color:var(--text2); text-transform:uppercase; margin-bottom:6px; text-align:center; }
+        .fee-row { display:flex; justify-content:space-between; padding:3px 6px; font-size:0.6rem; border-bottom:1px solid var(--border); }
+        .fee-row:last-child { border-bottom:none; }
+        .fee-row span:first-child { color:var(--text2); }
+        .fee-row span:last-child { font-weight:700; color:var(--danger); }
+
+        .rate-info { background:var(--surface2); border-radius:var(--radius-sm); padding:12px 14px; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center; margin:12px 0; }
+        .rate-info .label { font-size:0.58rem; color:var(--text3); text-transform:uppercase; }
+        .rate-info .value { font-size:0.95rem; font-weight:800; }
+
+        .whatsapp-btn { width:100%; padding:13px; background:#25D366; border:none; border-radius:14px; color:white; font-weight:800; font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px; transition:all 0.2s; }
+        .whatsapp-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 25px rgba(37,211,102,0.3); }
+        .whatsapp-btn:disabled { opacity:0.4; cursor:not-allowed; background:#94a3b8; }
+        .note { text-align:center; font-size:0.58rem; color:var(--text3); margin-top:4px; }
+        footer { text-align:center; padding:14px; color:var(--text3); font-size:0.62rem; }
+        @media (max-width:500px) { 
+            .banner-title { font-size:1.4rem; }
+            .banner-overlay { padding:1rem 1.2rem; }
+            .swap-row { grid-template-columns:1fr; } 
+            .swap-divider { flex-direction:row; padding-top:0; } 
+            .form-row { grid-template-columns:1fr; } 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><i class="fas fa-crown"></i> STAA<span>PAY</span></a>
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i></a>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top:1rem;">
+        <!-- BANNER FIXED -->
+        <div class="banner-wrapper" data-aos="fade-down">
+            <div class="banner-container">
+                <img src="https://i.ibb.co.com/Qjx5S8dm/1779562403254.png" alt="Tukar Saldo Banner" class="banner-image" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg, #2d1060, #5b21b6, #7c3aed)';">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <span class="banner-badge"><i class="fas fa-bolt"></i> INSTANT TRANSFER</span>
+                        <h1 class="banner-title">TUKAR <span class="banner-highlight">SALDO</span></h1>
+                        <div class="banner-stats">
+                            <div class="stat"><i class="fas fa-users"></i> 2K+ Transaksi</div>
+                            <div class="stat"><i class="fas fa-clock"></i> Proses &lt;5 Menit</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="upgrade-info">
+                <i class="fas fa-info-circle"></i> 
+                <strong>Bisa tukar ke e-wallet yang sama!</strong> Dikhususkan untuk akun yang belum upgrade Premium/Plus
+            </div>
+
+            <div class="swap-row">
+                <div class="swap-col"><div class="section-title">📤 Dompet Sumber</div><div class="ewallet-grid" id="sourceGrid"></div></div>
+                <div class="swap-divider"><div class="arrow"><i class="fas fa-chevron-right"></i></div><div class="text">TRANSFER</div></div>
+                <div class="swap-col"><div class="section-title">📥 Dompet Tujuan</div><div class="ewallet-grid" id="targetGrid"></div></div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">📋 Detail Transfer</div>
+                <div class="form-row">
+                    <div class="input-group"><label>👤 Atas Nama</label><input type="text" id="atasNama" placeholder="Nama pemilik rekening"></div>
+                    <div class="input-group"><label>📱 Nomor Tujuan</label><input type="tel" id="targetNumber" inputmode="numeric" pattern="[0-9]*" placeholder="08123456789" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group"><label>💰 Jumlah Transfer (Rp)</label><input type="number" id="amountInput" placeholder="Min. Rp 10.000" min="10000" onkeydown="if(event.key==='Enter')hitung()"></div>
+                    <div class="input-group" style="display:flex;align-items:end;"><button class="btn-hitung" onclick="hitung()"><i class="fas fa-calculator"></i> HITUNG</button></div>
+                </div>
+            </div>
+
+            <div class="fee-table">
+                <h4>📊 Biaya Admin</h4>
+                <div class="fee-row"><span>Rp 10rb - 49rb</span><span>Rp 2.000</span></div>
+                <div class="fee-row"><span>Rp 50rb - 99rb</span><span>Rp 3.000</span></div>
+                <div class="fee-row"><span>Rp 100rb - 499rb</span><span>Rp 5.000</span></div>
+                <div class="fee-row"><span>Rp 500rb+</span><span>2%</span></div>
+            </div>
+
+            <div class="rate-info">
+                <div><div class="label">Biaya Admin</div><div class="value" style="color:var(--danger);" id="feeAmount">-</div></div>
+                <div><div class="label">Kamu Transfer</div><div class="value" style="color:var(--brand);" id="totalTransfer">-</div></div>
+                <div><div class="label">Diterima</div><div class="value" style="color:var(--success);" id="receive">-</div></div>
+            </div>
+
+            <button class="whatsapp-btn" id="waBtn" disabled onclick="pesan()"><i class="fab fa-whatsapp"></i> Pesan via WhatsApp</button>
+            <div class="note">⬆ Klik <b>HITUNG</b> untuk melihat total ⬆</div>
+        </div>
+        <footer>© 2026 STAA PAY • Tukar Saldo Premium</footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 500 });
+        const WA = '6289530398848';
+        const EWALLETS = [
+            { id: 'DANA', name: 'DANA', logo: 'dana.png', fb: '💙' },
+            { id: 'GoPay', name: 'GoPay', logo: 'gopay.png', fb: '💚' },
+            { id: 'OVO', name: 'OVO', logo: 'ovo.png', fb: '💜' },
+            { id: 'QRIS', name: 'QRIS', logo: 'qrislogo.png', fb: '📱' },
+            { id: 'ShopeePay', name: 'ShopeePay', logo: null, fb: '🧡' },
+            { id: 'LinkAja', name: 'LinkAja', logo: null, fb: '❤️' },
+            { id: 'Bank', name: 'Bank', logo: null, fb: '🏦' },
+        ];
+        let src=null, tgt=null, calculated=false;
+
+        function getFee(a) { if(a>=500000) return Math.round(a*0.02); if(a>=100000) return 5000; if(a>=50000) return 3000; if(a>=10000) return 2000; return 0; }
+
+        function render() {
+            const cards = EWALLETS.map(w => `<div class="ewallet-card" data-id="${w.id}">${w.logo?`<img src="${w.logo}" alt="${w.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="icon-fallback" style="display:none;">${w.fb}</div>`:`<div class="icon-fallback">${w.fb}</div>`}<div class="name">${w.name}</div></div>`).join('');
+            document.getElementById('sourceGrid').innerHTML = cards;
+            document.getElementById('targetGrid').innerHTML = cards;
+            document.querySelectorAll('#sourceGrid .ewallet-card').forEach(c => c.onclick = () => {
+                document.querySelectorAll('#sourceGrid .ewallet-card').forEach(x => x.classList.remove('selected'));
+                c.classList.add('selected'); src = c.dataset.id; resetResult();
+            });
+            document.querySelectorAll('#targetGrid .ewallet-card').forEach(c => c.onclick = () => {
+                document.querySelectorAll('#targetGrid .ewallet-card').forEach(x => x.classList.remove('selected'));
+                c.classList.add('selected'); tgt = c.dataset.id; resetResult();
+            });
+        }
+
+        function resetResult(){calculated=false;['feeAmount','totalTransfer','receive'].forEach(id=>document.getElementById(id).textContent='-');document.getElementById('waBtn').disabled=true;}
+
+        function hitung(){
+            const amt = parseInt(document.getElementById('amountInput').value)||0;
+            if(!src)return alert('⚠️ Pilih dompet SUMBER!');
+            if(!tgt)return alert('⚠️ Pilih dompet TUJUAN!');
+            if(amt<10000)return alert('⚠️ Minimal Rp 10.000!');
+            const fee=getFee(amt),recv=amt-fee;
+            document.getElementById('feeAmount').textContent='Rp '+fee.toLocaleString('id-ID');
+            document.getElementById('totalTransfer').textContent='Rp '+amt.toLocaleString('id-ID');
+            document.getElementById('receive').textContent='Rp '+recv.toLocaleString('id-ID');
+            document.getElementById('waBtn').disabled=false;calculated=true;
+        }
+
+        function pesan(){
+            if(!calculated)return alert('⚠️ Klik HITUNG dulu!');
+            const amt=parseInt(document.getElementById('amountInput').value),fee=getFee(amt),recv=amt-fee;
+            const nama=document.getElementById('atasNama').value.trim()||'(belum diisi)';
+            const no=document.getElementById('targetNumber').value.trim()||'(belum diisi)';
+            const sameInfo=src===tgt?' (Upgrade Akun)':'';
+            let m=`💸 *TUKAR SALDO - STAA PAY* 💸%0A%0A`;
+            m+=`📤 *Dari:* ${src}%0A📥 *Ke:* ${tgt}${sameInfo}%0A`;
+            m+=`👤 *Atas Nama:* ${nama}%0A📱 *No Tujuan:* ${no}%0A`;
+            m+=`💰 *Transfer:* Rp ${amt.toLocaleString('id-ID')}%0A`;
+            m+=`🔻 *Biaya Admin:* Rp ${fee.toLocaleString('id-ID')}%0A`;
+            m+=`✅ *Diterima:* Rp ${recv.toLocaleString('id-ID')}%0A%0A⚡ _Mohon diproses ya kak!_ 🙏`;
+            window.open(`https://wa.me/${WA}?text=${m}`,'_blank');
+        }
+
+        render();
+    </script>
+</body>
+</html>
