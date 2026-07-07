@@ -491,6 +491,156 @@
         @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
         .loading-text { color: rgba(255,255,255,0.9); font-weight: 700; font-size: 0.75rem; text-align: center; }
 
+        /* ========== HALAMAN PROMO ========== */
+        .page {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 16px 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .page.active {
+            display: block;
+        }
+        .page::-webkit-scrollbar { width:0; }
+
+        .promo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .promo-header h2 {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+        }
+        .promo-header h2 i { color: var(--warning); }
+        .btn-back {
+            background: var(--surface2);
+            border: none;
+            width: 36px; height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--border);
+        }
+        .btn-back:active { transform: scale(0.94); }
+
+        .voucher-card {
+            background: var(--surface2);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 14px;
+        }
+        .voucher-card.expired {
+            opacity: 0.5;
+            filter: grayscale(0.3);
+            pointer-events: none;
+        }
+        .voucher-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .discount-badge {
+            background: linear-gradient(135deg, var(--brand), var(--brand2));
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            letter-spacing: -0.5px;
+            box-shadow: 0 8px 14px rgba(79,70,229,0.25);
+        }
+        .voucher-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: right;
+        }
+        .voucher-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .voucher-desc {
+            font-size: 0.68rem;
+            color: var(--text2);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+        .code-box {
+            background: var(--surface);
+            border: 1px dashed var(--brand2);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            color: var(--brand2);
+        }
+        .copy-btn {
+            background: var(--brand-light);
+            border: none;
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 0.68rem;
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .copy-btn:active { background: var(--brand); color: white; }
+        .timer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .countdown {
+            background: rgba(239,68,68,0.1);
+            color: var(--danger);
+            padding: 4px 12px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .expired-label {
+            color: var(--text3);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         @supports(padding-bottom: env(safe-area-inset-bottom)) {
             .bottom-nav { padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)); }
         }
@@ -502,7 +652,7 @@
     <div class="app-header">
         <div class="brand-app">
             <div class="icon-wrapper">
-                <img src="https://i.ibb.co.com/1th4mGLz/1778855680928.jpg" alt="STAA PAY" id="logoImg">
+                <img src="https://i.ibb.co.com/ZzsN93yK/a05da879-1ff2-4e32-b371-01674109d28d.png" alt="STAA PAY" id="logoImg">
             </div>
             <h1>STAA<span>PAY</span></h1>
         </div>
@@ -513,8 +663,8 @@
         </button>
     </div>
 
-    <!-- CONTENT -->
-    <div class="app-content" id="appContent">
+    <!-- HALAMAN BERANDA -->
+    <div class="page active" id="pageHome">
         <div class="operational-panel">
             <span class="time-display"><i class="fas fa-clock"></i> <span id="currentTime">--:--:--</span></span>
             <span class="time-display"><i class="fas fa-calendar"></i> <span id="jamOperasional">07:00 - 21:00</span></span>
@@ -554,6 +704,18 @@
         </div>
 
         <div class="footer-staa">© 2026 <span id="footerNama">STAA PAY</span> • #TopUpPremium</div>
+    </div>
+
+    <!-- HALAMAN PROMO -->
+    <div class="page" id="pagePromo">
+        <div class="promo-header">
+            <button class="btn-back" id="btnBackFromPromo"><i class="fas fa-arrow-left"></i></button>
+            <h2><i class="fas fa-ticket-alt"></i> Kode Voucher</h2>
+        </div>
+        <div id="voucherList"></div>
+        <div style="text-align:center; padding:8px 0 16px; font-size:0.6rem; color:var(--text3);">
+            ⏳ Voucher berlaku terbatas · STAA PAY
+        </div>
     </div>
 
     <!-- BOTTOM NAV -->
@@ -725,21 +887,166 @@
     window.closeDevPopup = function() {
         document.getElementById('devPopup').classList.remove('active');
     };
-    
-    // ========== BOTTOM NAV (DENGAN POPUP DEV) ==========
-    document.querySelectorAll('.nav-item').forEach(function(btn) {
+
+    // ========== NAVIGASI HALAMAN ==========
+    const pageHome = document.getElementById('pageHome');
+    const pagePromo = document.getElementById('pagePromo');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    function switchPage(pageName) {
+        // Sembunyikan semua halaman
+        pageHome.classList.remove('active');
+        pagePromo.classList.remove('active');
+        
+        // Update nav active
+        navItems.forEach(item => item.classList.remove('active'));
+        const activeNav = document.querySelector(`.nav-item[data-nav="${pageName}"]`);
+        if (activeNav) activeNav.classList.add('active');
+
+        if (pageName === 'home') {
+            pageHome.classList.add('active');
+        } else if (pageName === 'promo') {
+            pagePromo.classList.add('active');
+            renderVouchers(); // render ulang setiap kali buka halaman promo
+        } else if (pageName === 'reward' || pageName === 'profile') {
+            showDevPopup();
+            // Kembalikan ke home
+            pageHome.classList.add('active');
+            document.querySelector('.nav-item[data-nav="home"]').classList.add('active');
+        }
+    }
+
+    // Bottom nav click
+    navItems.forEach(btn => {
         btn.addEventListener('click', function() {
-            document.querySelectorAll('.nav-item').forEach(function(b) { b.classList.remove('active'); });
-            this.classList.add('active');
-            
             const nav = this.dataset.nav;
-            if (nav !== 'home') {
-                showDevPopup();
-                document.querySelector('[data-nav="home"]').classList.add('active');
-                this.classList.remove('active');
-            }
+            switchPage(nav);
         });
     });
+
+    // Tombol kembali dari promo
+    document.getElementById('btnBackFromPromo').addEventListener('click', function() {
+        switchPage('home');
+    });
+
+    // ========== VOUCHER & TIMER (HALAMAN PROMO) ==========
+    function getWIBDate() {
+        return new Date(new Date().getTime() + 7 * 60 * 60 * 1000);
+    }
+
+    const nowWIB = getWIBDate();
+    
+    const vouchers = [
+        {
+            id: 1,
+            discount: '2%',
+            title: 'TOP UP FF',
+            desc: 'Minimal transaksi 50k',
+            code: 'STAAPREM5',
+            expired: new Date(nowWIB.getTime() + 2.5 * 60 * 60 * 1000).toISOString()
+        },
+    ];
+
+    function formatTimeLeft(expiredISO) {
+        const now = getWIBDate();
+        const exp = new Date(expiredISO);
+        const diff = exp - now;
+        if (diff <= 0) return { expired: true, text: 'Kadaluarsa' };
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        if (hours > 0) {
+            return { expired: false, text: `${hours}j ${minutes}m ${seconds}d` };
+        }
+        return { expired: false, text: `${minutes}m ${seconds}d` };
+    }
+
+    function renderVouchers() {
+        const container = document.getElementById('voucherList');
+        if (!container) return;
+        
+        container.innerHTML = vouchers.map(v => {
+            const { expired, text } = formatTimeLeft(v.expired);
+            const expiredClass = expired ? 'expired' : '';
+            const timerHtml = expired 
+                ? '<span class="expired-label"><i class="fas fa-clock"></i> Kadaluarsa</span>'
+                : `<span class="countdown" data-expired="${v.expired}" data-id="${v.id}"><i class="fas fa-hourglass-half"></i> ${text}</span>`;
+            
+            return `
+                <div class="voucher-card ${expiredClass}" id="voucher-${v.id}">
+                    <div class="voucher-top">
+                        <span class="discount-badge">${v.discount}</span>
+                        <div class="voucher-info">
+                            <span class="voucher-title">${v.title}</span>
+                            <span class="voucher-desc"><i class="fas fa-info-circle"></i> ${v.desc}</span>
+                        </div>
+                    </div>
+                    <div class="code-box">
+                        <span>${v.code}</span>
+                        <button class="copy-btn" data-code="${v.code}" ${expired ? 'disabled' : ''}>
+                            <i class="fas fa-copy"></i> SALIN
+                        </button>
+                    </div>
+                    <div class="timer-row">
+                        <span><i class="far fa-calendar-alt"></i> Berlaku s/d</span>
+                        ${timerHtml}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Attach copy listeners
+        document.querySelectorAll('#voucherList .copy-btn:not([disabled])').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const code = this.dataset.code;
+                navigator.clipboard.writeText(code).then(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> TERSALIN';
+                    this.style.background = '#10b981';
+                    this.style.color = 'white';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-copy"></i> SALIN';
+                        this.style.background = '';
+                        this.style.color = '';
+                    }, 1800);
+                }).catch(() => {
+                    alert('Gagal menyalin, coba lagi.');
+                });
+            });
+        });
+    }
+
+    function updateTimers() {
+        const countdownElements = document.querySelectorAll('#voucherList .countdown');
+        countdownElements.forEach(el => {
+            const expiredISO = el.dataset.expired;
+            const voucherId = el.dataset.id;
+            const { expired, text } = formatTimeLeft(expiredISO);
+            
+            if (expired) {
+                const card = document.getElementById(`voucher-${voucherId}`);
+                if (card) {
+                    card.classList.add('expired');
+                    const timerRow = card.querySelector('.timer-row span:last-child');
+                    if (timerRow) {
+                        timerRow.innerHTML = '<span class="expired-label"><i class="fas fa-clock"></i> Kadaluarsa</span>';
+                    }
+                    const copyBtn = card.querySelector('.copy-btn');
+                    if (copyBtn) {
+                        copyBtn.disabled = true;
+                        copyBtn.style.opacity = '0.5';
+                        copyBtn.style.pointerEvents = 'none';
+                    }
+                    el.remove();
+                }
+            } else {
+                el.innerHTML = `<i class="fas fa-hourglass-half"></i> ${text}`;
+            }
+        });
+    }
+
+    setInterval(updateTimers, 1000);
     
     // ========== INIT ==========
     async function init() {
@@ -768,6 +1075,7 @@
         }
         
         updateStoreUI();
+        renderVouchers(); // render awal voucher
         console.log('✅ Selesai!');
     }
     

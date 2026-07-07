@@ -175,7 +175,38 @@
                         </div>
                     </div>
                 </div>
+<!-- Voucher Section -->
+<div class="section" id="voucherSection">
+    <h2 class="section-title">
+        <i class="fas fa-ticket-alt"></i>
+        Kode Voucher
+        <span style="font-size:0.7rem;color:var(--text-muted);font-weight:500;">(Opsional)</span>
+    </h2>
 
+    <div class="voucher-section">
+        <div class="voucher-input-wrapper">
+            <input type="text"
+                   id="voucherCode"
+                   placeholder="Masukkan kode voucher..."
+                   maxlength="20"
+                   autocomplete="off"
+                   spellcheck="false">
+            <button class="apply-voucher-btn" id="applyVoucherBtn">
+                <i class="fas fa-check-circle"></i>
+                <span>Pakai</span>
+            </button>
+            <button class="remove-voucher-btn" id="removeVoucherBtn">
+                <i class="fas fa-times-circle"></i>
+                <span>Hapus</span>
+            </button>
+        </div>
+        <div class="voucher-info-box" id="voucherInfoBox">
+            <i class="fas fa-info-circle"></i>
+            <span class="voucher-info-text" id="voucherInfoText"></span>
+            <span class="voucher-discount-badge" id="voucherDiscountBadge" style="display:none;"></span>
+        </div>
+    </div>
+</div>
                 <!-- Pembayaran Section -->
                 <div class="section">
                     <h2 class="section-title">
@@ -262,7 +293,10 @@
                             <span class="summary-value" id="summaryFee">Rp 0</span>
                         </div>
                         <div class="summary-row notes-row" id="summaryNotesRow" style="display: none;">
-                            <span>Catatan</span>
+                 <div class="summary-row voucher-row" id="summaryVoucherRow" style="display: none;">
+    <span><i class="fas fa-ticket-alt"></i> Diskon Voucher</span>
+    <span class="summary-value" id="summaryVoucher">-</span>
+                 </div>           <span>Catatan</span>
                             <span class="summary-value" id="summaryNotes">-</span>
                         </div>
                     </div>
