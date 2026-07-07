@@ -103,7 +103,7 @@
                 <div class="progress-steps">
                     <div class="step" id="step1">
                         <div class="step-number">1</div>
-                        <div class="step-text">ID / Email</div>
+                        <div class="step-text">WhatsApp</div>
                     </div>
                     <div class="step" id="step2">
                         <div class="step-number">2</div>
@@ -115,25 +115,27 @@
                     </div>
                 </div>
 
-                <!-- ID / Email Section -->
+                <!-- WhatsApp Section -->
                 <div class="section">
                     <h2 class="section-title">
-                        <i class="fas fa-id-card"></i>
-                        Masukkan ID / Email CapCut
+                        <i class="fab fa-whatsapp"></i>
+                        Masukkan Nomor WhatsApp
                         <span class="required-badge">Wajib</span>
                     </h2>
 
                     <div class="form-group premium-input">
                         <div class="input-wrapper">
-                            <i class="fas fa-envelope input-icon"></i>
-                            <input type="text"
+                            <i class="fab fa-whatsapp input-icon"></i>
+                            <input type="tel"
                                    id="userId"
-                                   placeholder="Contoh: user@email.com atau ID CapCut"
-                                   autocomplete="off">
+                                   placeholder="Contoh: 6281234567890"
+                                   autocomplete="off"
+                                   inputmode="numeric"
+                                   pattern="[0-9]*">
                         </div>
                         <div class="input-hint">
                             <i class="fas fa-info-circle"></i>
-                            <span>Masukkan email atau ID CapCut Anda yang ingin diaktivasi</span>
+                            <span>Masukkan nomor WhatsApp yg akan dikirim detail akun CapCut Pro</span>
                         </div>
                     </div>
                 </div>
@@ -220,7 +222,7 @@
 
                     <div class="summary-body">
                         <div class="summary-row">
-                            <span>ID / Email</span>
+                            <span>WhatsApp</span>
                             <span class="summary-value" id="summaryId">-</span>
                         </div>
                         <div class="summary-row">
