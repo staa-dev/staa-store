@@ -5,16 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STAA PAY • FREE FIRE</title>
 
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="ffstyle.css">
 </head>
 <body>
@@ -30,7 +23,7 @@
         </div>
     </div>
 
-    <!-- Navbar Premium -->
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -39,7 +32,6 @@
                     <span>STAA <span class="store-highlight">PAY</span></span>
                 </a>
             </div>
-
             <div class="nav-right">
                 <a href="index.html" class="nav-item" title="Beranda">
                     <i class="fas fa-home"></i>
@@ -52,13 +44,11 @@
         </div>
     </nav>
 
-    <!-- Premium Banner -->
+    <!-- Banner -->
     <div class="banner-wrapper" data-aos="fade-down" data-aos-duration="600">
         <div class="banner-container">
             <img src="https://splendid-blue-eodgrbuws7.edgeone.app/quality_restoration_20260519004459296.jpg"
-                 alt="Free Fire Banner"
-                 class="banner-image"
-                 loading="eager">
+                 alt="Free Fire Banner" class="banner-image" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-content">
                     <span class="banner-badge"><i class="fas fa-bolt"></i> HOT DEAL</span>
@@ -73,13 +63,11 @@
     </div>
 
     <div class="container">
-        <!-- Header Game Info -->
+        <!-- Game Header -->
         <div class="game-header" data-aos="fade-up" data-aos-duration="500">
             <div class="game-logo-wrapper">
                 <img src="https://i.ibb.co.com/BJhJ7Lx/Screenshot-20250516-191232-2450692357.webp"
-                     alt="Free Fire Logo"
-                     class="game-logo"
-                     loading="lazy"
+                     alt="Free Fire Logo" class="game-logo" loading="lazy"
                      onerror="this.src='https://via.placeholder.com/80x80/ff4757/ffffff?text=FF'">
                 <div class="game-logo-glow"></div>
             </div>
@@ -123,18 +111,35 @@
                     </h2>
 
                     <div class="form-group premium-input">
-                        <div class="input-wrapper">
-                            <i class="fas fa-gamepad input-icon"></i>
-                            <input type="text"
-                                   id="playerId"
-                                   placeholder="Contoh: 1234567890"
-                                   maxlength="12"
-                                   inputmode="numeric"
-                                   autocomplete="off">
+                        <div class="input-row">
+                            <div class="input-wrapper">
+                                <i class="fas fa-gamepad input-icon"></i>
+                                <input type="text" id="playerId"
+                                       placeholder="Contoh: 1234567890"
+                                       maxlength="12" inputmode="numeric" autocomplete="off">
+                            </div>
+                            <button class="check-id-btn" id="checkIdBtn" type="button">
+                                <i class="fas fa-search check-icon"></i>
+                                <i class="fas fa-spinner fa-spin check-spinner"></i>
+                                <span>Cek ID</span>
+                            </button>
                         </div>
+
                         <div class="input-hint">
                             <i class="fas fa-info-circle"></i>
-                            <span>Masukkan 9-10 digit ID Player Free Fire kamu</span>
+                            <span>Masukkan 9-10 digit ID Player Free Fire lalu tekan "Cek ID"</span>
+                        </div>
+
+                        <!-- Hasil Cek ID -->
+                        <div class="account-info-box" id="accountInfoBox">
+                            <i class="fas fa-info-circle account-info-icon" id="accountInfoIcon"></i>
+                            <div class="account-info-content">
+                                <span class="account-info-text" id="accountInfoText"></span>
+                                <span class="account-info-sub" id="accountInfoSub"></span>
+                            </div>
+                            <span class="account-verified-badge" id="accountVerifiedBadge" style="display:none;">
+                                <i class="fas fa-check"></i> Terverifikasi
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -147,7 +152,6 @@
                         <span class="product-count" id="productCount">Memuat...</span>
                     </h2>
 
-                    <!-- Category Tabs -->
                     <div class="category-tabs" id="categoryTabs">
                         <button class="category-tab active" data-category="diamond">
                             <i class="fas fa-gem"></i>
@@ -159,7 +163,6 @@
                         </button>
                     </div>
 
-                    <!-- Diamond Grid -->
                     <div class="products-grid active" id="diamondProducts">
                         <div class="loading-placeholder">
                             <i class="fas fa-spinner fa-spin"></i>
@@ -167,7 +170,6 @@
                         </div>
                     </div>
 
-                    <!-- Membership Grid -->
                     <div class="products-grid" id="membershipProducts">
                         <div class="loading-placeholder">
                             <i class="fas fa-spinner fa-spin"></i>
@@ -175,38 +177,37 @@
                         </div>
                     </div>
                 </div>
-<!-- Voucher Section -->
-<div class="section" id="voucherSection">
-    <h2 class="section-title">
-        <i class="fas fa-ticket-alt"></i>
-        Kode Voucher
-        <span style="font-size:0.7rem;color:var(--text-muted);font-weight:500;">(Opsional)</span>
-    </h2>
 
-    <div class="voucher-section">
-        <div class="voucher-input-wrapper">
-            <input type="text"
-                   id="voucherCode"
-                   placeholder="Masukkan kode voucher..."
-                   maxlength="20"
-                   autocomplete="off"
-                   spellcheck="false">
-            <button class="apply-voucher-btn" id="applyVoucherBtn">
-                <i class="fas fa-check-circle"></i>
-                <span>Pakai</span>
-            </button>
-            <button class="remove-voucher-btn" id="removeVoucherBtn">
-                <i class="fas fa-times-circle"></i>
-                <span>Hapus</span>
-            </button>
-        </div>
-        <div class="voucher-info-box" id="voucherInfoBox">
-            <i class="fas fa-info-circle"></i>
-            <span class="voucher-info-text" id="voucherInfoText"></span>
-            <span class="voucher-discount-badge" id="voucherDiscountBadge" style="display:none;"></span>
-        </div>
-    </div>
-</div>
+                <!-- Voucher Section -->
+                <div class="section" id="voucherSection">
+                    <h2 class="section-title">
+                        <i class="fas fa-ticket-alt"></i>
+                        Kode Voucher
+                        <span style="font-size:0.7rem;color:var(--text-muted);font-weight:500;">(Opsional)</span>
+                    </h2>
+
+                    <div class="voucher-section">
+                        <div class="voucher-input-wrapper">
+                            <input type="text" id="voucherCode"
+                                   placeholder="Masukkan kode voucher..."
+                                   maxlength="20" autocomplete="off" spellcheck="false">
+                            <button class="apply-voucher-btn" id="applyVoucherBtn">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Pakai</span>
+                            </button>
+                            <button class="remove-voucher-btn" id="removeVoucherBtn">
+                                <i class="fas fa-times-circle"></i>
+                                <span>Hapus</span>
+                            </button>
+                        </div>
+                        <div class="voucher-info-box" id="voucherInfoBox">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="voucher-info-text" id="voucherInfoText"></span>
+                            <span class="voucher-discount-badge" id="voucherDiscountBadge" style="display:none;"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Pembayaran Section -->
                 <div class="section">
                     <h2 class="section-title">
@@ -216,7 +217,6 @@
                     </h2>
 
                     <div class="payment-grid">
-                        <!-- DANA -->
                         <div class="payment-card" data-payment="DANA">
                             <div class="payment-left">
                                 <img src="dana.png" alt="Logo DANA" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
@@ -226,7 +226,6 @@
                             <span class="payment-amount" id="priceDANA">Rp 0</span>
                         </div>
 
-                        <!-- OVO -->
                         <div class="payment-card" data-payment="OVO">
                             <div class="payment-left">
                                 <img src="ovo.png" alt="Logo OVO" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
@@ -236,7 +235,6 @@
                             <span class="payment-amount" id="priceOVO">Rp 0</span>
                         </div>
 
-                        <!-- GoPay -->
                         <div class="payment-card" data-payment="GoPay">
                             <div class="payment-left">
                                 <img src="gopay.png" alt="Logo GoPay" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
@@ -246,7 +244,6 @@
                             <span class="payment-amount" id="priceGoPay">Rp 0</span>
                         </div>
 
-                        <!-- QRIS -->
                         <div class="payment-card" data-payment="QRIS">
                             <div class="payment-left">
                                 <img src="qrislogo.png" alt="Logo QRIS" class="payment-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
@@ -267,7 +264,7 @@
                     </div>
                 </div>
 
-                <!-- Order Summary Premium -->
+                <!-- Order Summary -->
                 <div class="order-summary" id="orderSummary">
                     <div class="summary-header">
                         <i class="fas fa-shopping-cart"></i>
@@ -275,14 +272,22 @@
                     </div>
 
                     <div class="summary-body">
+                        <!-- Username / Nickname -->
+                        <div class="summary-row" id="summaryUsernameRow" style="display: none;">
+                            <span>Nickname</span>
+                            <span class="summary-value" id="summaryUsername">-</span>
+                        </div>
+
                         <div class="summary-row">
                             <span>ID Player</span>
                             <span class="summary-value" id="summaryId">-</span>
                         </div>
+
                         <div class="summary-row">
                             <span>Produk</span>
                             <span class="summary-value" id="summaryDiamond">-</span>
                         </div>
+
                         <div class="summary-row">
                             <span>Pembayaran</span>
                             <span class="summary-value" id="summaryPayment">-</span>
@@ -292,11 +297,14 @@
                             <span>Biaya Admin</span>
                             <span class="summary-value" id="summaryFee">Rp 0</span>
                         </div>
+
+                        <div class="summary-row voucher-row" id="summaryVoucherRow" style="display: none;">
+                            <span><i class="fas fa-ticket-alt"></i> Diskon Voucher</span>
+                            <span class="summary-value" id="summaryVoucher">-</span>
+                        </div>
+
                         <div class="summary-row notes-row" id="summaryNotesRow" style="display: none;">
-                 <div class="summary-row voucher-row" id="summaryVoucherRow" style="display: none;">
-    <span><i class="fas fa-ticket-alt"></i> Diskon Voucher</span>
-    <span class="summary-value" id="summaryVoucher">-</span>
-                 </div>           <span>Catatan</span>
+                            <span>Catatan</span>
                             <span class="summary-value" id="summaryNotes">-</span>
                         </div>
                     </div>
@@ -315,7 +323,7 @@
                 </button>
             </div>
 
-            <!-- Info Cards Premium -->
+            <!-- Info Cards -->
             <div class="info-grid" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">
                 <div class="info-card">
                     <div class="info-icon"><i class="fas fa-bolt"></i></div>
@@ -346,13 +354,8 @@
         </footer>
     </div>
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- API Handler -->
     <script src="api.js"></script>
-
-    <!-- Custom JS -->
     <script src="ffscript.js"></script>
 </body>
 </html>
