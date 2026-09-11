@@ -46,7 +46,7 @@ function updateSummary(){const id=userIdInput.value.trim(),valid=id.length>0;sum
 
 userIdInput.addEventListener('input',updateSummary);notesInput.addEventListener('input',updateSummary);
 
-whatsappBtn.addEventListener('click',()=>{if(whatsappBtn.disabled)return;const bp=selectedProduct.price,fee=calculateAdminFee(bp,selectedPayment,appSettings);sendWhatsApp({namaToko:appSettings?.nama_toko||'STAA PAY',waNumber:'6289530398848',userId:userIdInput.value.trim(),product:selectedProduct.product,payment:selectedPayment,fee:fee,total:bp+fee,notes:notesInput.value.trim()})});
+whatsappBtn.addEventListener('click',()=>{if(whatsappBtn.disabled)return;const bp=selectedProduct.price,fee=calculateAdminFee(bp,selectedPayment,appSettings);sendWhatsApp({namaToko:appSettings?.nama_toko||'STAA PAY',waNumber:'6285128002841',userId:userIdInput.value.trim(),product:selectedProduct.product,payment:selectedPayment,fee:fee,total:bp+fee,notes:notesInput.value.trim()})});
 
 document.addEventListener('DOMContentLoaded',()=>{loadAppData();updateSummary()});
 window.addEventListener('pageshow',e=>{if(e.persisted){showLoading(false);if(appSettings)updateStoreStatus()}});

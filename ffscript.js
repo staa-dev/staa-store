@@ -396,7 +396,7 @@ whatsappBtn.addEventListener('click',()=>{
     
     sendWhatsApp({
         namaToko:appSettings?.nama_toko||'STAA PAY',
-        waNumber:'6289530398848',
+        waNumber:'6285128002841',
         playerId:playerIdInput.value.trim(),
         product:selectedProduct.diamond,
         payment:selectedPayment,

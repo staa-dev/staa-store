@@ -1,6 +1,6 @@
 // ========== KONFIGURASI ==========
 const SHEET_ID_ML = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
-const WA_NUMBER = '6289530398848';
+const WA_NUMBER = '6285128002841';
 const NAMA_TOKO = 'STAA PAY';
 
 // ========== AOS INIT ==========

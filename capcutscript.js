@@ -1,7 +1,7 @@
 // ========== KONFIGURASI ==========
 const SHEET_ID_CC = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSDrzoeqBwvFHO5TKQrzr3ChzvyKynr5XOAXKI40RjetE90edWhmwPV_dBvRRpr_nRrQ/exec'; // GANTI DENGAN URL KAMU
-const WA_NUMBER = '6289530398848';
+const WA_NUMBER = '6285128002841';
 
 // ========== AOS INIT ==========
 AOS.init({ once: true, duration: 600, offset: 20 });
