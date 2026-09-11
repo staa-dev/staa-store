@@ -177,19 +177,151 @@ body {
 .required-badge { background: var(--accent-light); color: var(--accent); font-size: 0.68rem; padding: 0.25rem 0.75rem; border-radius: 50px; font-weight: 700; }
 .product-count { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); background: var(--bg-input); padding: 0.3rem 0.8rem; border-radius: 50px; }
 
-/* ========== INPUT ========== */
-.premium-input .input-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.premium-input .input-row .input-wrapper { flex: 1; min-width: 180px; position: relative; display: flex; align-items: center; }
+/* ========== INPUT + CEK ID ========== */
+.premium-input .input-row { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: stretch; }
+.premium-input .input-row .input-wrapper { flex: 1 1 180px; min-width: 0; position: relative; display: flex; align-items: center; }
 .input-icon { position: absolute; left: 1.1rem; color: var(--accent); z-index: 2; pointer-events: none; }
-#playerId, #serverId { width: 100%; padding: 0.95rem 1.2rem 0.95rem 3rem; border: 1.5px solid var(--input-border); border-radius: 16px; background: var(--bg-input); color: var(--text-primary); font-weight: 600; font-size: 1rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: all 0.2s; }
-#playerId:focus, #serverId:focus { border-color: var(--input-focus-border); box-shadow: 0 0 0 4px var(--accent-glow); }
+#playerId, #serverId { width: 100%; padding: 0.95rem 1.2rem 0.95rem 3rem; border: 1.5px solid var(--input-border); border-radius: 16px; background: var(--bg-input); color: var(--text-primary); font-weight: 600; font-size: 1rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: all 0.2s; letter-spacing: 0.5px; }
+#playerId:focus, #serverId:focus { border-color: var(--input-focus-border); box-shadow: 0 0 0 4px var(--accent-glow); background: var(--bg-card); }
+#playerId::placeholder, #serverId::placeholder { color: var(--text-muted); font-weight: 400; letter-spacing: 0; }
+
+/* Tombol Cek ID */
+.check-id-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem;
+    padding: 0 1.3rem;
+    border: none; border-radius: 16px;
+    background: var(--gradient-1);
+    color: #fff; font-weight: 700; font-size: 0.88rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer; white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px var(--accent-glow);
+    min-height: 50px;
+    letter-spacing: -0.1px;
+}
+.check-id-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 22px var(--accent-glow); }
+.check-id-btn:active:not(:disabled) { transform: translateY(0); }
+.check-id-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.check-id-btn .check-spinner { display: none; }
+.check-id-btn.loading .check-icon { display: none; }
+.check-id-btn.loading .check-spinner { display: inline-block; }
+
 .input-hint { margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
 
-/* ========== CATEGORY TABS ========== */
-.category-tabs { display: flex; gap: 0.7rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
-.category-tab { padding: 0.65rem 1.4rem; border-radius: 50px; border: 1.5px solid var(--border); background: var(--bg-input); color: var(--text-secondary); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 0.45rem; white-space: nowrap; }
-.category-tab:hover { border-color: var(--accent); color: var(--accent); }
-.category-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 14px var(--accent-glow); }
+/* Account Info Box */
+.account-info-box {
+    margin-top: 0.75rem; padding: 0.85rem 1.1rem; border-radius: 14px;
+    font-size: 0.85rem; font-weight: 600;
+    display: none; align-items: center; gap: 0.75rem;
+    transition: all 0.3s ease; flex-wrap: wrap;
+}
+.account-info-box.active { display: flex; }
+.account-info-box.loading {
+    background: var(--accent-light); color: var(--accent);
+    border: 1.5px solid var(--accent-glow);
+}
+.account-info-box.success {
+    background: rgba(16, 185, 129, 0.08); color: #059669;
+    border: 1.5px solid rgba(16, 185, 129, 0.25);
+    animation: accountSuccess 0.4s ease;
+}
+.account-info-box.error {
+    background: rgba(239, 68, 68, 0.08); color: #dc2626;
+    border: 1.5px solid rgba(239, 68, 68, 0.25);
+}
+@keyframes accountSuccess {
+    0% { transform: scale(0.98); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.account-info-icon { font-size: 1.1rem; flex-shrink: 0; }
+.account-info-content { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; flex: 1; }
+.account-info-text { font-weight: 700; font-size: 0.9rem; word-break: break-word; line-height: 1.3; }
+.account-info-sub { font-size: 0.75rem; font-weight: 500; opacity: 0.8; letter-spacing: 0.3px; }
+.account-verified-badge {
+    margin-left: auto;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    padding: 0.3rem 0.8rem; border-radius: 50px;
+    font-size: 0.72rem; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   ========== CATEGORY TABS (SEGMENTED) =========
+   Diamond | Weekly Pass
+   ============================================ */
+.category-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    margin-bottom: 1.2rem;
+    padding: 5px;
+    background: var(--bg-input);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(18, 52, 100, 0.04);
+}
+
+.category-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.75rem 0.8rem;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: -0.1px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.category-tab i {
+    font-size: 0.95rem;
+    transition: transform 0.25s ease;
+}
+.category-tab span { display: inline-block; line-height: 1; }
+
+.category-tab:hover:not(.active) {
+    color: var(--accent);
+    background: var(--accent-light);
+}
+.category-tab:hover:not(.active) i { transform: scale(1.1); }
+
+.category-tab.active {
+    background: var(--gradient-1);
+    color: #ffffff;
+    box-shadow:
+        0 4px 12px var(--accent-glow),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+.category-tab.active i { transform: scale(1.1); }
+.category-tab:active:not(.active) { transform: scale(0.98); }
+
+[data-theme="dark"] .category-tabs {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .category-tab.active {
+    box-shadow:
+        0 4px 14px var(--accent-glow),
+        0 1px 2px rgba(0, 0, 0, 0.3);
+}
 
 /* ========== PRODUCTS GRID ========== */
 .products-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; }
@@ -227,8 +359,9 @@ body {
 .summary-header i { color: var(--accent); }
 .summary-header h3 { font-size: 0.95rem; font-weight: 700; }
 .summary-body { display: flex; flex-direction: column; gap: 0.6rem; }
-.summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); }
-.summary-value { font-weight: 600; color: var(--text-primary); text-align: right; }
+.summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); gap: 1rem; }
+.summary-row > span:first-child { flex-shrink: 0; }
+.summary-value { font-weight: 600; color: var(--text-primary); text-align: right; word-break: break-word; }
 .summary-total { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 1.15rem; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--divider); }
 .total-price { color: var(--accent); font-size: 1.25rem; }
 
@@ -271,7 +404,24 @@ footer { text-align: center; margin-top: 2rem; color: var(--footer-text); font-s
     .banner-title { font-size: 1.6rem; }
     .game-header { flex-wrap: wrap; }
     .game-badge { margin-left: 0; width: 100%; justify-content: center; }
-    .premium-input .input-row { flex-direction: column; }
     .products-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
     .info-grid { grid-template-columns: 1fr; }
+
+    /* Cek ID: full-width di mobile */
+    .check-id-btn { flex: 1 1 100%; padding: 0.9rem; min-height: 48px; }
+
+    /* Category mobile tuning */
+    .category-tabs { padding: 4px; gap: 3px; border-radius: 14px; }
+    .category-tab {
+        padding: 0.65rem 0.5rem;
+        font-size: 0.78rem;
+        gap: 0.35rem;
+        border-radius: 10px;
+    }
+    .category-tab i { font-size: 0.85rem; }
+}
+
+@media (max-width:380px) {
+    .category-tab { font-size: 0.72rem; padding: 0.6rem 0.4rem; }
+    .category-tab i { font-size: 0.78rem; }
 }

@@ -5,16 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STAA PAY • MOBILE LEGENDS</title>
 
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="mlstyle.css">
 </head>
 <body>
@@ -39,7 +32,6 @@
                     <span>STAA <span class="store-highlight">PAY</span></span>
                 </a>
             </div>
-
             <div class="nav-right">
                 <a href="index.html" class="nav-item" title="Beranda">
                     <i class="fas fa-home"></i>
@@ -57,8 +49,7 @@
         <div class="banner-container">
             <img src="https://i.ibb.co.com/Q3tncwc1/images-5.jpg"
                  alt="Mobile Legends Banner"
-                 class="banner-image"
-                 loading="eager">
+                 class="banner-image" loading="eager">
             <div class="banner-overlay">
                 <div class="banner-content">
                     <span class="banner-badge"><i class="fas fa-bolt"></i> SPECIAL OFFER</span>
@@ -78,9 +69,7 @@
         <div class="game-header" data-aos="fade-up" data-aos-duration="500">
             <div class="game-logo-wrapper">
                 <img src="https://i.ibb.co.com/rK3Lymj0/images-4.jpg"
-                     alt="Mobile Legends Logo"
-                     class="game-logo"
-                     loading="lazy"
+                     alt="Mobile Legends Logo" class="game-logo" loading="lazy"
                      onerror="this.src='https://via.placeholder.com/80x80/3b82f6/ffffff?text=ML'">
                 <div class="game-logo-glow"></div>
             </div>
@@ -127,16 +116,36 @@
                         <div class="input-row">
                             <div class="input-wrapper">
                                 <i class="fas fa-gamepad input-icon"></i>
-                                <input type="text" id="playerId" placeholder="ID Player (contoh: 12345678)" maxlength="12" inputmode="numeric" autocomplete="off">
+                                <input type="text" id="playerId" placeholder="ID (contoh: 12345678)"
+                                       maxlength="12" inputmode="numeric" autocomplete="off">
                             </div>
                             <div class="input-wrapper">
                                 <i class="fas fa-server input-icon"></i>
-                                <input type="text" id="serverId" placeholder="Server (contoh: 1234)" maxlength="4" inputmode="numeric" autocomplete="off">
+                                <input type="text" id="serverId" placeholder="Server (contoh: 1234)"
+                                       maxlength="4" inputmode="numeric" autocomplete="off">
                             </div>
+                            <button class="check-id-btn" id="checkIdBtn" type="button">
+                                <i class="fas fa-search check-icon"></i>
+                                <i class="fas fa-spinner fa-spin check-spinner"></i>
+                                <span>Cek ID</span>
+                            </button>
                         </div>
+
                         <div class="input-hint">
                             <i class="fas fa-info-circle"></i>
                             <span>Format: ID (6-10 digit) + Server (4 digit). Contoh: 12345678 (ID) + 1234 (Server)</span>
+                        </div>
+
+                        <!-- Hasil Cek ID -->
+                        <div class="account-info-box" id="accountInfoBox">
+                            <i class="fas fa-info-circle account-info-icon" id="accountInfoIcon"></i>
+                            <div class="account-info-content">
+                                <span class="account-info-text" id="accountInfoText"></span>
+                                <span class="account-info-sub" id="accountInfoSub"></span>
+                            </div>
+                            <span class="account-verified-badge" id="accountVerifiedBadge" style="display:none;">
+                                <i class="fas fa-check"></i> Terverifikasi
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -149,7 +158,7 @@
                         <span class="product-count" id="productCount">Memuat...</span>
                     </h2>
 
-                    <!-- Category Tabs -->
+                    <!-- Category Tabs (Segmented Control) -->
                     <div class="category-tabs" id="categoryTabs">
                         <button class="category-tab active" data-category="diamond">
                             <i class="fas fa-gem"></i>
@@ -238,6 +247,10 @@
                         <h3>Ringkasan Pesanan</h3>
                     </div>
                     <div class="summary-body">
+                        <div class="summary-row" id="summaryUsernameRow" style="display:none;">
+                            <span>Nickname</span>
+                            <span class="summary-value" id="summaryUsername">-</span>
+                        </div>
                         <div class="summary-row"><span>ID Player</span><span class="summary-value" id="summaryId">-</span></div>
                         <div class="summary-row"><span>Server</span><span class="summary-value" id="summaryServer">-</span></div>
                         <div class="summary-row"><span>Produk</span><span class="summary-value" id="summaryDiamond">-</span></div>
