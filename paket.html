@@ -97,7 +97,54 @@
         </footer>
     </div>
 
+    <!-- ============================================ -->
+    <!-- POPUP PREMIUM — NOTIFIKASI PROFESIONAL        -->
+    <!-- ============================================ -->
+    <div class="popup-premium-overlay" id="popupPremium">
+        <div class="popup-premium-card" id="popupCard">
+            <button class="popup-premium-close" id="popupClose" aria-label="Tutup">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="popup-premium-icon-wrapper">
+                <div class="popup-premium-icon-ring"></div>
+                <div class="popup-premium-icon" id="popupIcon">
+                    <i class="fas fa-exclamation-triangle" id="popupIconInner"></i>
+                </div>
+            </div>
+
+            <span class="popup-premium-badge" id="popupBadge">
+                <i class="fas fa-circle"></i>
+                <span id="popupBadgeText">Pemberitahuan</span>
+            </span>
+
+            <h3 class="popup-premium-title" id="popupTitle">Judul Popup</h3>
+            <p class="popup-premium-message" id="popupMessage">Deskripsi pesan popup.</p>
+
+            <div class="popup-premium-info" id="popupInfo">
+                <div class="popup-premium-info-item">
+                    <i class="fas fa-sim-card"></i>
+                    <span id="popupOperator">Operator</span>
+                </div>
+            </div>
+
+            <div class="popup-premium-actions">
+                <button class="popup-btn popup-btn-secondary" id="popupCancel">
+                    <i class="fas fa-times"></i> Tutup
+                </button>
+                <button class="popup-btn popup-btn-primary" id="popupWA">
+                    <i class="fab fa-whatsapp"></i> Tanya Admin
+                </button>
+            </div>
+
+            <div class="popup-premium-progress">
+                <div class="popup-premium-progress-bar" id="popupProgressBar"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="paket.js"></script>
+    <script src="inner.js"></script>
 </body>
 </html>

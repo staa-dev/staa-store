@@ -3,8 +3,30 @@ const SHEET_ID_ML = '1ufY0TsHeUwDdBeC_duEtQi439HVPuI6xn7aXpjcLozg';
 const WA_NUMBER = '6285128002841';
 const NAMA_TOKO = 'STAA PAY';
 
-// Endpoint Cek ID ML (NexaDev)
-const ML_STALK_API = 'https://api.nexadev.my.id/api/ml';
+// ============================================================
+// ========== ENDPOINT CEK ID ML (MULTI-FALLBACK) =============
+// Coba satu per satu sampai ada yang berhasil
+// ============================================================
+const ML_ENDPOINTS = [
+    {
+        name: 'NexaDev',
+        url: (uid, zone) => `https://api.nexadev.my.id/api/ml?id=${encodeURIComponent(uid)}&zone=${encodeURIComponent(zone)}`
+    },
+    {
+        name: 'Isan',
+        url: (uid, zone) => `https://api.isan.eu.org/nickname/ml?id=${encodeURIComponent(uid)}&server=${encodeURIComponent(zone)}`
+    },
+    {
+        name: 'Taka',
+        url: (uid, zone) => `https://api.taka.my.id/games/mlbb?userId=${encodeURIComponent(uid)}&zoneId=${encodeURIComponent(zone)}`
+    },
+    {
+        name: 'Ryzu',
+        url: (uid, zone) => `https://api.ryzumi.vip/api/game/mlbb?userId=${encodeURIComponent(uid)}&zoneId=${encodeURIComponent(zone)}`
+    }
+];
+
+const REQUEST_TIMEOUT = 6000; // 6 detik per endpoint
 
 // ========== AOS INIT ==========
 AOS.init({ once: true, duration: 600, offset: 20 });
@@ -115,6 +137,234 @@ function showLoading(s){
     if(o){ if(s) o.classList.add('active'); else o.classList.remove('active'); }
 }
 
+// ============================================================
+// ========== PARSER UNIVERSAL RESPONSE API ====================
+// Bisa baca berbagai struktur respons dari berbagai provider
+// ============================================================
+function extractAccountInfo(json){
+    if(!json || typeof json !== 'object') return null;
+
+    // Cek status sukses (berbagai kemungkinan)
+    const isSuccess =
+        json.status === true ||
+        json.success === true ||
+        json.ok === true ||
+        json.status === 'success' ||
+        json.status === 'ok' ||
+        json.code === 200 ||
+        json.code === '200' ||
+        (json.data && !json.error);
+
+    // Kalau status eksplisit gagal, skip
+    if(json.status === false && !json.data) return null;
+    if(json.success === false && !json.data) return null;
+
+    // Cari objek data (bisa nested di mana saja)
+    const dataSources = [
+        json.data,
+        json.result,
+        json.result?.data,
+        json.data?.result,
+        json.account,
+        json.user,
+        json.player,
+        json
+    ].filter(Boolean);
+
+    // Path nickname yang mungkin
+    const nickPaths = [
+        'username', 'nickname', 'nick', 'name', 'playerName', 'player_name',
+        'ign', 'gameName', 'game_name', 'NickName', 'Nickname', 'Username'
+    ];
+
+    // Path region yang mungkin
+    const regionPaths = ['region', 'zone', 'server', 'country', 'Region'];
+
+    let nickname = null;
+    let region = null;
+
+    for(const src of dataSources){
+        if(!src || typeof src !== 'object') continue;
+
+        // Cari nickname
+        if(!nickname){
+            for(const key of nickPaths){
+                const val = src[key];
+                if(typeof val === 'string' && val.trim() && val.trim() !== '-'){
+                    nickname = val.trim();
+                    break;
+                }
+            }
+        }
+
+        // Cari region
+        if(!region){
+            for(const key of regionPaths){
+                const val = src[key];
+                if(typeof val === 'string' && val.trim()){
+                    region = val.trim();
+                    break;
+                }
+            }
+        }
+
+        if(nickname) break;
+    }
+
+    if(!nickname) return null;
+
+    return {
+        nickname,
+        region: region || '',
+        isSuccess
+    };
+}
+
+// ============================================================
+// ========== CEK ID DENGAN MULTI-ENDPOINT FALLBACK ===========
+// ============================================================
+async function fetchWithTimeout(url, signal, timeoutMs){
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+
+    // Gabungkan signal dari luar (untuk cancel manual) dengan signal timeout
+    const onAbort = () => ctrl.abort();
+    if(signal) signal.addEventListener('abort', onAbort);
+
+    try {
+        const res = await fetch(url, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+            signal: ctrl.signal,
+            mode: 'cors',
+            cache: 'no-store'
+        });
+        return res;
+    } finally {
+        clearTimeout(timer);
+        if(signal) signal.removeEventListener('abort', onAbort);
+    }
+}
+
+async function tryEndpoint(endpoint, uid, zone, signal){
+    const url = endpoint.url(uid, zone);
+    console.log(`🔍 [${endpoint.name}] Trying: ${url}`);
+
+    const res = await fetchWithTimeout(url, signal, REQUEST_TIMEOUT);
+
+    if(!res.ok){
+        throw new Error(`HTTP ${res.status}`);
+    }
+
+    const text = await res.text();
+    let json;
+    try {
+        json = JSON.parse(text);
+    } catch(e){
+        console.warn(`⚠️ [${endpoint.name}] Response bukan JSON:`, text.slice(0, 200));
+        throw new Error('Response bukan JSON');
+    }
+
+    console.log(`📥 [${endpoint.name}] Response:`, json);
+
+    const info = extractAccountInfo(json);
+    if(!info || !info.nickname){
+        throw new Error('Nickname tidak ditemukan di response');
+    }
+
+    return {
+        nickname: info.nickname,
+        region: info.region,
+        provider: endpoint.name
+    };
+}
+
+async function checkPlayerId(){
+    const uid = playerIdInput.value.trim();
+    const zone = serverIdInput.value.trim();
+
+    // Validasi input
+    if(!uid || !/^\d+$/.test(uid) || uid.length < 6){
+        showAccountError('ID Player tidak valid (minimal 6 digit angka)');
+        return;
+    }
+    if(!zone || !/^\d+$/.test(zone) || zone.length < 3){
+        showAccountError('Server/Zone tidak valid (contoh: 1234)');
+        return;
+    }
+
+    // Cancel request lama jika masih jalan
+    if(checkAbortController) checkAbortController.abort();
+    checkAbortController = new AbortController();
+
+    checkIdBtn.classList.add('loading');
+    checkIdBtn.disabled = true;
+    showAccountLoading();
+
+    let lastError = null;
+    let successData = null;
+
+    // Loop coba satu-satu endpoint
+    for(const endpoint of ML_ENDPOINTS){
+        try {
+            successData = await tryEndpoint(endpoint, uid, zone, checkAbortController.signal);
+            console.log(`✅ [${endpoint.name}] Success!`, successData);
+            break;
+        } catch(err){
+            if(err.name === 'AbortError'){
+                // User klik cek lagi / cancel
+                checkIdBtn.classList.remove('loading');
+                checkIdBtn.disabled = false;
+                return;
+            }
+            console.warn(`❌ [${endpoint.name}] Failed:`, err.message);
+            lastError = err;
+            // Lanjut ke endpoint berikutnya
+        }
+    }
+
+    checkIdBtn.classList.remove('loading');
+    checkIdBtn.disabled = false;
+
+    // Kalau ada yang berhasil
+    if(successData){
+        verifiedAccount = {
+            uid,
+            zone,
+            nickname: successData.nickname,
+            region: successData.region
+        };
+        showAccountSuccess(successData.nickname, uid, zone, successData.region);
+        updateSummary();
+        return;
+    }
+
+    // Kalau semua endpoint gagal
+    console.error('❌ Semua endpoint gagal. Last error:', lastError);
+    verifiedAccount = null;
+
+    let errMsg = 'Gagal memeriksa ID. ';
+    if(lastError && lastError.message.includes('HTTP')){
+        errMsg += 'Server API sedang sibuk.';
+    } else if(lastError && lastError.message.includes('JSON')){
+        errMsg += 'Format respons tidak valid.';
+    } else {
+        errMsg += 'Pastikan ID & Server benar.';
+    }
+    errMsg += ' Coba lagi beberapa saat.';
+
+    showAccountError(errMsg);
+    updateSummary();
+}
+
+checkIdBtn.addEventListener('click', checkPlayerId);
+playerIdInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); checkPlayerId(); }
+});
+serverIdInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); checkPlayerId(); }
+});
+
 // ========== LOAD DATA ==========
 async function loadAppData(){
     showLoading(true);
@@ -201,14 +451,14 @@ function disableAll(){
     whatsappBtn.disabled = true;
 }
 
-// ========== CEK ID MOBILE LEGENDS ==========
+// ========== ACCOUNT BOX UI ==========
 function showAccountLoading(){
     if(!accountInfoBox) return;
     accountInfoBox.className = 'account-info-box active loading';
     accountInfoIcon.className = 'fas fa-spinner fa-spin account-info-icon';
     accountInfoText.textContent = 'Memeriksa ID Mobile Legends...';
-    accountInfoSub.textContent = '';
-    accountInfoSub.style.display = 'none';
+    accountInfoSub.textContent = 'Menghubungi server API...';
+    accountInfoSub.style.display = 'inline-block';
     accountVerifiedBadge.style.display = 'none';
 }
 function showAccountSuccess(nickname, uid, zone, region){
@@ -234,68 +484,6 @@ function hideAccountBox(){
     accountInfoBox.className = 'account-info-box';
     accountVerifiedBadge.style.display = 'none';
 }
-
-async function checkPlayerId(){
-    const uid = playerIdInput.value.trim();
-    const zone = serverIdInput.value.trim();
-
-    if(!uid || !/^\d+$/.test(uid) || uid.length < 6){
-        showAccountError('Masukkan ID Player yang valid (minimal 6 digit angka)');
-        return;
-    }
-    if(!zone || !/^\d+$/.test(zone) || zone.length < 3){
-        showAccountError('Masukkan Server/Zone yang valid (contoh: 1234)');
-        return;
-    }
-
-    if(checkAbortController) checkAbortController.abort();
-    checkAbortController = new AbortController();
-
-    checkIdBtn.classList.add('loading');
-    checkIdBtn.disabled = true;
-    showAccountLoading();
-
-    try{
-        const url = `${ML_STALK_API}?id=${encodeURIComponent(uid)}&zone=${encodeURIComponent(zone)}`;
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' },
-            signal: checkAbortController.signal
-        });
-        if(!res.ok) throw new Error('HTTP ' + res.status);
-
-        const json = await res.json();
-
-        // Format response: { author, status, data: { username, region } }
-        if(!json || json.status !== true || !json.data){
-            throw new Error('Data akun tidak ditemukan');
-        }
-        const nickname = (json.data.username || '').trim();
-        const region   = (json.data.region || '').trim();
-        if(!nickname) throw new Error('Nickname tidak ditemukan');
-
-        verifiedAccount = { uid, zone, nickname, region };
-        showAccountSuccess(nickname, uid, zone, region);
-        updateSummary();
-    } catch(err){
-        if(err.name === 'AbortError') return;
-        console.error('❌ Check ID error:', err);
-        verifiedAccount = null;
-        showAccountError('Gagal memeriksa ID. Pastikan ID & Server benar, atau coba beberapa saat lagi.');
-        updateSummary();
-    } finally {
-        checkIdBtn.classList.remove('loading');
-        checkIdBtn.disabled = false;
-    }
-}
-
-checkIdBtn.addEventListener('click', checkPlayerId);
-playerIdInput.addEventListener('keydown', e => {
-    if(e.key === 'Enter'){ e.preventDefault(); checkPlayerId(); }
-});
-serverIdInput.addEventListener('keydown', e => {
-    if(e.key === 'Enter'){ e.preventDefault(); checkPlayerId(); }
-});
 
 // ========== CATEGORY ==========
 document.querySelectorAll('.category-tab').forEach(tab => {
@@ -346,7 +534,7 @@ function updateSummary(){
     summaryDiamond.textContent = selectedProduct ? selectedProduct.diamond : '-';
     summaryPayment.textContent = selectedPayment || '-';
 
-    // Nickname (row sama seperti row lain)
+    // Nickname row
     if(verifiedAccount && verifiedAccount.nickname){
         summaryUsername.textContent = verifiedAccount.nickname;
         summaryUsernameRow.style.display = 'flex';

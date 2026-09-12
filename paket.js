@@ -25,7 +25,115 @@ const providerCount = document.getElementById('providerCount');
 const storeStatus   = document.getElementById('storeStatus');
 const footerNama    = document.getElementById('footerNama');
 
+// Popup Premium DOM
+const popupOverlay     = document.getElementById('popupPremium');
+const popupCard        = document.getElementById('popupCard');
+const popupIconInner   = document.getElementById('popupIconInner');
+const popupBadgeText   = document.getElementById('popupBadgeText');
+const popupTitle       = document.getElementById('popupTitle');
+const popupMessage     = document.getElementById('popupMessage');
+const popupInfo        = document.getElementById('popupInfo');
+const popupOperator    = document.getElementById('popupOperator');
+const popupCloseBtn    = document.getElementById('popupClose');
+const popupCancelBtn   = document.getElementById('popupCancel');
+const popupWABtn       = document.getElementById('popupWA');
+const popupProgressBar = document.getElementById('popupProgressBar');
+
 let appSettings = null;
+let popupAutoCloseTimer = null;
+
+// ========== POPUP PREMIUM LOGIC ==========
+/**
+ * Tampilkan popup premium
+ * @param {Object} config
+ *   - type: 'danger' | 'warning' | 'info' (default: 'danger')
+ *   - icon: class FontAwesome (mis: 'fa-exclamation-triangle')
+ *   - badge: text kecil di badge (mis: 'Gangguan')
+ *   - title: judul popup
+ *   - message: pesan popup
+ *   - operator: nama operator (opsional — kalau ada, info box muncul)
+ *   - waMessage: pesan WA yang dikirim saat klik Tanya Admin (opsional)
+ *   - autoCloseMs: durasi auto close (default 6000)
+ */
+function showPremiumPopup(config) {
+    // Reset timer lama kalau ada
+    if (popupAutoCloseTimer) {
+        clearTimeout(popupAutoCloseTimer);
+        popupAutoCloseTimer = null;
+    }
+
+    // Set kelas tipe
+    popupCard.classList.remove('type-warning', 'type-info');
+    if (config.type === 'warning') popupCard.classList.add('type-warning');
+    else if (config.type === 'info') popupCard.classList.add('type-info');
+
+    // Icon
+    popupIconInner.className = 'fas ' + (config.icon || 'fa-exclamation-triangle');
+
+    // Badge
+    popupBadgeText.textContent = config.badge || 'Pemberitahuan';
+
+    // Title & message
+    popupTitle.textContent = config.title || 'Pemberitahuan';
+    popupMessage.textContent = config.message || '';
+
+    // Info box (kalau ada operator)
+    if (config.operator) {
+        popupInfo.classList.add('show');
+        popupOperator.textContent = config.operator;
+    } else {
+        popupInfo.classList.remove('show');
+    }
+
+    // Tombol WA
+    if (config.waMessage) {
+        popupWABtn.style.display = 'flex';
+        popupWABtn.onclick = () => {
+            const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(config.waMessage)}`;
+            window.open(url, '_blank');
+            hidePremiumPopup();
+        };
+    } else {
+        popupWABtn.style.display = 'none';
+    }
+
+    // Reset & trigger progress bar animation
+    popupProgressBar.style.animation = 'none';
+    void popupProgressBar.offsetWidth; // reflow
+    popupProgressBar.style.animation = '';
+
+    // Show
+    popupOverlay.classList.add('active');
+
+    // Auto-close
+    const autoClose = config.autoCloseMs !== undefined ? config.autoCloseMs : 6000;
+    if (autoClose > 0) {
+        popupAutoCloseTimer = setTimeout(() => {
+            hidePremiumPopup();
+        }, autoClose);
+    }
+}
+
+function hidePremiumPopup() {
+    popupOverlay.classList.remove('active');
+    if (popupAutoCloseTimer) {
+        clearTimeout(popupAutoCloseTimer);
+        popupAutoCloseTimer = null;
+    }
+}
+
+// Event listeners popup
+popupCloseBtn.addEventListener('click', hidePremiumPopup);
+popupCancelBtn.addEventListener('click', hidePremiumPopup);
+popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) hidePremiumPopup();
+});
+// ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popupOverlay.classList.contains('active')) {
+        hidePremiumPopup();
+    }
+});
 
 // ========== FETCH CSV ==========
 async function fetchSheetCSV(sheetName) {
@@ -57,6 +165,11 @@ function isOpen(s) {
     return w.getUTCHours() >= oh && w.getUTCHours() < ch;
 }
 
+function isProviderActive(p) {
+    const aktif = String(p.aktif || '1').toLowerCase().trim();
+    return aktif !== '0' && aktif !== 'off' && aktif !== 'false' && aktif !== 'no';
+}
+
 function showLoading(s) {
     const o = document.getElementById('loadingOverlay');
     if(o){ if(s) o.classList.add('active'); else o.classList.remove('active'); }
@@ -79,7 +192,6 @@ async function loadAppData() {
     showLoading(true);
     console.log('🔄 PAKET: Load...');
 
-    // Pengaturan toko
     try {
         const settingsData = await fetchSheetCSV('pengaturan');
         const s = {};
@@ -93,15 +205,10 @@ async function loadAppData() {
         updateStoreStatus();
     }
 
-    // Paket
     try {
         const raw = await fetchSheetCSV('paket');
-        const list = raw.filter(p => {
-            const aktif = String(p.aktif || '1').toLowerCase().trim();
-            return aktif !== '0' && aktif !== 'off' && aktif !== 'false';
-        });
-        console.log('📦 Operator:', list.length);
-        renderProviders(list);
+        console.log('📦 Total operator:', raw.length);
+        renderProviders(raw);
     } catch(e) {
         console.error('❌ Paket:', e.message);
         providersList.innerHTML = `<div class="loading-placeholder" style="color:#ef4444;">
@@ -127,18 +234,22 @@ function renderProviders(list) {
         return;
     }
 
+    const activeCount = list.filter(p => isProviderActive(p)).length;
+
     list.forEach((p, idx) => {
         const operatorName = (p.operator || 'Unknown').trim();
         const logoUrl      = (p.logo || '').trim();
-        const tujuan       = (p.tujuan || '').trim(); // ← kolom baru
+        const tujuan       = (p.tujuan || '').trim();
+        const isActive     = isProviderActive(p);
 
         const item = document.createElement('a');
         item.className = 'operator-item';
+        if (!isActive) item.classList.add('disabled');
         item.style.animationDelay = (idx * 30) + 'ms';
 
-        // Kalau ada tujuan → href normal
-        // Kalau kosong → fallback ke WhatsApp
-        if (tujuan) {
+        if (!isActive) {
+            item.href = 'javascript:void(0)';
+        } else if (tujuan) {
             item.href = tujuan;
         } else {
             const waMsg = `📱 *ORDER PAKET DATA - ${NAMA_TOKO}* 📱\n\n` +
@@ -148,6 +259,24 @@ function renderProviders(list) {
             item.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`;
             item.target = '_blank';
             item.rel = 'noopener';
+        }
+
+        let hintIcon, hintText, arrowIcon, arrowClass;
+        if (!isActive) {
+            hintIcon = 'fa-exclamation-triangle';
+            hintText = 'Sedang gangguan';
+            arrowIcon = 'fa-ban';
+            arrowClass = 'operator-arrow disabled';
+        } else if (tujuan) {
+            hintIcon = 'fa-arrow-right';
+            hintText = 'Lihat paket tersedia';
+            arrowIcon = 'fa-chevron-right';
+            arrowClass = 'operator-arrow';
+        } else {
+            hintIcon = 'fa-comments';
+            hintText = 'Chat admin';
+            arrowIcon = 'fa-chevron-right';
+            arrowClass = 'operator-arrow';
         }
 
         item.innerHTML = `
@@ -160,20 +289,54 @@ function renderProviders(list) {
             <div class="operator-info">
                 <span class="operator-name">${operatorName}</span>
                 <span class="operator-hint">
-                    <i class="fas ${tujuan ? 'fa-arrow-right' : 'fa-comments'}"></i>
-                    ${tujuan ? 'Lihat paket tersedia' : 'Chat admin'}
+                    <i class="fas ${hintIcon}"></i>
+                    ${hintText}
                 </span>
             </div>
-            <div class="operator-arrow">
-                <i class="fas fa-chevron-right"></i>
+            <div class="${arrowClass}">
+                <i class="fas ${arrowIcon}"></i>
             </div>
         `;
 
-        // Kalau ada tujuan & toko tutup → blok akses
+        // Click handler
         item.addEventListener('click', function(e) {
+            // Kalau operator gangguan → popup premium
+            if (!isActive) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const waMsg = `Halo admin *${NAMA_TOKO}* 👋\n\n` +
+                              `Saya lihat operator *${operatorName}* sedang gangguan di website.\n\n` +
+                              `Kira-kira kapan normal kembali ya? 🙏`;
+
+                showPremiumPopup({
+                    type: 'danger',
+                    icon: 'fa-triangle-exclamation',
+                    badge: 'Gangguan',
+                    title: 'Operator Sedang Gangguan',
+                    message: `Operator ini sedang dalam perbaikan. Silakan pilih operator lain atau hubungi admin untuk info lebih lanjut.`,
+                    operator: operatorName,
+                    waMessage: waMsg,
+                    autoCloseMs: 8000
+                });
+                return;
+            }
+
+            // Kalau toko tutup → popup premium
             if (!isOpen(appSettings)) {
                 e.preventDefault();
-                alert('⚠️ Toko sedang tutup. Silakan coba lagi saat jam operasional.');
+                e.stopPropagation();
+
+                showPremiumPopup({
+                    type: 'warning',
+                    icon: 'fa-clock',
+                    badge: 'Toko Tutup',
+                    title: 'Toko Sedang Tutup',
+                    message: `Saat ini toko kami sedang tutup. Silakan kembali lagi pada jam operasional berikut:`,
+                    operator: null,
+                    waMessage: null,
+                    autoCloseMs: 6000
+                });
                 return;
             }
         });
@@ -181,7 +344,11 @@ function renderProviders(list) {
         providersList.appendChild(item);
     });
 
-    providerCount.textContent = list.length + ' Operator';
+    if (activeCount === list.length) {
+        providerCount.textContent = list.length + ' Operator';
+    } else {
+        providerCount.textContent = activeCount + ' / ' + list.length + ' Aktif';
+    }
 }
 
 // ========== INIT ==========
